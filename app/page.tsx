@@ -1,0 +1,426 @@
+"use client";
+
+import { useEffect, useRef, useState } from "react";
+
+const TALLY_FORM_URL = "TALLY_FORM_URL"; // TODO: TALLY_FORM_URL — replace with the approved Tally form ID after legal review.
+const CONTACT_EMAIL = "contact email placeholder"; // TODO: CONTACT_EMAIL — replace with the approved Figwork contact address.
+
+const steps = [
+  {
+    number: "01",
+    title: "Share your link.",
+    body: "Every Figwork user gets a referral link. Yours is how we know who you brought in.",
+  },
+  {
+    number: "02",
+    title: "They activate.",
+    body: "When someone you referred installs the Chrome extension and uploads their resume, that's a verified activation.",
+  },
+  {
+    number: "03",
+    title: "You get paid.",
+    body: "Cash for every verified activation, after a short verification hold. Watch each referral's progress in your tracker.",
+  },
+];
+
+const benefits = [
+  {
+    title: "Cash per activation",
+    body: "Same rate as everyone, with a much higher cap.",
+    accent: "rust",
+  },
+  {
+    title: "Real campaign budgets",
+    body: "Pitch us a campus event — pizza for your club's study night, a table at the career fair. If we fund it, we pay the vendor directly. You run the event.",
+    accent: "sage",
+  },
+  {
+    title: "The title and the kit",
+    body: "Campus Partner at a funded startup, plus a welcome kit.",
+    accent: "steel",
+  },
+  {
+    title: "Your own numbers",
+    body: "A live tracker of everything you drove. Real acquisition results you generated — strong material for any growth or marketing application.",
+    accent: "ochre",
+  },
+];
+
+const campusMoves = [
+  {
+    number: "01",
+    title: "Bring it to your circles.",
+    body: "Clubs, study groups, career communities — share Figwork where it can actually help.",
+  },
+  {
+    number: "02",
+    title: "Pitch a campus moment.",
+    body: "Have an idea for a study night or campus event? Pitch it. If we fund it, Figwork pays the vendor and you run the moment.",
+  },
+  {
+    number: "03",
+    title: "Watch what you started move.",
+    body: "Your tracker follows each activation from first click to paid — a live record of what you made happen.",
+  },
+];
+
+const faq = [
+  {
+    question: "Who can apply?",
+    answer:
+      "Students at our launch schools. The title and welcome kit are open to everyone; cash earnings require US work authorization and being 18 or older.",
+  },
+  {
+    question: "How much can I earn?",
+    answer:
+      "It depends entirely on how many people you activate. There's a per-person cap each semester. We'd rather be straight with you: typical Partners should expect a few hundred dollars a semester, not a living.",
+  },
+  {
+    question: "When do I get paid?",
+    answer:
+      "After each activation clears a short verification hold. Payouts are pushed to you — you never have to invoice or ask.",
+  },
+  {
+    question: "Do I have to post on social media?",
+    answer:
+      "No. Nothing is required. If you do post about Figwork, you have to say you're in the program — we'll show you how.",
+  },
+  {
+    question: "What's the catch?",
+    answer:
+      "There isn't one, but read this: installs alone never pay, fraud is checked and clawed back, and we never pay anyone for recruiting other referrers.",
+  },
+  {
+    question: "Is this employment?",
+    answer:
+      "No. It's a program with no schedules and no duties. It doesn't create an employment relationship, and we're careful to keep it that way.",
+  },
+];
+
+const stages = [
+  "link clicked",
+  "installed",
+  "resume uploaded",
+  "in hold",
+  "paid",
+];
+
+const referrals = [
+  { initials: "KL", stage: 1 },
+  { initials: "AM", stage: 2 },
+  { initials: "RS", stage: 0 },
+  { initials: "JP", stage: 3 },
+];
+
+function Stamp({
+  label,
+  tone = "rust",
+  className = "",
+}: {
+  label: string;
+  tone?: "rust" | "cream" | "charcoal";
+  className?: string;
+}) {
+  const pathId = `stamp-${label.toLowerCase().replace(/[^a-z]+/g, "-")}`;
+
+  return (
+    <svg
+      className={`stamp stamp--${tone} ${className}`}
+      viewBox="0 0 160 160"
+      role="img"
+      aria-label={label}
+    >
+      <defs>
+        <path
+          id={pathId}
+          d="M 18,80 a 62,62 0 1,1 124,0 a 62,62 0 1,1 -124,0"
+        />
+      </defs>
+      <circle cx="80" cy="80" r="72" fill="none" stroke="currentColor" strokeWidth="2" />
+      <circle cx="80" cy="80" r="47" fill="none" stroke="currentColor" strokeWidth="1" />
+      <text fill="currentColor">
+        <textPath href={`#${pathId}`} startOffset="3%">
+          {label} · {label} ·
+        </textPath>
+      </text>
+      <circle cx="80" cy="80" r="5" fill="currentColor" />
+    </svg>
+  );
+}
+
+function Reveal({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.12 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div ref={ref} className={`reveal ${visible ? "is-visible" : ""} ${className}`}>
+      {children}
+    </div>
+  );
+}
+
+function Tracker() {
+  const ref = useRef<HTMLDivElement>(null);
+  const [advanced, setAdvanced] = useState(false);
+
+  useEffect(() => {
+    const node = ref.current;
+    if (!node) return;
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setAdvanced(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.35 },
+    );
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div className={`tracker ${advanced ? "tracker--advanced" : ""}`} ref={ref}>
+      <div className="tracker__topline">
+        <div>
+          <span className="tracker__eyebrow">your tracker</span>
+          <h3>Referral progress</h3>
+        </div>
+        <span className="preview-tag">preview</span>
+      </div>
+      <div className="tracker__labels" aria-hidden="true">
+        <span>referral</span>
+        <span>current stage</span>
+      </div>
+      <div className="tracker__rows">
+        {referrals.map((referral, index) => {
+          const nextStage = Math.min(referral.stage + (advanced ? 1 : 0), stages.length - 1);
+          return (
+            <div className="tracker__row" key={referral.initials} style={{ "--delay": `${index * 90}ms` } as React.CSSProperties}>
+              <span className="initials">{referral.initials}</span>
+              <div className="stage-wrap">
+                <span className="stage-pill">{stages[nextStage]}</span>
+                <span className="stage-line" aria-hidden="true">
+                  <i style={{ "--progress": `${(nextStage + 1) * 20}%` } as React.CSSProperties} />
+                </span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+      <p className="tracker__note">Each row moves as an activation is verified.</p>
+    </div>
+  );
+}
+
+export default function Home() {
+  const ticker = "share your link → friend installs → resume uploaded → verified → paid →";
+  const tallyEmbedUrl =
+    TALLY_FORM_URL === "TALLY_FORM_URL"
+      ? null
+      : `https://tally.so/embed/${TALLY_FORM_URL}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`;
+
+  return (
+    <main>
+      <section className="hero" id="top">
+        <header className="site-header">
+          {/* TODO: LOGO_ASSET — replace this placeholder with the official SVG, unmodified. */}
+          <div className="logo-placeholder" aria-label="Figwork logo placeholder">
+            LOGO ASSET
+          </div>
+          <a className="button button--glow button--small" href="#application">
+            Apply now
+          </a>
+        </header>
+
+        <div className="hero__grid">
+          <div className="hero__title-block">
+            <p className="kicker kicker--cream">FIGWORK CAMPUS PARTNERS</p>
+            <h1>
+              Run <span className="outline-word">growth</span> for a real startup. On your campus.
+            </h1>
+          </div>
+          <div className="hero__copy">
+            <p>
+              Figwork finds the actual recruiter behind career postings. We’re picking 2–3 students at each of a handful of universities to help it spread — and paying for every person you bring in.
+            </p>
+            <div className="hero__actions">
+              <a className="button button--glow" href="#application">
+                Apply now
+              </a>
+              <a className="text-link" href="#how-it-works">
+                How it works ↓
+              </a>
+            </div>
+          </div>
+          <Stamp label="PAID PER ACTIVATION" tone="cream" className="hero-stamp" />
+        </div>
+      </section>
+
+      <div className="ticker" aria-label="Program process">
+        <div className="ticker__track">
+          {[0, 1, 2, 3].map((item) => (
+            <span key={item}>{ticker}</span>
+          ))}
+        </div>
+      </div>
+
+      <section className="section section--how" id="how-it-works">
+        <div className="section-number" aria-hidden="true">01</div>
+        <Reveal className="section-heading section-heading--offset">
+          <p className="kicker">THE PROGRAM LOOP</p>
+          <h2>How it works</h2>
+          <p className="section-intro">A simple path from your link to a verified result.</p>
+        </Reveal>
+
+        <div className="process-grid">
+          {steps.map((step, index) => (
+            <Reveal className={`process-card process-card--${index + 1}`} key={step.number}>
+              <span className="card-number">{step.number}</span>
+              <h3>{step.title}</h3>
+              <p>{step.body}</p>
+            </Reveal>
+          ))}
+        </div>
+
+        <Reveal className="tracker-wrap">
+          <Tracker />
+          <Stamp label="SPRING COHORT" className="tracker-stamp" />
+        </Reveal>
+      </section>
+
+      <section className="section section--benefits" id="benefits">
+        <div className="section-number section-number--right" aria-hidden="true">02</div>
+        <Reveal className="section-heading section-heading--benefits">
+          <p className="kicker">WHAT PARTNERS GET</p>
+          <h2>Proof you can point to.</h2>
+        </Reveal>
+        <div className="benefit-grid">
+          {benefits.map((benefit, index) => (
+            <Reveal className={`benefit-card benefit-card--${index + 1}`} key={benefit.title}>
+              <div className="benefit-card__topline">
+                <span className={`accent-line accent-line--${benefit.accent}`} />
+                <span className="benefit-index">0{index + 1}</span>
+              </div>
+              <div className="benefit-card__copy">
+                <h3>{benefit.title}</h3>
+                <p>{benefit.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </section>
+
+      <section className="section section--playbook">
+        <div className="section-number" aria-hidden="true">03</div>
+        <Reveal className="playbook-heading">
+          <p className="kicker">YOUR CAMPUS, YOUR PLAYBOOK</p>
+          <h2>Turn your campus into your campaign.</h2>
+          <p>Start with what you already know: your people, your places, your ideas.</p>
+        </Reveal>
+        <div className="playbook-list">
+          {campusMoves.map((move) => (
+            <Reveal className="playbook-item" key={move.number}>
+              <span className="playbook-item__number">{move.number}</span>
+              <div>
+                <h3>{move.title}</h3>
+                <p>{move.body}</p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+        <Reveal className="mid-page-cta">
+          <p className="kicker kicker--cream">SPRING COHORT</p>
+          <h2>Bring Figwork to your campus.</h2>
+          <a className="button button--glow" href="#application">Apply now</a>
+        </Reveal>
+      </section>
+
+      <section className="section section--faq" id="faq">
+        <div className="section-number section-number--right" aria-hidden="true">04</div>
+        <Reveal className="faq-layout">
+          <div className="faq-title">
+            <p className="kicker">THE FINE PRINT, PLAINLY</p>
+            <h2>Questions, answered.</h2>
+            <Stamp label="NO SCHEDULES NO QUOTAS" tone="charcoal" className="faq-stamp" />
+          </div>
+          <div className="faq-list">
+            {faq.map((item) => (
+              <details key={item.question}>
+                <summary>{item.question}<span aria-hidden="true">+</span></summary>
+                <p>{item.answer}</p>
+              </details>
+            ))}
+            <details className="program-notes">
+              <summary>Program notes<span aria-hidden="true">+</span></summary>
+              <div className="program-notes__body">
+                <p>No schedules, no quotas, no scripts. You decide what to do and when.</p>
+                <p>Not employment — a program. There’s nothing to clock into and nobody to report to.</p>
+                <p>You earn from results, and results only.</p>
+              </div>
+            </details>
+          </div>
+        </Reveal>
+      </section>
+
+      <section className="application" id="application">
+        <div className="section-number" aria-hidden="true">05</div>
+        <Reveal className="application__grid">
+          <div className="application__copy">
+            <p className="kicker kicker--cream">SPRING COHORT</p>
+            <h2>Apply for spring</h2>
+            <p>Short written application. No resume, no calls — we read what you’ve organized and what you’d do here.</p>
+            <p className="application__dates">Applications close November 1. Decisions by December 1.</p>
+          </div>
+          <div className="form-shell">
+            {tallyEmbedUrl ? (
+              <iframe
+                data-tally-src={tallyEmbedUrl}
+                src={tallyEmbedUrl}
+                title="Figwork Campus Partners application"
+                loading="lazy"
+                width="100%"
+                height="520"
+                frameBorder="0"
+                marginHeight={0}
+                marginWidth={0}
+              />
+            ) : (
+              <div className="form-placeholder">
+                <span>TALLY FORM</span>
+                <p>Application embed ready for the approved URL.</p>
+              </div>
+            )}
+          </div>
+        </Reveal>
+      </section>
+
+      <footer>
+        <p>Figwork Campus Partners · {CONTACT_EMAIL} · This page describes a program, not employment.</p>
+        <a href="#top">Back to top ↑</a>
+      </footer>
+    </main>
+  );
+}
