@@ -40,10 +40,8 @@ test("server-renders the Campus Partners page", async () => {
   assert.match(text, /Bring Figwork to your campus\./);
   assert.ok((text.match(/Apply now/gi) ?? []).length >= 3);
   assert.match(text, /Apply for fall\/winter/);
-  assert.match(
-    text,
-    /cash earnings require US work authorization and being 18 or older\./,
-  );
+  assert.match(text, /This application is only for Campus Partners\./);
+  assert.match(text, /Open referral participants are not Campus Partners/);
   assert.match(html, /https:\/\/tally\.so\/embed\/5Baz1o/);
   assert.ok((html.match(/href="\/terms"/g) ?? []).length >= 3);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|SkeletonPreview/);
@@ -72,6 +70,8 @@ test("server-renders the draft program terms page", async () => {
   assert.match(text, /What counts as a verified activation\?/);
   assert.match(text, /DRAFT - not effective until reviewed by counsel and published\./);
   assert.match(text, /capped at \$2,000 per participant per calendar year/);
+  assert.match(text, /Open referral participants may not call themselves Campus Partners/);
+  assert.match(text, /brand kit is a one-time gift available only to selected Campus Partners/);
   assert.doesNotMatch(text, /COUNSEL:|qualifying product action|\[CAP\]|\[PARTNER CAP\]|\$\[RATE\]/);
   assert.match(text, /\[CONTACT EMAIL\]/);
 });

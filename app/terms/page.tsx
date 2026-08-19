@@ -36,7 +36,9 @@ export default function TermsPage() {
           </summary>
           <div className="term-section__body">
             <ul>
-              <li>Figwork users get a personal referral link. When someone you refer becomes a verified activation, you earn a cash reward. Campus Partners are a small selected group who earn from the same link with a higher semester limit and can propose campus events for Figwork to fund.</li>
+              <li>The open referral program is available to anyone who meets the eligibility requirements in Section 2. No Campus Partner application is required. Eligible participants can use their personal Figwork referral link and earn cash rewards for verified activations.</li>
+              <li>The application on the Campus Partners page is only for the Campus Partners program. Campus Partners are a selected group who earn through the same referral program, may use the Campus Partner title, receive a Campus Partner brand kit, and can propose campus events for Figwork to fund.</li>
+              <li>Participating in the open referral program does not make someone a Campus Partner. Open referral participants may not call themselves Campus Partners or represent that they are part of the Campus Partners program, and they do not receive the Campus Partner title or brand kit.</li>
               <li>This is not a job. Joining does not create an employment, contractor, or agency relationship with Figwork. There are no hours, duties, quotas, or required tasks, and nobody at Figwork will direct your activity.</li>
             </ul>
           </div>
@@ -157,9 +159,10 @@ export default function TermsPage() {
           </summary>
           <div className="term-section__body">
             <ul>
+              <li>The Campus Partner title is reserved for applicants selected into the Campus Partners program. Open referral participants may not use it.</li>
               <li>The Campus Partner title is a program designation, not a position or title of employment at Figwork.</li>
               <li>Event proposals are voluntary. If Figwork approves a proposal, Figwork pays the vendor directly - Partners never receive or handle event money.</li>
-              <li>The welcome kit is a one-time gift.</li>
+              <li>The Campus Partner brand kit is a one-time gift available only to selected Campus Partners.</li>
             </ul>
           </div>
         </details>

@@ -27,7 +27,7 @@ const steps = [
 const benefits = [
   {
     title: "Cash per activation",
-    body: "Same rate as everyone, with a much higher cap.",
+    body: "Campus Partners earn through the same open referral program as every other eligible participant.",
     accent: "rust",
   },
   {
@@ -67,14 +67,19 @@ const campusMoves = [
 
 const faq = [
   {
-    question: "Who can apply?",
+    question: "Who is this application for?",
     answer:
-      "Students at our launch schools. The title and welcome kit are open to everyone; cash earnings require US work authorization and being 18 or older.",
+      "This application is only for students who want to be selected as Campus Partners. Selected Partners may use the Campus Partner title, receive the brand kit, and propose campus events for Figwork to fund.",
+  },
+  {
+    question: "Do I need to apply to earn referral rewards?",
+    answer:
+      "No. Anyone who meets the referral eligibility requirements can use their personal Figwork referral link and earn cash. Open referral participants are not Campus Partners and do not receive the Campus Partner title or brand kit.",
   },
   {
     question: "How much can I earn?",
     answer:
-      "It depends entirely on how many people you activate. There's a per-person cap each semester. We'd rather be straight with you: typical Partners should expect a few hundred dollars a semester, not a living.",
+      "It depends on how many people you activate. The same annual reward limit applies to open referral participants and Campus Partners; see the terms and conditions for details.",
   },
   {
     question: "When do I get paid?",
@@ -392,6 +397,7 @@ export default function Home() {
           <div className="application__copy">
             <p className="kicker kicker--cream">FALL / WINTER COHORT</p>
             <h2>Apply for fall/winter</h2>
+            <p>This application is only for Campus Partners. The open referral program does not require an application.</p>
             <p>Short written application. No resume, no calls — we read what you’ve organized and what you’d do here.</p>
             <p className="application__dates">Applications close November 1. Decisions by December 1.</p>
             <a className="application__terms-link" href="/terms">Terms and conditions →</a>
