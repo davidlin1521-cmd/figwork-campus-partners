@@ -1,0 +1,216 @@
+.terms-page {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  color: var(--charcoal);
+  background: var(--cream);
+}
+
+.terms-page::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  content: "";
+  background:
+    radial-gradient(circle at 88% 7%, rgba(245, 201, 99, 0.32), transparent 24%),
+    radial-gradient(circle at 75% 24%, rgba(243, 126, 62, 0.23), transparent 30%),
+    radial-gradient(circle at 8% 43%, rgba(207, 73, 52, 0.16), transparent 28%),
+    radial-gradient(circle at 92% 72%, rgba(123, 82, 61, 0.17), transparent 28%),
+    radial-gradient(circle at 12% 91%, rgba(29, 176, 197, 0.14), transparent 29%);
+  filter: blur(14px) saturate(1.12);
+}
+
+.terms-header,
+.terms-hero,
+.terms-document {
+  position: relative;
+  z-index: 1;
+}
+
+.terms-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 24px clamp(24px, 5vw, 72px);
+  border-bottom: 1px solid rgba(47, 52, 55, 0.35);
+}
+
+.terms-logo {
+  display: inline-flex;
+  align-items: center;
+  min-height: 36px;
+  padding: 0 11px;
+  border: 1px dashed rgba(47, 52, 55, 0.55);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.terms-back {
+  padding-bottom: 3px;
+  border-bottom: 1px solid currentColor;
+  font-size: 13px;
+  font-weight: 750;
+}
+
+.terms-hero {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(86px, 10vw, 150px) clamp(24px, 5vw, 72px) clamp(76px, 9vw, 130px);
+}
+
+.terms-kicker {
+  margin: 0 0 18px;
+  color: var(--slate);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+}
+
+.terms-hero h1 {
+  max-width: 920px;
+  color: var(--rust);
+  font-size: clamp(72px, 10vw, 142px);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  word-spacing: 0.12em;
+  line-height: 0.94;
+}
+
+.terms-deck {
+  max-width: 670px;
+  margin: 42px 0 0;
+  font-size: clamp(19px, 2vw, 27px);
+  line-height: 1.4;
+}
+
+.terms-document h2 {
+  color: var(--rust);
+  font-size: clamp(48px, 6vw, 82px);
+  font-weight: 880;
+  letter-spacing: -0.055em;
+  line-height: 0.96;
+}
+
+.terms-document {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: clamp(92px, 10vw, 150px) clamp(24px, 5vw, 72px) 120px;
+  border-top: 1px solid rgba(47, 52, 55, 0.45);
+}
+
+.terms-document__header {
+  max-width: 820px;
+  margin-bottom: 86px;
+}
+
+.terms-document__header > p:last-child {
+  max-width: 720px;
+  margin-top: 30px;
+  color: var(--slate);
+  font-size: 18px;
+}
+
+.term-section {
+  padding: 0;
+  border-top: 1px solid rgba(47, 52, 55, 0.45);
+}
+
+.term-section:last-of-type {
+  border-bottom: 1px solid rgba(47, 52, 55, 0.45);
+}
+
+.term-section summary {
+  display: grid;
+  grid-template-columns: 60px minmax(0, 1fr) 34px;
+  gap: 24px;
+  align-items: center;
+  min-height: 112px;
+  cursor: pointer;
+  list-style: none;
+}
+
+.term-section summary::-webkit-details-marker {
+  display: none;
+}
+
+.term-number {
+  color: var(--rust);
+  font-size: 15px;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+}
+
+.term-section h3 {
+  margin: 0;
+  color: var(--rust);
+  font-size: clamp(27px, 3vw, 38px);
+}
+
+.term-toggle {
+  color: var(--rust);
+  font-size: 30px;
+  font-weight: 350;
+  text-align: right;
+  transition: transform 160ms ease;
+}
+
+.term-section[open] .term-toggle {
+  transform: rotate(45deg);
+}
+
+.term-section__body {
+  padding: 0 48px 36px 84px;
+}
+
+.term-section ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.term-section li {
+  margin: 0 0 18px;
+  padding: 0;
+  line-height: 1.62;
+}
+
+.terms-placeholder {
+  padding: 1px 4px;
+  color: #843811;
+  background: rgba(245, 201, 99, 0.42);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  font-weight: 760;
+}
+
+.terms-document__footer {
+  display: grid;
+  gap: 8px;
+  margin-top: 42px;
+  padding: 28px;
+  color: var(--charcoal);
+  background: rgba(255, 255, 255, 0.58);
+  border: 1px solid var(--rust);
+}
+
+.terms-document__footer p {
+  margin: 0;
+}
+
+.terms-document__footer strong {
+  margin-top: 10px;
+  color: var(--rust);
+  font-size: 13px;
+  letter-spacing: 0.06em;
+}
+
+@media (max-width: 760px) {
+  .terms-hero h1 { font-size: 19vw; }
+  .term-section summary { grid-template-columns: 40px minmax(0, 1fr) 26px; gap: 12px; min-height: 92px; }
+  .term-section__body { padding: 0 0 28px 52px; }
+  .terms-document { padding-bottom: 90px; }
+}

@@ -2,7 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const TALLY_FORM_URL = "TALLY_FORM_URL"; // TODO: TALLY_FORM_URL — replace with the approved Tally form ID after legal review.
+const TALLY_FORM_URL = "5Baz1o"; // Approved form: https://tally.so/r/5Baz1o
+const TALLY_PUBLIC_URL = `https://tally.so/r/${TALLY_FORM_URL}`;
 const CONTACT_EMAIL = "contact email placeholder"; // TODO: CONTACT_EMAIL — replace with the approved Figwork contact address.
 
 const steps = [
@@ -182,27 +183,8 @@ function Reveal({
 }
 
 function Tracker() {
-  const ref = useRef<HTMLDivElement>(null);
-  const [advanced, setAdvanced] = useState(false);
-
-  useEffect(() => {
-    const node = ref.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setAdvanced(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.35 },
-    );
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
-
   return (
-    <div className={`tracker ${advanced ? "tracker--advanced" : ""}`} ref={ref}>
+    <div className="tracker tracker--advanced">
       <div className="tracker__topline">
         <div>
           <span className="tracker__eyebrow">your tracker</span>
@@ -216,12 +198,17 @@ function Tracker() {
       </div>
       <div className="tracker__rows">
         {referrals.map((referral, index) => {
-          const nextStage = Math.min(referral.stage + (advanced ? 1 : 0), stages.length - 1);
+          const nextStage = referral.stage;
           return (
-            <div className="tracker__row" key={referral.initials} style={{ "--delay": `${index * 90}ms` } as React.CSSProperties}>
+            <div
+              className="tracker__row"
+              data-stage={stages[nextStage]}
+              key={referral.initials}
+              style={{ "--delay": `${index * 90}ms` } as React.CSSProperties}
+            >
               <span className="initials">{referral.initials}</span>
               <div className="stage-wrap">
-                <span className="stage-pill">{stages[nextStage]}</span>
+                <span className="stage-pill" data-stage={stages[nextStage]}>{stages[nextStage]}</span>
                 <span className="stage-line" aria-hidden="true">
                   <i style={{ "--progress": `${(nextStage + 1) * 20}%` } as React.CSSProperties} />
                 </span>
@@ -236,21 +223,34 @@ function Tracker() {
 }
 
 export default function Home() {
-  const ticker = "share your link → friend installs → resume uploaded → verified → paid →";
   const tallyEmbedUrl =
     TALLY_FORM_URL === "TALLY_FORM_URL"
       ? null
       : `https://tally.so/embed/${TALLY_FORM_URL}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`;
 
   return (
-    <main>
-      <section className="hero" id="top">
+    <main className="mode--light energy--studio background--wash wash--strong accents--solid">
+      <section
+        className="hero"
+        id="top"
+        onPointerMove={(event) => {
+          const bounds = event.currentTarget.getBoundingClientRect();
+          const x = (event.clientX - bounds.left) / bounds.width - 0.5;
+          const y = (event.clientY - bounds.top) / bounds.height - 0.5;
+          event.currentTarget.style.setProperty("--signal-x", `${x * 32}px`);
+          event.currentTarget.style.setProperty("--signal-y", `${y * 24}px`);
+        }}
+        onPointerLeave={(event) => {
+          event.currentTarget.style.setProperty("--signal-x", "0px");
+          event.currentTarget.style.setProperty("--signal-y", "0px");
+        }}
+      >
         <header className="site-header">
           {/* TODO: LOGO_ASSET — replace this placeholder with the official SVG, unmodified. */}
           <div className="logo-placeholder" aria-label="Figwork logo placeholder">
             LOGO ASSET
           </div>
-          <a className="button button--glow button--small" href="#application">
+          <a className="button button--glow button--small" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">
             Apply now
           </a>
         </header>
@@ -267,25 +267,26 @@ export default function Home() {
               Figwork finds the actual recruiter behind career postings. We’re picking 2–3 students at each of a handful of universities to help it spread — and paying for every person you bring in.
             </p>
             <div className="hero__actions">
-              <a className="button button--glow" href="#application">
+              <a className="button button--glow" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">
                 Apply now
               </a>
               <a className="text-link" href="#how-it-works">
                 How it works ↓
               </a>
+              <a className="button button--terms" href="/terms">
+                Program terms →
+              </a>
             </div>
           </div>
           <Stamp label="PAID PER ACTIVATION" tone="cream" className="hero-stamp" />
         </div>
-      </section>
-
-      <div className="ticker" aria-label="Program process">
-        <div className="ticker__track">
-          {[0, 1, 2, 3].map((item) => (
-            <span key={item}>{ticker}</span>
-          ))}
+        <div className="signal-field" aria-hidden="true">
+          <span className="signal-ring signal-ring--1" />
+          <span className="signal-ring signal-ring--2" />
+          <span className="signal-ring signal-ring--3" />
+          <span className="signal-core" />
         </div>
-      </div>
+      </section>
 
       <section className="section section--how" id="how-it-works">
         <div className="section-number" aria-hidden="true">01</div>
@@ -307,7 +308,7 @@ export default function Home() {
 
         <Reveal className="tracker-wrap">
           <Tracker />
-          <Stamp label="SPRING COHORT" className="tracker-stamp" />
+          <Stamp label="FALL / WINTER COHORT" className="tracker-stamp" />
         </Reveal>
       </section>
 
@@ -352,9 +353,9 @@ export default function Home() {
           ))}
         </div>
         <Reveal className="mid-page-cta">
-          <p className="kicker kicker--cream">SPRING COHORT</p>
+          <p className="kicker kicker--cream">FALL / WINTER COHORT</p>
           <h2>Bring Figwork to your campus.</h2>
-          <a className="button button--glow" href="#application">Apply now</a>
+          <a className="button button--glow" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">Apply now</a>
         </Reveal>
       </section>
 
@@ -389,10 +390,11 @@ export default function Home() {
         <div className="section-number" aria-hidden="true">05</div>
         <Reveal className="application__grid">
           <div className="application__copy">
-            <p className="kicker kicker--cream">SPRING COHORT</p>
-            <h2>Apply for spring</h2>
+            <p className="kicker kicker--cream">FALL / WINTER COHORT</p>
+            <h2>Apply for fall/winter</h2>
             <p>Short written application. No resume, no calls — we read what you’ve organized and what you’d do here.</p>
             <p className="application__dates">Applications close November 1. Decisions by December 1.</p>
+            <a className="application__terms-link" href="/terms">Program terms →</a>
           </div>
           <div className="form-shell">
             {tallyEmbedUrl ? (
@@ -418,7 +420,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <p>Figwork Campus Partners · {CONTACT_EMAIL} · This page describes a program, not employment.</p>
+        <p>Figwork Campus Partners · {CONTACT_EMAIL} · <a href="/terms">Program terms</a> · This page describes a program, not employment.</p>
         <a href="#top">Back to top ↑</a>
       </footer>
     </main>
