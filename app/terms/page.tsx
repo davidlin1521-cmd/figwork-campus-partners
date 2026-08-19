@@ -25,7 +25,7 @@ export default function TermsPage() {
           <p className="terms-kicker">THE TERMS</p>
           <h2 id="full-terms">The details, plainly.</h2>
           <p>
-            These are the rules of the Figwork referral program and the Campus Partners program. They are written in plain language on purpose. By joining either program - using a referral link to earn, or accepting a Campus Partner position - you agree to them.
+            These are the rules of the Figwork referral program and the Campus Partners program. By joining either program - using a referral link to earn, or accepting a Campus Partner position - you agree to them.
           </p>
         </header>
 

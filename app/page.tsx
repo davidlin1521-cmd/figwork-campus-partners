@@ -291,7 +291,7 @@ export default function Home() {
       <section className="section section--how" id="how-it-works">
         <div className="section-number" aria-hidden="true">01</div>
         <Reveal className="section-heading section-heading--offset">
-          <p className="kicker">THE PROGRAM LOOP</p>
+          <p className="kicker">HOW REFERRALS WORK</p>
           <h2>How it works</h2>
           <p className="section-intro">A simple path from your link to a verified result.</p>
         </Reveal>
@@ -363,7 +363,7 @@ export default function Home() {
         <div className="section-number section-number--right" aria-hidden="true">04</div>
         <Reveal className="faq-layout">
           <div className="faq-title">
-            <p className="kicker">THE FINE PRINT, PLAINLY</p>
+            <p className="kicker">PROGRAM QUESTIONS</p>
             <h2>Questions, answered.</h2>
             <Stamp label="NO SCHEDULES NO QUOTAS" tone="charcoal" className="faq-stamp" />
           </div>
