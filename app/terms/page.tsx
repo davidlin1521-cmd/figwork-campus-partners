@@ -5,7 +5,7 @@ export default function TermsPage() {
     <main className="terms-page">
       <header className="terms-header">
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a className="terms-logo" href="/" aria-label="Back to Figwork Campus Partners">
+        <a className="terms-logo" href="/" aria-label="Back to Figwork Campus Growth Partners">
           LOGO ASSET
         </a>
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
@@ -13,10 +13,10 @@ export default function TermsPage() {
       </header>
 
       <section className="terms-hero">
-        <p className="terms-kicker">FIGWORK CAMPUS PARTNERS</p>
+        <p className="terms-kicker">FIGWORK CAMPUS GROWTH PARTNERS</p>
         <h1>Terms and conditions.</h1>
         <p className="terms-deck">
-          The plain-language rules for the Figwork referral program and Campus Partners program.
+          The plain-language rules for the Figwork referral program and Campus Growth Partners program.
         </p>
       </section>
 
@@ -24,7 +24,7 @@ export default function TermsPage() {
         <header className="terms-document__header">
           <h2 id="full-terms">The details, plainly.</h2>
           <p>
-            These are the rules of the Figwork referral program and the Campus Partners program. By joining either program - using a referral link to earn, or accepting a Campus Partner position - you agree to them.
+            These are the rules of the Figwork referral program and the Campus Growth Partners program. By joining either program - using a referral link to earn, or accepting a Campus Growth Partner position - you agree to them.
           </p>
         </header>
 
@@ -36,9 +36,9 @@ export default function TermsPage() {
           </summary>
           <div className="term-section__body">
             <ul>
-              <li>The open referral program is available to anyone who meets the eligibility requirements in Section 2. No Campus Partner application is required. Find your personal referral link in your Figwork account and use it to earn cash rewards for verified activations.</li>
-              <li>The application on the Campus Partners page is only for the Campus Partners program. Campus Partners are a selected group who earn through the same referral program, may use the Campus Partner title, receive a Campus Partner brand kit, and can propose campus events for Figwork to fund.</li>
-              <li>Participating in the open referral program does not make someone a Campus Partner. Open referral participants may not call themselves Campus Partners or represent that they are part of the Campus Partners program, and they do not receive the Campus Partner title or brand kit.</li>
+              <li>The open referral program is available to anyone who meets the eligibility requirements in Section 2. No Campus Growth Partner application is required. Find your personal referral link in your Figwork account and use it to earn cash rewards for verified activations.</li>
+              <li>The application on the Campus Growth Partners page is only for the Campus Growth Partners program. Campus Growth Partners are a selected group who earn through the same referral program, may use the Campus Growth Partner title, receive a Campus Growth Partner brand kit, and can propose campus events for Figwork to fund.</li>
+              <li>Participating in the open referral program does not make someone a Campus Growth Partner. Open referral participants may not call themselves Campus Growth Partners or represent that they are part of the Campus Growth Partners program, and they do not receive the Campus Growth Partner title or brand kit.</li>
               <li>This is not a job. Joining does not create an employment, contractor, or agency relationship with Figwork. There are no hours, duties, quotas, or required tasks, and nobody at Figwork will direct your activity.</li>
             </ul>
           </div>
@@ -70,7 +70,7 @@ export default function TermsPage() {
           <div className="term-section__body">
             <ul>
               <li>A reward is earned when a person you referred, within 14 days of using your link, installs the Figwork Chrome extension, creates an account, uploads their resume, and is verified as a real, unique person.</li>
-              <li>Installs alone never earn a reward. One reward per referred person, ever - duplicate, shared, or fabricated accounts earn nothing.</li>
+              <li>Installing Figwork by itself does not qualify as a verified activation. A reward may be earned only once for each eligible referred person; duplicate, shared, or fabricated accounts do not qualify.</li>
               <li>Referring means sharing your link yourself. Rewards are only paid for people you directly referred - never for people they refer, and never for recruiting other referrers.</li>
             </ul>
           </div>
@@ -84,9 +84,9 @@ export default function TermsPage() {
           </summary>
           <div className="term-section__body">
             <ul>
-              <li>The current open referral rate is $5 per verified activation. Selected Campus Partners earn $10 per verified activation beginning on the date they are selected. The Campus Partner rate applies only to referrals started on or after selection.</li>
+              <li>The current open referral rate is $5 per verified activation. Selected Campus Growth Partners earn $10 per verified activation beginning on the date they are selected. The Campus Growth Partner rate applies only to referrals started on or after selection.</li>
               <li>These are the current rates. Figwork may change rates for future referrals with notice on this page, as described in Section 8. A rate change does not affect a referral already in progress.</li>
-              <li>Total reward payments are capped at $2,000 per participant per calendar year. The same cap applies to open referral participants and Campus Partners.</li>
+              <li>Total reward payments are capped at $2,000 per participant per calendar year. The same cap applies to open referral participants and Campus Growth Partners.</li>
               <li>Each reward is held for about 10 days while we verify the activation, then paid out to you. You do not need to invoice or request payment.</li>
               <li>If we find that a paid reward came from fraud or a fake account, we will deduct that amount from your future rewards, and we may remove you from the program.</li>
               <li>Rewards are cash only. We do not pay in gift cards, and the welcome kit is a gift, not payment.</li>
@@ -156,15 +156,15 @@ export default function TermsPage() {
         <details className="term-section" id="campus-partners">
           <summary>
             <span className="term-number">09</span>
-            <h3>What does being a Campus Partner mean?</h3>
+            <h3>What does being a Campus Growth Partner mean?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
             <ul>
-              <li>The Campus Partner title is reserved for applicants selected into the Campus Partners program. Open referral participants may not use it.</li>
-              <li>The Campus Partner title is a program designation, not a position or title of employment at Figwork.</li>
+              <li>The Campus Growth Partner title is reserved for applicants selected into the Campus Growth Partners program. Open referral participants may not use it.</li>
+              <li>The Campus Growth Partner title is a program designation, not a position or title of employment at Figwork.</li>
               <li>Event proposals are voluntary. If Figwork approves a proposal, Figwork pays the vendor directly - Partners never receive or handle event money.</li>
-              <li>The Campus Partner brand kit is a one-time gift available only to selected Campus Partners.</li>
+              <li>The Campus Growth Partner brand kit is a one-time gift available only to selected Campus Growth Partners.</li>
             </ul>
           </div>
         </details>

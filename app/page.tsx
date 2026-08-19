@@ -27,7 +27,7 @@ const steps = [
 const benefits = [
   {
     title: "Cash per activation",
-    body: "Open referral participants earn $5 per verified activation. Selected Campus Partners earn $10.",
+    body: "Open referral participants earn $5 per verified activation. Selected Campus Growth Partners earn $10.",
     accent: "rust",
   },
   {
@@ -37,7 +37,7 @@ const benefits = [
   },
   {
     title: "The title and the kit",
-    body: "Campus Partner at a funded startup, plus a welcome kit.",
+    body: "Campus Growth Partner at a funded startup, plus a welcome kit.",
     accent: "steel",
   },
   {
@@ -70,12 +70,12 @@ const benefitsUpdated = [
   },
   {
     title: "Get the title and kit",
-    body: "Selected students can use the Campus Partner title and receive the Figwork brand kit.",
+    body: "Selected students can use the Campus Growth Partner title and receive the Figwork brand kit.",
     accent: "rust",
   },
   {
     title: "Earn for verified growth",
-    body: "Campus Partners earn $10 per verified activation. Open referral participants earn $5.",
+    body: "Campus Growth Partners earn $10 per verified activation. Open referral participants earn $5.",
     accent: "sage",
   },
 ];
@@ -102,17 +102,17 @@ const faq = [
   {
     question: "Who is this application for?",
     answer:
-      "This application is only for students who want to be selected as Campus Partners. Selected Partners may use the Campus Partner title, receive the brand kit, and propose campus events for Figwork to fund.",
+      "This application is only for students who want to be selected as Campus Growth Partners. Selected Partners may use the Campus Growth Partner title, receive the brand kit, and propose campus events for Figwork to fund.",
   },
   {
     question: "Do I need to apply to earn referral rewards?",
     answer:
-      "No. Anyone who meets the referral eligibility requirements can use their personal Figwork referral link and earn cash. Open referral participants are not Campus Partners and do not receive the Campus Partner title or brand kit.",
+      "No. Anyone who meets the referral eligibility requirements can use their personal Figwork referral link and earn cash. Open referral participants are not Campus Growth Partners and do not receive the Campus Growth Partner title or brand kit.",
   },
   {
     question: "How much can I earn?",
     answer:
-      "The current rate is $5 per verified activation through the open referral program and $10 for selected Campus Partners. The same annual reward limit applies to both; see the terms and conditions for details.",
+      "The current rate is $5 per verified activation through the open referral program and $10 for selected Campus Growth Partners. The same annual reward limit applies to both; see the terms and conditions for details.",
   },
   {
     question: "When do I get paid?",
@@ -315,7 +315,7 @@ export default function Home() {
 
         <div className="hero__grid">
           <div className="hero__title-block">
-            <p className="kicker kicker--cream">FIGWORK CAMPUS PARTNERS</p>
+            <p className="kicker kicker--cream">FIGWORK CAMPUS GROWTH PARTNERS</p>
             <h1>
               Run <span className="outline-word">growth</span> for a real startup. On your campus.
             </h1>
@@ -452,7 +452,7 @@ export default function Home() {
           <div className="application__copy">
             <p className="kicker kicker--cream">FALL / WINTER COHORT</p>
             <h2>Apply for fall/winter</h2>
-            <p>This application is only for Campus Partners. The open referral program does not require an application.</p>
+            <p>This application is only for Campus Growth Partners. The open referral program does not require an application.</p>
             <p>Short written application. No resume, no calls — we read what you’ve organized and what you’d do here.</p>
             <p className="application__dates">Applications close November 1. Decisions by December 1.</p>
             <a className="application__terms-link" href="/terms">Terms and conditions →</a>
@@ -462,7 +462,7 @@ export default function Home() {
               <iframe
                 data-tally-src={tallyEmbedUrl}
                 src={tallyEmbedUrl}
-                title="Figwork Campus Partners application"
+                title="Figwork Campus Growth Partners application"
                 loading="lazy"
                 width="100%"
                 height="520"
@@ -481,7 +481,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <p>Figwork Campus Partners · {CONTACT_EMAIL} · <a href="/terms">Terms and conditions</a> · This page describes a program, not employment.</p>
+        <p>Figwork Campus Growth Partners · {CONTACT_EMAIL} · <a href="/terms">Terms and conditions</a> · This page describes a program, not employment.</p>
         <a href="#top">Back to top ↑</a>
       </footer>
     </main>
