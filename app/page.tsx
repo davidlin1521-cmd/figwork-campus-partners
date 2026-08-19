@@ -47,6 +47,39 @@ const benefits = [
   },
 ];
 
+const benefitsUpdated = [
+  {
+    title: "Run your own campaign",
+    body: "Choose where and how Figwork shows up on your campus.",
+    accent: "rust",
+  },
+  {
+    title: "Pitch a real idea",
+    body: "Have an event idea? If approved, Figwork pays the vendor.",
+    accent: "sage",
+  },
+  {
+    title: "Build growth skills",
+    body: "Practice outreach, campaign planning, and conversion by doing.",
+    accent: "steel",
+  },
+  {
+    title: "Track your impact",
+    body: "See the activations and results you generated.",
+    accent: "ochre",
+  },
+  {
+    title: "Get the title and kit",
+    body: "Selected Campus Partners receive the title and brand kit.",
+    accent: "rust",
+  },
+  {
+    title: "Earn for verified growth",
+    body: "Campus Partners earn $10 per activation. Open referrals earn $5.",
+    accent: "sage",
+  },
+];
+
 const campusMoves = [
   {
     number: "01",
@@ -62,6 +95,24 @@ const campusMoves = [
     number: "03",
     title: "Watch what you started move.",
     body: "Your tracker follows each activation from first click to paid — a live record of what you made happen.",
+  },
+];
+
+const campusMovesUpdated = [
+  {
+    number: "01",
+    title: "Bring it to your circles.",
+    body: "Share Figwork where it can help.",
+  },
+  {
+    number: "02",
+    title: "Make it useful.",
+    body: "Show students how to find the recruiter behind a posting.",
+  },
+  {
+    number: "03",
+    title: "Try your own idea.",
+    body: "Test what works and track the results.",
   },
 ];
 
@@ -228,6 +279,10 @@ function Tracker() {
 }
 
 export default function Home() {
+  const [copyVersion, setCopyVersion] = useState<"original" | "updated">("updated");
+  const isUpdated = copyVersion === "updated";
+  const visibleBenefits = isUpdated ? benefitsUpdated : benefits;
+  const visibleCampusMoves = isUpdated ? campusMovesUpdated : campusMoves;
   const tallyEmbedUrl =
     TALLY_FORM_URL === "TALLY_FORM_URL"
       ? null
@@ -235,6 +290,23 @@ export default function Home() {
 
   return (
     <main className="mode--light energy--studio background--wash wash--strong accents--solid">
+      <div className="copy-switcher" role="group" aria-label="Compare page wording">
+        <span>Page copy</span>
+        <button
+          type="button"
+          aria-pressed={!isUpdated}
+          onClick={() => setCopyVersion("original")}
+        >
+          Original
+        </button>
+        <button
+          type="button"
+          aria-pressed={isUpdated}
+          onClick={() => setCopyVersion("updated")}
+        >
+          Benefits edit
+        </button>
+      </div>
       <section
         className="hero"
         id="top"
@@ -269,7 +341,9 @@ export default function Home() {
           </div>
           <div className="hero__copy">
             <p>
-              Figwork finds the actual recruiter behind career postings. We’re picking 2–3 students at each of a handful of universities to help it spread — and paying for every person you bring in.
+              {isUpdated
+                ? "Figwork helps students find the recruiter behind a career posting. Bring it to your campus, run a real campaign, and track what you make happen."
+                : "Figwork finds the actual recruiter behind career postings. We’re picking 2–3 students at each of a handful of universities to help it spread — and paying for every person you bring in."}
             </p>
             <div className="hero__actions">
               <a className="button button--glow" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">
@@ -320,11 +394,11 @@ export default function Home() {
       <section className="section section--benefits" id="benefits">
         <div className="section-number section-number--right" aria-hidden="true">02</div>
         <Reveal className="section-heading section-heading--benefits">
-          <p className="kicker">WHAT PARTNERS GET</p>
-          <h2>Proof you can point to.</h2>
+          <p className="kicker">{isUpdated ? "WHAT YOU’LL BUILD" : "WHAT PARTNERS GET"}</p>
+          <h2>{isUpdated ? "Your campaign. Your results." : "Proof you can point to."}</h2>
         </Reveal>
         <div className="benefit-grid">
-          {benefits.map((benefit, index) => (
+          {visibleBenefits.map((benefit, index) => (
             <Reveal className={`benefit-card benefit-card--${index + 1}`} key={benefit.title}>
               <div className="benefit-card__topline">
                 <span className={`accent-line accent-line--${benefit.accent}`} />
@@ -342,12 +416,16 @@ export default function Home() {
       <section className="section section--playbook">
         <div className="section-number" aria-hidden="true">03</div>
         <Reveal className="playbook-heading">
-          <p className="kicker">YOUR CAMPUS, YOUR PLAYBOOK</p>
-          <h2>Turn your campus into your campaign.</h2>
-          <p>Start with what you already know: your people, your places, your ideas.</p>
+          <p className="kicker">{isUpdated ? "WHAT YOU CAN TRY" : "YOUR CAMPUS, YOUR PLAYBOOK"}</p>
+          <h2>{isUpdated ? "Make Figwork useful where students gather." : "Turn your campus into your campaign."}</h2>
+          <p>
+            {isUpdated
+              ? "Clubs, study groups, and campus events. Start with what fits your campus."
+              : "Start with what you already know: your people, your places, your ideas."}
+          </p>
         </Reveal>
         <div className="playbook-list">
-          {campusMoves.map((move) => (
+          {visibleCampusMoves.map((move) => (
             <Reveal className="playbook-item" key={move.number}>
               <span className="playbook-item__number">{move.number}</span>
               <div>

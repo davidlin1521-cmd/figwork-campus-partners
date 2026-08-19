@@ -520,6 +520,54 @@ summary:focus-visible {
   outline-offset: 2px;
 }
 
+.copy-switcher {
+  position: fixed;
+  right: 18px;
+  bottom: 18px;
+  z-index: 40;
+  display: grid;
+  grid-template-columns: auto auto auto;
+  gap: 4px;
+  align-items: center;
+  padding: 7px;
+  color: var(--charcoal);
+  background: rgba(239, 237, 229, 0.94);
+  border: 1px solid rgba(47, 52, 55, 0.24);
+  box-shadow: 0 10px 32px rgba(47, 52, 55, 0.14);
+  backdrop-filter: blur(12px);
+}
+
+.copy-switcher > span {
+  padding: 0 8px;
+  color: var(--slate);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.copy-switcher button {
+  min-height: 36px;
+  padding: 0 12px;
+  color: var(--charcoal);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  font: inherit;
+  font-size: 11px;
+  font-weight: 750;
+}
+
+.copy-switcher button[aria-pressed="true"] {
+  color: var(--cream);
+  background: var(--rust);
+}
+
+.copy-switcher button:focus-visible {
+  outline: 2px solid var(--rust);
+  outline-offset: 2px;
+}
+
 .section-number {
   position: absolute;
   top: 44px;
@@ -790,6 +838,7 @@ h3 {
   border: 0;
   border-bottom: 1px solid rgba(47, 52, 55, 0.5);
   box-shadow: none;
+  grid-column: 1 / 13;
 }
 
 .benefit-card--1,
@@ -1505,6 +1554,17 @@ footer a {
 }
 
 @media (max-width: 700px) {
+  .copy-switcher {
+    right: 10px;
+    bottom: 10px;
+    width: calc(100vw - 20px);
+    grid-template-columns: 72px 1fr 1fr;
+  }
+
+  .copy-switcher button {
+    padding-inline: 8px;
+  }
+
   body { font-size: 16px; }
   .hero { min-height: 760px; padding: 18px 20px 50px; }
   .site-header { padding-bottom: 15px; }
