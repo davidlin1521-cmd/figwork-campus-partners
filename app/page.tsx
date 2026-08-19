@@ -50,32 +50,32 @@ const benefits = [
 const benefitsUpdated = [
   {
     title: "Run your own campaign",
-    body: "Choose where and how Figwork shows up on your campus.",
+    body: "Choose where and how Figwork shows up, from clubs and study groups to career communities.",
     accent: "rust",
   },
   {
     title: "Pitch a real idea",
-    body: "Have an event idea? If approved, Figwork pays the vendor.",
+    body: "Pitch a study night, workshop, or campus event. If approved, Figwork pays the vendor and you run it.",
     accent: "sage",
   },
   {
     title: "Build growth skills",
-    body: "Practice outreach, campaign planning, and conversion by doing.",
+    body: "Practice outreach, campaign planning, positioning, and conversion with a live product.",
     accent: "steel",
   },
   {
     title: "Track your impact",
-    body: "See the activations and results you generated.",
+    body: "Use your tracker to follow the activations and acquisition results you generated.",
     accent: "ochre",
   },
   {
     title: "Get the title and kit",
-    body: "Selected Campus Partners receive the title and brand kit.",
+    body: "Selected students can use the Campus Partner title and receive the Figwork brand kit.",
     accent: "rust",
   },
   {
     title: "Earn for verified growth",
-    body: "Campus Partners earn $10 per activation. Open referrals earn $5.",
+    body: "Campus Partners earn $10 per verified activation. Open referral participants earn $5.",
     accent: "sage",
   },
 ];
@@ -95,24 +95,6 @@ const campusMoves = [
     number: "03",
     title: "Watch what you started move.",
     body: "Your tracker follows each activation from first click to paid — a live record of what you made happen.",
-  },
-];
-
-const campusMovesUpdated = [
-  {
-    number: "01",
-    title: "Bring it to your circles.",
-    body: "Share Figwork where it can help.",
-  },
-  {
-    number: "02",
-    title: "Make it useful.",
-    body: "Show students how to find the recruiter behind a posting.",
-  },
-  {
-    number: "03",
-    title: "Try your own idea.",
-    body: "Test what works and track the results.",
   },
 ];
 
@@ -145,7 +127,7 @@ const faq = [
   {
     question: "What's the catch?",
     answer:
-      "There isn't one, but read this: installs alone never pay, fraud is checked and clawed back, and we never pay anyone for recruiting other referrers.",
+      "There isn't one. Rewards are based on verified activations, fraudulent activity is not eligible, and recruiting other referrers never earns a reward.",
   },
   {
     question: "Is this employment?",
@@ -282,7 +264,6 @@ export default function Home() {
   const [copyVersion, setCopyVersion] = useState<"original" | "updated">("updated");
   const isUpdated = copyVersion === "updated";
   const visibleBenefits = isUpdated ? benefitsUpdated : benefits;
-  const visibleCampusMoves = isUpdated ? campusMovesUpdated : campusMoves;
   const tallyEmbedUrl =
     TALLY_FORM_URL === "TALLY_FORM_URL"
       ? null
@@ -416,16 +397,12 @@ export default function Home() {
       <section className="section section--playbook">
         <div className="section-number" aria-hidden="true">03</div>
         <Reveal className="playbook-heading">
-          <p className="kicker">{isUpdated ? "WHAT YOU CAN TRY" : "YOUR CAMPUS, YOUR PLAYBOOK"}</p>
-          <h2>{isUpdated ? "Make Figwork useful where students gather." : "Turn your campus into your campaign."}</h2>
-          <p>
-            {isUpdated
-              ? "Clubs, study groups, and campus events. Start with what fits your campus."
-              : "Start with what you already know: your people, your places, your ideas."}
-          </p>
+          <p className="kicker">YOUR CAMPUS, YOUR PLAYBOOK</p>
+          <h2>Turn your campus into your campaign.</h2>
+          <p>Start with what you already know: your people, your places, your ideas.</p>
         </Reveal>
         <div className="playbook-list">
-          {visibleCampusMoves.map((move) => (
+          {campusMoves.map((move) => (
             <Reveal className="playbook-item" key={move.number}>
               <span className="playbook-item__number">{move.number}</span>
               <div>

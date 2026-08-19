@@ -1033,7 +1033,10 @@ h3 {
 .faq-list .program-notes__body p {
   margin: 0 0 12px;
   padding-right: 30px;
-  font-size: 14px;
+  font-family: var(--font);
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: normal;
   line-height: 1.55;
 }
 
@@ -1266,9 +1269,48 @@ footer a {
 .accents--solid .benefit-card--4 .benefit-index { color: #f37e3e; animation-delay: -3.75s; }
 
 .accents--solid .mid-page-cta {
+  position: relative;
   background: var(--rust);
-  border-color: #f5c963;
-  animation: solid-border 8s ease-in-out infinite;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 0 28px rgba(255, 255, 255, 0.18);
+  animation: none;
+}
+
+.accents--solid .mid-page-cta::before {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  padding: 8px;
+  pointer-events: none;
+  content: "";
+  background: conic-gradient(
+    from var(--cta-angle),
+    transparent 0 72%,
+    rgba(255, 255, 255, 0.2) 76%,
+    rgba(255, 255, 255, 0.98) 80%,
+    rgba(255, 255, 255, 0.2) 84%,
+    transparent 88% 100%
+  );
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  animation: cta-light-orbit 7s linear infinite;
+}
+
+.accents--solid .mid-page-cta > * {
+  position: relative;
+  z-index: 1;
+}
+
+@property --cta-angle {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes cta-light-orbit {
+  to { --cta-angle: 1turn; }
 }
 
 .accents--solid .process-card,
@@ -1666,6 +1708,7 @@ footer a {
   .accents--solid .stage-pill,
   .accents--solid .benefit-index,
   .accents--solid .mid-page-cta,
+  .accents--solid .mid-page-cta::before,
   .signal-ring,
   .energy--studio .hero-stamp,
   .energy--studio .outline-word { animation: none; }
