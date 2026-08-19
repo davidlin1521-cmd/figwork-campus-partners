@@ -852,7 +852,7 @@ h3 {
 
 .playbook-heading {
   width: min(820px, 75%);
-  margin-left: 8.33%;
+  margin-left: 0;
 }
 
 .playbook-heading > p:last-child {
@@ -862,8 +862,8 @@ h3 {
 }
 
 .playbook-list {
-  width: min(980px, 86%);
-  margin: 86px 0 0 auto;
+  width: 100%;
+  margin: 86px 0 0;
   border-top: 1px solid var(--charcoal);
 }
 
@@ -1499,7 +1499,7 @@ footer a {
   .benefit-card--4 { grid-column: 1 / 13; }
   .section-heading--benefits { width: 66.66%; margin-left: 0; }
   .playbook-heading { width: 78%; margin-left: 0; }
-  .playbook-list { width: 92%; }
+  .playbook-list { width: 100%; }
   .faq-title { grid-column: 1 / 6; }
   .faq-list { grid-column: 6 / 13; }
 }
