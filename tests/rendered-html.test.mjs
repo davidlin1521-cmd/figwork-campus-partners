@@ -42,6 +42,8 @@ test("server-renders the Campus Partners page", async () => {
   assert.match(text, /Apply for fall\/winter/);
   assert.match(text, /This application is only for Campus Partners\./);
   assert.match(text, /Open referral participants are not Campus Partners/);
+  assert.match(text, /Open referral participants earn \$5 per verified activation/);
+  assert.match(text, /Selected Campus Partners earn \$10/);
   assert.match(html, /https:\/\/tally\.so\/embed\/5Baz1o/);
   assert.ok((html.match(/href="\/terms"/g) ?? []).length >= 3);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|SkeletonPreview/);
@@ -55,7 +57,7 @@ test("visible copy avoids the legally restricted terms", async () => {
     text,
     /\b(job|role|position|hire|offer|interview|salary|wage|hours|shift)\b|work for us/i,
   );
-  assert.doesNotMatch(text, /\$\s*\d|top earners|leaderboard|only \d+ spots/i);
+  assert.doesNotMatch(text, /top earners|leaderboard|only \d+ spots/i);
 });
 
 test("server-renders the draft program terms page", async () => {
@@ -70,6 +72,9 @@ test("server-renders the draft program terms page", async () => {
   assert.match(text, /What counts as a verified activation\?/);
   assert.match(text, /DRAFT - not effective until reviewed by counsel and published\./);
   assert.match(text, /capped at \$2,000 per participant per calendar year/);
+  assert.match(text, /current open referral rate is \$5 per verified activation/);
+  assert.match(text, /Selected Campus Partners earn \$10 per verified activation/);
+  assert.match(text, /Find your personal referral link in your Figwork account/);
   assert.match(text, /Open referral participants may not call themselves Campus Partners/);
   assert.match(text, /brand kit is a one-time gift available only to selected Campus Partners/);
   assert.doesNotMatch(text, /COUNSEL:|qualifying product action|\[CAP\]|\[PARTNER CAP\]|\$\[RATE\]/);

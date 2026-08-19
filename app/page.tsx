@@ -10,7 +10,7 @@ const steps = [
   {
     number: "01",
     title: "Share your link.",
-    body: "Every Figwork user gets a referral link. Yours is how we know who you brought in.",
+    body: "Find your personal referral link in your Figwork account. It is how we know who you brought in.",
   },
   {
     number: "02",
@@ -27,7 +27,7 @@ const steps = [
 const benefits = [
   {
     title: "Cash per activation",
-    body: "Campus Partners earn through the same open referral program as every other eligible participant.",
+    body: "Open referral participants earn $5 per verified activation. Selected Campus Partners earn $10.",
     accent: "rust",
   },
   {
@@ -79,7 +79,7 @@ const faq = [
   {
     question: "How much can I earn?",
     answer:
-      "It depends on how many people you activate. The same annual reward limit applies to open referral participants and Campus Partners; see the terms and conditions for details.",
+      "The current rate is $5 per verified activation through the open referral program and $10 for selected Campus Partners. The same annual reward limit applies to both; see the terms and conditions for details.",
   },
   {
     question: "When do I get paid?",

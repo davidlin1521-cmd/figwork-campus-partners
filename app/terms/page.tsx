@@ -36,7 +36,7 @@ export default function TermsPage() {
           </summary>
           <div className="term-section__body">
             <ul>
-              <li>The open referral program is available to anyone who meets the eligibility requirements in Section 2. No Campus Partner application is required. Eligible participants can use their personal Figwork referral link and earn cash rewards for verified activations.</li>
+              <li>The open referral program is available to anyone who meets the eligibility requirements in Section 2. No Campus Partner application is required. Find your personal referral link in your Figwork account and use it to earn cash rewards for verified activations.</li>
               <li>The application on the Campus Partners page is only for the Campus Partners program. Campus Partners are a selected group who earn through the same referral program, may use the Campus Partner title, receive a Campus Partner brand kit, and can propose campus events for Figwork to fund.</li>
               <li>Participating in the open referral program does not make someone a Campus Partner. Open referral participants may not call themselves Campus Partners or represent that they are part of the Campus Partners program, and they do not receive the Campus Partner title or brand kit.</li>
               <li>This is not a job. Joining does not create an employment, contractor, or agency relationship with Figwork. There are no hours, duties, quotas, or required tasks, and nobody at Figwork will direct your activity.</li>
@@ -84,7 +84,9 @@ export default function TermsPage() {
           </summary>
           <div className="term-section__body">
             <ul>
-              <li>The current reward rate is provided to participants before referrals begin. Total reward payments are capped at $2,000 per participant per calendar year. The same cap applies to Campus Partners.</li>
+              <li>The current open referral rate is $5 per verified activation. Selected Campus Partners earn $10 per verified activation beginning on the date they are selected. The Campus Partner rate applies only to referrals started on or after selection.</li>
+              <li>These are the current rates. Figwork may change rates for future referrals with notice on this page, as described in Section 8. A rate change does not affect a referral already in progress.</li>
+              <li>Total reward payments are capped at $2,000 per participant per calendar year. The same cap applies to open referral participants and Campus Partners.</li>
               <li>Each reward is held for about 10 days while we verify the activation, then paid out to you. You do not need to invoice or request payment.</li>
               <li>If we find that a paid reward came from fraud or a fake account, we will deduct that amount from your future rewards, and we may remove you from the program.</li>
               <li>Rewards are cash only. We do not pay in gift cards, and the welcome kit is a gift, not payment.</li>
