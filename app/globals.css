@@ -246,9 +246,27 @@ h1 {
 }
 
 .hero__actions {
-  display: flex;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  grid-template-rows: auto auto;
   align-items: center;
-  gap: 28px;
+  justify-content: start;
+  gap: 16px 28px;
+}
+
+.hero__actions > .button--glow {
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.hero__actions > .text-link {
+  grid-column: 2;
+  grid-row: 1;
+}
+
+.hero__actions > .button--terms {
+  grid-column: 1;
+  grid-row: 2;
 }
 
 .button {
@@ -1497,7 +1515,7 @@ footer a {
   .outline-word { -webkit-text-stroke-width: 1.3px; }
   .hero__copy { width: 88%; margin: 48px 0 0 auto; }
   .hero__copy > p { font-size: 16px; }
-  .hero__actions { align-items: flex-start; flex-direction: column; gap: 16px; }
+  .hero__actions { display: flex; align-items: flex-start; flex-direction: column; gap: 16px; }
   .button { width: 100%; }
   .hero-stamp { top: 46%; right: -28px; width: 88px; }
   .signal-field {
