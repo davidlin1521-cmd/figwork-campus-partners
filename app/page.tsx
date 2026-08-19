@@ -262,16 +262,24 @@ function Tracker() {
 
 export default function Home() {
   const [copyVersion, setCopyVersion] = useState<"original" | "updated">("updated");
+  const [isPdfExport, setIsPdfExport] = useState(false);
   const isUpdated = copyVersion === "updated";
   const visibleBenefits = isUpdated ? benefitsUpdated : benefits;
+
+  useEffect(() => {
+    const exporting = new URLSearchParams(window.location.search).has("pdf");
+    setIsPdfExport(exporting);
+    document.documentElement.classList.toggle("pdf-export-root", exporting);
+    return () => document.documentElement.classList.remove("pdf-export-root");
+  }, []);
   const tallyEmbedUrl =
     TALLY_FORM_URL === "TALLY_FORM_URL"
       ? null
       : `https://tally.so/embed/${TALLY_FORM_URL}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`;
 
   return (
-    <main className="mode--light energy--studio background--wash wash--strong accents--solid">
-      <div className="copy-switcher" role="group" aria-label="Compare page wording">
+    <main className={`mode--light energy--studio background--wash wash--strong accents--solid ${isPdfExport ? "pdf-export" : ""}`}>
+      {!isPdfExport && <div className="copy-switcher" role="group" aria-label="Compare page wording">
         <span>Page copy</span>
         <button
           type="button"
@@ -287,7 +295,7 @@ export default function Home() {
         >
           Benefits edit
         </button>
-      </div>
+      </div>}
       <section
         className="hero"
         id="top"
@@ -429,12 +437,12 @@ export default function Home() {
           </div>
           <div className="faq-list">
             {faq.map((item) => (
-              <details key={item.question}>
+              <details key={item.question} open={isPdfExport || undefined}>
                 <summary>{item.question}<span aria-hidden="true">+</span></summary>
                 <p>{item.answer}</p>
               </details>
             ))}
-            <details className="program-notes">
+            <details className="program-notes" open={isPdfExport || undefined}>
               <summary>Program notes<span aria-hidden="true">+</span></summary>
               <div className="program-notes__body">
                 <p>No schedules, no quotas, no scripts. You decide what to do and when.</p>
@@ -482,7 +490,10 @@ export default function Home() {
 
       <footer>
         <p>Figwork Campus Growth Partners · {CONTACT_EMAIL} · <a href="/terms">Terms and conditions</a> · This page describes a program, not employment.</p>
-        <a href="#top">Back to top ↑</a>
+        <div className="footer-links">
+          <a className="pdf-download-link" href="/downloads/figwork-campus-growth-partners.pdf" download>Download page PDF ↓</a>
+          <a href="#top">Back to top ↑</a>
+        </div>
       </footer>
     </main>
   );

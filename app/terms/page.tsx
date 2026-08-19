@@ -1,15 +1,30 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import "./terms.css";
 
 export default function TermsPage() {
+  const [isPdfExport, setIsPdfExport] = useState(false);
+
+  useEffect(() => {
+    const exporting = new URLSearchParams(window.location.search).has("pdf");
+    setIsPdfExport(exporting);
+    document.documentElement.classList.toggle("pdf-export-root", exporting);
+    return () => document.documentElement.classList.remove("pdf-export-root");
+  }, []);
+
   return (
-    <main className="terms-page">
+    <main className={`terms-page ${isPdfExport ? "pdf-export" : ""}`}>
       <header className="terms-header">
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a className="terms-logo" href="/" aria-label="Back to Figwork Campus Growth Partners">
           LOGO ASSET
         </a>
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a className="terms-back" href="/">Back to program</a>
+        <div className="terms-header__links">
+          <a className="terms-back pdf-download-link" href="/downloads/figwork-terms-and-conditions.pdf" download>Download PDF</a>
+          <a className="terms-back" href="/">Back to program</a>
+        </div>
       </header>
 
       <section className="terms-hero">
@@ -28,7 +43,7 @@ export default function TermsPage() {
           </p>
         </header>
 
-        <details className="term-section" id="what-the-program-is">
+        <details className="term-section" id="what-the-program-is" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">01</span>
             <h3>What is the program?</h3>
@@ -44,7 +59,7 @@ export default function TermsPage() {
           </div>
         </details>
 
-        <details className="term-section" id="who-can-participate">
+        <details className="term-section" id="who-can-participate" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">02</span>
             <h3>Who can participate?</h3>
@@ -61,7 +76,7 @@ export default function TermsPage() {
           </div>
         </details>
 
-        <details className="term-section" id="verified-activation">
+        <details className="term-section" id="verified-activation" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">03</span>
             <h3>What counts as a verified activation?</h3>
@@ -76,7 +91,7 @@ export default function TermsPage() {
           </div>
         </details>
 
-        <details className="term-section" id="payment">
+        <details className="term-section" id="payment" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">04</span>
             <h3>How and when are rewards paid?</h3>
@@ -94,7 +109,7 @@ export default function TermsPage() {
           </div>
         </details>
 
-        <details className="term-section" id="taxes">
+        <details className="term-section" id="taxes" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">05</span>
             <h3>What should I know about taxes?</h3>
@@ -108,7 +123,7 @@ export default function TermsPage() {
           </div>
         </details>
 
-        <details className="term-section" id="posting">
+        <details className="term-section" id="posting" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">06</span>
             <h3>Do I have to post about Figwork?</h3>
@@ -124,7 +139,7 @@ export default function TermsPage() {
           </div>
         </details>
 
-        <details className="term-section" id="sharing">
+        <details className="term-section" id="sharing" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">07</span>
             <h3>How can I share my link?</h3>
@@ -138,7 +153,7 @@ export default function TermsPage() {
           </div>
         </details>
 
-        <details className="term-section" id="changes">
+        <details className="term-section" id="changes" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">08</span>
             <h3>Can the program or its terms change?</h3>
@@ -153,7 +168,7 @@ export default function TermsPage() {
           </div>
         </details>
 
-        <details className="term-section" id="campus-partners">
+        <details className="term-section" id="campus-partners" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">09</span>
             <h3>What does being a Campus Growth Partner mean?</h3>
@@ -172,7 +187,6 @@ export default function TermsPage() {
         <footer className="terms-document__footer">
           <p>Questions about these terms: <span className="terms-placeholder">[CONTACT EMAIL]</span></p>
           <p>Effective date: <span className="terms-placeholder">[DATE]</span></p>
-          <strong>DRAFT - not effective until reviewed by counsel and published.</strong>
         </footer>
       </article>
     </main>

@@ -23,6 +23,14 @@ html {
   background: var(--cream);
 }
 
+html.pdf-export-root {
+  scrollbar-width: none;
+}
+
+html.pdf-export-root::-webkit-scrollbar {
+  display: none;
+}
+
 body {
   margin: 0;
   background: var(--cream);
@@ -1172,6 +1180,28 @@ footer a {
   white-space: nowrap;
 }
 
+.footer-links {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.pdf-export *,
+.pdf-export *::before,
+.pdf-export *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.pdf-export .reveal {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+.pdf-export .pdf-download-link {
+  display: none !important;
+}
+
 .reveal {
   opacity: 1;
   transform: none;
@@ -1675,6 +1705,7 @@ footer a {
   .form-shell { min-height: 700px; margin-top: 50px; }
   .form-shell iframe { min-height: 700px; }
   footer { align-items: flex-start; flex-direction: column; }
+  .footer-links { align-items: flex-start; flex-direction: column; gap: 10px; }
   .background-switcher {
     right: 10px;
     bottom: 10px;

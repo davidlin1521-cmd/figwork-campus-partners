@@ -38,6 +38,23 @@
   border-bottom: 1px solid rgba(47, 52, 55, 0.35);
 }
 
+.terms-header__links {
+  display: flex;
+  gap: 22px;
+  align-items: center;
+}
+
+.terms-page.pdf-export *,
+.terms-page.pdf-export *::before,
+.terms-page.pdf-export *::after {
+  animation: none !important;
+  transition: none !important;
+}
+
+.terms-page.pdf-export .pdf-download-link {
+  display: none !important;
+}
+
 .terms-logo {
   display: inline-flex;
   align-items: center;
