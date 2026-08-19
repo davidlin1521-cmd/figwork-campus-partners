@@ -67,10 +67,11 @@ test("server-renders the draft program terms page", async () => {
   const html = await response.text();
   const text = visibleText(html);
 
-  assert.match(text, /Program terms\./);
+  assert.match(text, /Terms and conditions\./);
   assert.match(text, /The details, plainly\./);
   assert.match(text, /What counts as a verified activation\?/);
   assert.match(text, /DRAFT - not effective until reviewed by counsel and published\./);
-  assert.match(text, /\$\[RATE\]/);
+  assert.match(text, /capped at \$2,000 per participant per calendar year/);
+  assert.doesNotMatch(text, /COUNSEL:|qualifying product action|\[CAP\]|\[PARTNER CAP\]|\$\[RATE\]/);
   assert.match(text, /\[CONTACT EMAIL\]/);
 });

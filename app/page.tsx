@@ -274,7 +274,7 @@ export default function Home() {
                 How it works ↓
               </a>
               <a className="button button--terms" href="/terms">
-                Program terms →
+                Terms and conditions →
               </a>
             </div>
           </div>
@@ -394,7 +394,7 @@ export default function Home() {
             <h2>Apply for fall/winter</h2>
             <p>Short written application. No resume, no calls — we read what you’ve organized and what you’d do here.</p>
             <p className="application__dates">Applications close November 1. Decisions by December 1.</p>
-            <a className="application__terms-link" href="/terms">Program terms →</a>
+            <a className="application__terms-link" href="/terms">Terms and conditions →</a>
           </div>
           <div className="form-shell">
             {tallyEmbedUrl ? (
@@ -420,7 +420,7 @@ export default function Home() {
       </section>
 
       <footer>
-        <p>Figwork Campus Partners · {CONTACT_EMAIL} · <a href="/terms">Program terms</a> · This page describes a program, not employment.</p>
+        <p>Figwork Campus Partners · {CONTACT_EMAIL} · <a href="/terms">Terms and conditions</a> · This page describes a program, not employment.</p>
         <a href="#top">Back to top ↑</a>
       </footer>
     </main>

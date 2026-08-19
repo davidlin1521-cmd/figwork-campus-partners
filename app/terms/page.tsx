@@ -14,7 +14,7 @@ export default function TermsPage() {
 
       <section className="terms-hero">
         <p className="terms-kicker">FIGWORK CAMPUS PARTNERS</p>
-        <h1>Program terms.</h1>
+        <h1>Terms and conditions.</h1>
         <p className="terms-deck">
           The plain-language rules for the Figwork referral program and Campus Partners program.
         </p>
@@ -22,7 +22,6 @@ export default function TermsPage() {
 
       <article className="terms-document" aria-labelledby="full-terms">
         <header className="terms-document__header">
-          <p className="terms-kicker">THE TERMS</p>
           <h2 id="full-terms">The details, plainly.</h2>
           <p>
             These are the rules of the Figwork referral program and the Campus Partners program. By joining either program - using a referral link to earn, or accepting a Campus Partner position - you agree to them.
@@ -52,7 +51,7 @@ export default function TermsPage() {
           <div className="term-section__body">
             <ul>
               <li>You must be 18 or older.</li>
-              <li>You must not be in the United States on a student visa, for example F-1 or J-1. <span className="terms-placeholder">COUNSEL: confirm exact visa categories and phrasing.</span></li>
+              <li>You must be physically located in the United States and may not participate while in the U.S. on an F-1 or J-1 student visa.</li>
               <li>You must have a valid U.S. taxpayer identification number and be able to complete a Form W-9 when asked.</li>
               <li>If you are a college athlete, you are responsible for any reporting your school or athletic association requires for deals and benefits.</li>
               <li>Figwork employees and their immediate family cannot earn referral rewards.</li>
@@ -68,7 +67,7 @@ export default function TermsPage() {
           </summary>
           <div className="term-section__body">
             <ul>
-              <li>A reward is earned when a person you referred, within 14 days of using your link, installs the Figwork Chrome extension, creates an account, uploads their resume, <span className="terms-placeholder">completes one qualifying product action - final definition pending counsel and product approval</span>, and is verified as a real, unique person.</li>
+              <li>A reward is earned when a person you referred, within 14 days of using your link, installs the Figwork Chrome extension, creates an account, uploads their resume, and is verified as a real, unique person.</li>
               <li>Installs alone never earn a reward. One reward per referred person, ever - duplicate, shared, or fabricated accounts earn nothing.</li>
               <li>Referring means sharing your link yourself. Rewards are only paid for people you directly referred - never for people they refer, and never for recruiting other referrers.</li>
             </ul>
@@ -83,7 +82,7 @@ export default function TermsPage() {
           </summary>
           <div className="term-section__body">
             <ul>
-              <li>The reward is <span className="terms-placeholder">$[RATE]</span> per verified activation, with a limit of <span className="terms-placeholder">[CAP]</span> verified activations per person per semester. Campus Partners have a limit of <span className="terms-placeholder">[PARTNER CAP]</span>.</li>
+              <li>The current reward rate is provided to participants before referrals begin. Total reward payments are capped at $2,000 per participant per calendar year. The same cap applies to Campus Partners.</li>
               <li>Each reward is held for about 10 days while we verify the activation, then paid out to you. You do not need to invoice or request payment.</li>
               <li>If we find that a paid reward came from fraud or a fake account, we will deduct that amount from your future rewards, and we may remove you from the program.</li>
               <li>Rewards are cash only. We do not pay in gift cards, and the welcome kit is a gift, not payment.</li>
@@ -100,7 +99,7 @@ export default function TermsPage() {
           <div className="term-section__body">
             <ul>
               <li>Reward payments are taxable income to you, whatever the amount. You are responsible for declaring and paying income tax on them.</li>
-              <li>If your rewards reach $2,000 in a calendar year, Figwork will issue you a Form 1099-NEC. Below that amount you will not receive a form, but the income is still taxable to you.</li>
+              <li>For payments made in 2026, if Figwork pays you $2,000 during the calendar year, Figwork will issue you a Form 1099-NEC. The IRS may adjust this reporting threshold in later years. Whether or not you receive a Form 1099-NEC, you are responsible for declaring and paying income tax on your rewards.</li>
             </ul>
           </div>
         </details>
