@@ -185,7 +185,7 @@ export default function TermsPage() {
         </details>
 
         <footer className="terms-document__footer">
-          <p>Questions about these terms: <span className="terms-placeholder">[CONTACT EMAIL]</span></p>
+          <p>Questions about these terms: <a href="mailto:businessdevelopment@figwork.ai">businessdevelopment@figwork.ai</a></p>
           <p>Effective date: <span className="terms-placeholder">[DATE]</span></p>
         </footer>
       </article>

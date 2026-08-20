@@ -2,9 +2,9 @@
 
 import { useEffect, useRef, useState } from "react";
 
-const TALLY_FORM_URL = "5Baz1o"; // Approved form: https://tally.so/r/5Baz1o
+const TALLY_FORM_URL = "PdZv5x"; // Approved form: https://tally.so/r/PdZv5x
 const TALLY_PUBLIC_URL = `https://tally.so/r/${TALLY_FORM_URL}`;
-const CONTACT_EMAIL = "contact email placeholder"; // TODO: CONTACT_EMAIL — replace with the approved Figwork contact address.
+const CONTACT_EMAIL = "businessdevelopment@figwork.ai";
 
 const steps = [
   {
@@ -488,8 +488,8 @@ export default function Home() {
         </Reveal>
       </section>
 
-      <footer>
-        <p>Figwork Campus Growth Partners · {CONTACT_EMAIL} · <a href="/terms">Terms and conditions</a> · This page describes a program, not employment.</p>
+      <footer id="page-footer">
+        <p>Figwork Campus Growth Partners · <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> · <a href="/terms">Terms and conditions</a> · This page describes a program, not employment.</p>
         <div className="footer-links">
           <a className="pdf-download-link" href="/downloads/figwork-campus-growth-partners.pdf" download>Download page PDF ↓</a>
           <a href="#top">Back to top ↑</a>
