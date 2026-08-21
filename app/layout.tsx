@@ -7,16 +7,20 @@ export async function generateMetadata(): Promise<Metadata> {
   const host = requestHeaders.get("host") ?? "localhost:3000";
   const protocol = requestHeaders.get("x-forwarded-proto") ?? "http";
   const origin = `${protocol}://${host}`;
-  const title = "Figwork Campus Growth Partners";
-  const description = "A student referral program for bringing Figwork to campus.";
+  const title = "Student Ambassador Program - Figwork";
+  const description = "Become a Figwork campus ambassador through our student ambassador program: run real referral campaigns, earn cash per activation, and build your resume.";
+  const canonical = "https://figwork.ai/student-ambassador-program";
 
   return {
     title,
     description,
+    alternates: { canonical },
     openGraph: {
       title,
       description,
       type: "website",
+      url: canonical,
+      siteName: "Figwork",
       images: [{ url: `${origin}/og.png`, width: 1731, height: 909, alt: title }],
     },
     twitter: {

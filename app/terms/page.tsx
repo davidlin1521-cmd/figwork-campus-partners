@@ -17,7 +17,7 @@ export default function TermsPage() {
     <main className={`terms-page ${isPdfExport ? "pdf-export" : ""}`}>
       <header className="terms-header">
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a className="terms-logo" href="/" aria-label="Back to Figwork Campus Growth Partners">
+        <a className="terms-logo" href="/" aria-label="Back to the Figwork Student Ambassador Program">
           LOGO ASSET
         </a>
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
@@ -28,10 +28,10 @@ export default function TermsPage() {
       </header>
 
       <section className="terms-hero">
-        <p className="terms-kicker">FIGWORK CAMPUS GROWTH PARTNERS</p>
+        <p className="terms-kicker">FIGWORK CAMPUS PARTNERS · STUDENT AMBASSADOR PROGRAM</p>
         <h1>Terms and conditions.</h1>
         <p className="terms-deck">
-          The plain-language rules for the Figwork referral program and Campus Growth Partners program.
+          The plain-language rules for the Figwork referral program and selected campus partner program.
         </p>
       </section>
 
@@ -39,7 +39,7 @@ export default function TermsPage() {
         <header className="terms-document__header">
           <h2 id="full-terms">The details, plainly.</h2>
           <p>
-            These are the rules of the Figwork referral program and the Campus Growth Partners program. By joining either program - using a referral link to earn, or accepting a Campus Growth Partner position - you agree to them.
+            These are the rules of the Figwork referral program and the selected Campus Partners / Student Ambassador Program. By joining either program - using a referral link to earn, or accepting a place in the selected program - you agree to them.
           </p>
         </header>
 
@@ -52,8 +52,8 @@ export default function TermsPage() {
           <div className="term-section__body">
             <ul>
               <li>The open referral program is available to anyone who meets the eligibility requirements in Section 2. No Campus Growth Partner application is required. Find your personal referral link in your Figwork account and use it to earn cash rewards for verified activations.</li>
-              <li>The application on the Campus Growth Partners page is only for the Campus Growth Partners program. Campus Growth Partners are a selected group who earn through the same referral program, may use the Campus Growth Partner title, receive a Campus Growth Partner brand kit, and can propose campus events for Figwork to fund.</li>
-              <li>Participating in the open referral program does not make someone a Campus Growth Partner. Open referral participants may not call themselves Campus Growth Partners or represent that they are part of the Campus Growth Partners program, and they do not receive the Campus Growth Partner title or brand kit.</li>
+              <li>The application on the Campus Partners / Student Ambassador Program page is only for the selected program. Selected participants earn through the same referral program, may use an approved program title, receive the Figwork brand kit, and can propose campus events for Figwork to fund.</li>
+              <li>Participating in the open referral program does not make someone a Campus Growth Partner, Campus Partner, or Student Ambassador. Open referral participants may not use any of these titles or represent that they are part of the selected program, and they do not receive the brand kit.</li>
               <li>This is not a job. Joining does not create an employment, contractor, or agency relationship with Figwork. There are no hours, duties, quotas, or required tasks, and nobody at Figwork will direct your activity.</li>
             </ul>
           </div>
@@ -171,15 +171,16 @@ export default function TermsPage() {
         <details className="term-section" id="campus-partners" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">09</span>
-            <h3>What does being a Campus Growth Partner mean?</h3>
+            <h3>What titles may selected students use?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
             <ul>
-              <li>The Campus Growth Partner title is reserved for applicants selected into the Campus Growth Partners program. Open referral participants may not use it.</li>
-              <li>The Campus Growth Partner title is a program designation, not a position or title of employment at Figwork.</li>
+              <li>Students selected into the program may describe themselves as a Figwork Campus Growth Partner, Figwork Campus Partner, or Figwork Student Ambassador, including on a resume or professional profile.</li>
+              <li>These titles are reserved for selected participants. Open referral participants may not use them or represent that they are part of the selected program.</li>
+              <li>Each title is a program designation, not a position or title of employment at Figwork.</li>
               <li>Event proposals are voluntary. If Figwork approves a proposal, Figwork pays the vendor directly - Partners never receive or handle event money.</li>
-              <li>The Campus Growth Partner brand kit is a one-time gift available only to selected Campus Growth Partners.</li>
+              <li>The Figwork brand kit is a one-time gift available only to selected participants.</li>
             </ul>
           </div>
         </details>

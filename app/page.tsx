@@ -49,7 +49,7 @@ const benefits = [
 
 const benefitsUpdated = [
   {
-    title: "Run your own campaign",
+    title: "Run your own campaign as a campus ambassador",
     body: "Choose where and how Figwork shows up, from clubs and study groups to career communities.",
     accent: "rust",
   },
@@ -59,7 +59,7 @@ const benefitsUpdated = [
     accent: "sage",
   },
   {
-    title: "Build growth skills",
+    title: "Build skills in a startup growth role",
     body: "Practice outreach, campaign planning, positioning, and conversion with a live product.",
     accent: "steel",
   },
@@ -100,7 +100,7 @@ const campusMoves = [
 
 const faq = [
   {
-    question: "Who is this application for?",
+    question: "Who is this campus ambassador application for?",
     answer:
       "This application is only for students who want to be selected as Campus Growth Partners. Selected Partners may use the Campus Growth Partner title, receive the brand kit, and propose campus events for Figwork to fund.",
   },
@@ -323,7 +323,7 @@ export default function Home() {
 
         <div className="hero__grid">
           <div className="hero__title-block">
-            <p className="kicker kicker--cream">FIGWORK CAMPUS GROWTH PARTNERS</p>
+            <p className="kicker kicker--cream">FIGWORK CAMPUS PARTNERS · STUDENT AMBASSADOR PROGRAM</p>
             <h1>
               Run <span className="outline-word">growth</span> for a real startup. On your campus.
             </h1>
@@ -360,8 +360,8 @@ export default function Home() {
         <div className="section-number" aria-hidden="true">01</div>
         <Reveal className="section-heading section-heading--offset">
           <p className="kicker">HOW REFERRALS WORK</p>
-          <h2>How it works</h2>
-          <p className="section-intro">A simple path from your link to a verified result.</p>
+          <h2>How the Student Ambassador Program works</h2>
+          <p className="section-intro">A simple path from your ambassador campaign link to a verified result.</p>
         </Reveal>
 
         <div className="process-grid">
@@ -383,8 +383,8 @@ export default function Home() {
       <section className="section section--benefits" id="benefits">
         <div className="section-number section-number--right" aria-hidden="true">02</div>
         <Reveal className="section-heading section-heading--benefits">
-          <p className="kicker">{isUpdated ? "WHAT YOU’LL BUILD" : "WHAT PARTNERS GET"}</p>
-          <h2>{isUpdated ? "Your campaign. Your results." : "Proof you can point to."}</h2>
+          <p className="kicker">{isUpdated ? "WHAT YOU’LL BUILD AS A STUDENT AMBASSADOR" : "WHAT PARTNERS GET"}</p>
+          <h2>{isUpdated ? "Your brand ambassador campaign. Your results." : "Proof you can point to."}</h2>
         </Reveal>
         <div className="benefit-grid">
           {visibleBenefits.map((benefit, index) => (
@@ -407,7 +407,7 @@ export default function Home() {
         <Reveal className="playbook-heading">
           <p className="kicker">YOUR CAMPUS, YOUR PLAYBOOK</p>
           <h2>Turn your campus into your campaign.</h2>
-          <p>Start with what you already know: your people, your places, your ideas.</p>
+          <p>Your student ambassador program starts with what you already know: your people, your places, your ideas.</p>
         </Reveal>
         <div className="playbook-list">
           {campusMoves.map((move) => (
@@ -422,7 +422,7 @@ export default function Home() {
         </div>
         <Reveal className="mid-page-cta">
           <p className="kicker kicker--cream">FALL / WINTER COHORT</p>
-          <h2>Bring Figwork to your campus.</h2>
+          <h2>Bring Figwork&apos;s student ambassador program to your campus.</h2>
           <a className="button button--glow" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">Apply now</a>
         </Reveal>
       </section>
@@ -432,18 +432,18 @@ export default function Home() {
         <Reveal className="faq-layout">
           <div className="faq-title">
             <p className="kicker">PROGRAM QUESTIONS</p>
-            <h2>Questions, answered.</h2>
+            <h2>Ambassador Program FAQs</h2>
             <Stamp label="NO SCHEDULES NO QUOTAS" tone="charcoal" className="faq-stamp" />
           </div>
           <div className="faq-list">
             {faq.map((item) => (
               <details key={item.question} open={isPdfExport || undefined}>
-                <summary>{item.question}<span aria-hidden="true">+</span></summary>
+                <summary><h3>{item.question}</h3><span aria-hidden="true">+</span></summary>
                 <p>{item.answer}</p>
               </details>
             ))}
             <details className="program-notes" open={isPdfExport || undefined}>
-              <summary>Program notes<span aria-hidden="true">+</span></summary>
+              <summary><h3>Program notes</h3><span aria-hidden="true">+</span></summary>
               <div className="program-notes__body">
                 <p>No schedules, no quotas, no scripts. You decide what to do and when.</p>
                 <p>Not employment — a program. There’s nothing to clock into and nobody to report to.</p>
@@ -460,7 +460,7 @@ export default function Home() {
           <div className="application__copy">
             <p className="kicker kicker--cream">FALL / WINTER COHORT</p>
             <h2>Apply for fall/winter</h2>
-            <p>This application is only for Campus Growth Partners. The open referral program does not require an application.</p>
+            <p>This campus ambassador application is only for Campus Growth Partners. The open referral program does not require an application.</p>
             <p>Short written application. No resume, no calls — we read what you’ve organized and what you’d do here.</p>
             <p className="application__dates">Applications close November 1. Decisions by December 1.</p>
             <a className="application__terms-link" href="/terms">Terms and conditions →</a>
@@ -470,7 +470,7 @@ export default function Home() {
               <iframe
                 data-tally-src={tallyEmbedUrl}
                 src={tallyEmbedUrl}
-                title="Figwork Campus Growth Partners application"
+                title="Figwork Student Ambassador Program application"
                 loading="lazy"
                 width="100%"
                 height="520"
@@ -489,7 +489,7 @@ export default function Home() {
       </section>
 
       <footer id="page-footer">
-        <p>Figwork Campus Growth Partners · <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> · <a href="/terms">Terms and conditions</a> · This page describes a program, not employment.</p>
+        <p>Figwork Campus Partners / Student Ambassador Program · <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> · <a href="/terms">Terms and conditions</a> · This page describes a program, not employment.</p>
         <div className="footer-links">
           <a className="pdf-download-link" href="/downloads/figwork-campus-growth-partners.pdf" download>Download page PDF ↓</a>
           <a href="#top">Back to top ↑</a>
