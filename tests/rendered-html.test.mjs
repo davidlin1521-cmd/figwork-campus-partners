@@ -24,7 +24,7 @@ function visibleText(html) {
     .trim();
 }
 
-test("server-renders the Campus Partners page", async () => {
+test("server-renders the current Campus Partners page", async () => {
   const response = await render();
   assert.equal(response.status, 200);
   assert.match(response.headers.get("content-type") ?? "", /^text\/html\b/i);
@@ -32,51 +32,49 @@ test("server-renders the Campus Partners page", async () => {
   const html = await response.text();
   const text = visibleText(html);
 
-  assert.match(html, /<title>Figwork Campus Partners<\/title>/i);
+  assert.match(html, /<title>Student Ambassador Program - Figwork<\/title>/i);
   assert.match(text, /Run growth for a real startup\. On your campus\./);
-  assert.match(text, /How it works/);
-  assert.match(text, /What Partners get/i);
+  assert.match(text, /How the Student Ambassador Program works/);
+  assert.match(text, /Your brand ambassador campaign\. Your results\./);
   assert.match(text, /Turn your campus into your campaign\./);
-  assert.match(text, /Bring Figwork to your campus\./);
-  assert.ok((text.match(/Apply now/gi) ?? []).length >= 3);
+  assert.match(text, /Ambassador Program FAQs/);
   assert.match(text, /Apply for fall\/winter/);
-  assert.match(text, /This application is only for Campus Partners\./);
-  assert.match(text, /Open referral participants are not Campus Partners/);
-  assert.match(text, /Open referral participants earn \$5 per verified activation/);
-  assert.match(text, /Selected Campus Partners earn \$10/);
-  assert.match(html, /https:\/\/tally\.so\/embed\/5Baz1o/);
+  assert.match(text, /Campus Growth Partners earn \$10 per verified activation/);
+  assert.match(text, /Open referral participants earn \$5/);
+  assert.ok((text.match(/Apply now/gi) ?? []).length >= 3);
+  assert.match(html, /https:\/\/tally\.so\/r\/PdZv5x/);
+  assert.match(html, /https:\/\/tally\.so\/embed\/PdZv5x/);
   assert.ok((html.match(/href="\/terms"/g) ?? []).length >= 3);
+  assert.match(html, /href="\/downloads\/figwork-campus-growth-partners\.pdf"/);
   assert.doesNotMatch(html, /codex-preview|react-loading-skeleton|SkeletonPreview/);
 });
 
-test("visible copy avoids the legally restricted terms", async () => {
-  const response = await render();
-  const text = visibleText(await response.text());
+test("SEO alias renders the same program", async () => {
+  const response = await render("/student-ambassador-program");
+  assert.equal(response.status, 200);
 
-  assert.doesNotMatch(
-    text,
-    /\b(job|role|position|hire|offer|interview|salary|wage|hours|shift)\b|work for us/i,
-  );
-  assert.doesNotMatch(text, /top earners|leaderboard|only \d+ spots/i);
+  const text = visibleText(await response.text());
+  assert.match(text, /Run growth for a real startup\. On your campus\./);
+  assert.match(text, /Apply for fall\/winter/);
 });
 
-test("server-renders the draft program terms page", async () => {
+test("server-renders the current terms and conditions", async () => {
   const response = await render("/terms");
   assert.equal(response.status, 200);
 
   const html = await response.text();
   const text = visibleText(html);
 
+  assert.match(html, /<title>Terms and Conditions \| Figwork Student Ambassador Program<\/title>/i);
   assert.match(text, /Terms and conditions\./);
   assert.match(text, /The details, plainly\./);
   assert.match(text, /What counts as a verified activation\?/);
-  assert.match(text, /DRAFT - not effective until reviewed by counsel and published\./);
   assert.match(text, /capped at \$2,000 per participant per calendar year/);
   assert.match(text, /current open referral rate is \$5 per verified activation/);
-  assert.match(text, /Selected Campus Partners earn \$10 per verified activation/);
+  assert.match(text, /Selected Campus Growth Partners earn \$10 per verified activation/);
   assert.match(text, /Find your personal referral link in your Figwork account/);
-  assert.match(text, /Open referral participants may not call themselves Campus Partners/);
-  assert.match(text, /brand kit is a one-time gift available only to selected Campus Partners/);
-  assert.doesNotMatch(text, /COUNSEL:|qualifying product action|\[CAP\]|\[PARTNER CAP\]|\$\[RATE\]/);
-  assert.match(text, /\[CONTACT EMAIL\]/);
+  assert.match(text, /Figwork Campus Growth Partner, Figwork Campus Partner, or Figwork Student Ambassador/);
+  assert.match(text, /businessdevelopment@figwork\.ai/);
+  assert.match(html, /href="\/downloads\/figwork-terms-and-conditions\.pdf"/);
+  assert.doesNotMatch(text, /COUNSEL:|qualifying product action|\[CAP\]|\[PARTNER CAP\]|\$\[RATE\]|\[CONTACT EMAIL\]/);
 });

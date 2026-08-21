@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { useSearchParams } from "next/navigation";
 
 const TALLY_FORM_URL = "PdZv5x"; // Approved form: https://tally.so/r/PdZv5x
 const TALLY_PUBLIC_URL = `https://tally.so/r/${TALLY_FORM_URL}`;
@@ -238,14 +239,13 @@ function Tracker() {
 }
 
 export default function Home() {
-  const [isPdfExport, setIsPdfExport] = useState(false);
+  const searchParams = useSearchParams();
+  const isPdfExport = searchParams.has("pdf");
 
   useEffect(() => {
-    const exporting = new URLSearchParams(window.location.search).has("pdf");
-    setIsPdfExport(exporting);
-    document.documentElement.classList.toggle("pdf-export-root", exporting);
+    document.documentElement.classList.toggle("pdf-export-root", isPdfExport);
     return () => document.documentElement.classList.remove("pdf-export-root");
-  }, []);
+  }, [isPdfExport]);
   const tallyEmbedUrl =
     TALLY_FORM_URL === "TALLY_FORM_URL"
       ? null
@@ -270,6 +270,8 @@ export default function Home() {
       >
         <header className="site-header">
           <a className="site-logo" href="#top" aria-label="Figwork home">
+            {/* Keep the supplied logo file unmodified instead of routing it through optimization. */}
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/figwork-logo-light.png" alt="Figwork" />
           </a>
           <a className="button button--glow button--small" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">

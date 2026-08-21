@@ -1,29 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import "./terms.css";
 
 export default function TermsPage() {
-  const [isPdfExport, setIsPdfExport] = useState(false);
+  const searchParams = useSearchParams();
+  const isPdfExport = searchParams.has("pdf");
 
   useEffect(() => {
-    const exporting = new URLSearchParams(window.location.search).has("pdf");
-    setIsPdfExport(exporting);
-    document.documentElement.classList.toggle("pdf-export-root", exporting);
+    document.documentElement.classList.toggle("pdf-export-root", isPdfExport);
     return () => document.documentElement.classList.remove("pdf-export-root");
-  }, []);
+  }, [isPdfExport]);
 
   return (
     <main className={`terms-page ${isPdfExport ? "pdf-export" : ""}`}>
       <header className="terms-header">
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
-        <a className="terms-logo" href="/" aria-label="Back to the Figwork Student Ambassador Program">
+        <Link className="terms-logo" href="/" aria-label="Back to the Figwork Student Ambassador Program">
+          {/* Keep the supplied logo file unmodified instead of routing it through optimization. */}
+          {/* eslint-disable-next-line @next/next/no-img-element */}
           <img src="/figwork-logo-light.png" alt="Figwork" />
-        </a>
-        {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
+        </Link>
         <div className="terms-header__links">
           <a className="terms-back pdf-download-link" href="/downloads/figwork-terms-and-conditions.pdf" download>Download PDF</a>
-          <a className="terms-back" href="/">Back to program</a>
+          <Link className="terms-back" href="/">Back to program</Link>
         </div>
       </header>
 
