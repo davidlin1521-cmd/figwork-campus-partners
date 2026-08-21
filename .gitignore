@@ -38,3 +38,11 @@ yarn-error.log*
 /.wrangler/
 /outputs/
 /work/
+
+# local handoff/export artifacts
+/output/
+/tmp/
+
+# npm is the canonical package manager for this repository
+/pnpm-lock.yaml
+/pnpm-workspace.yaml
