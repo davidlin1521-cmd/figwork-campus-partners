@@ -1,12 +1,14 @@
 # Implementation Plan
 
+This is a suggested order, not a required project methodology. Combine phases when Figwork’s existing systems already provide the capability, and start with manual operations where automation would add more complexity than value.
+
 ## Phase 0 — decisions and ownership
 
 Deliverables:
 
 - Legal-approved eligibility, terms, disclosures, and appeal language.
 - Finance/tax-approved reward classification and reporting flow.
-- Stripe-approved Connect account and funds-flow design.
+- Finance- and provider-approved payout and funds-flow design.
 - Privacy-approved attribution, fraud signals, retention, and deletion.
 - Named Program Operations, Finance, Trust, Support, and Engineering owners.
 - Versioned program configuration for $5/$10 rates, 14-day window, approximately 10-day hold, $2,000 cap, cohort dates, and titles.
@@ -75,16 +77,16 @@ Tests:
 
 Build:
 
-- Stripe Connect sandbox onboarding.
+- Payment-provider sandbox onboarding.
 - Payout readiness and signed webhook handlers.
 - Weekly frozen payout batches and two-person approval.
 - Reconciliation jobs and reports.
-- Resend adapter, templates, provider webhooks, suppression list, and DLQ.
+- Transactional email adapter, templates, provider updates, suppression list, and failed-job handling.
 - Tax-status gates approved in Phase 0.
 
 Tests:
 
-- Full Stripe sandbox flow, including incomplete onboarding and failed payout.
+- Full provider sandbox flow, including incomplete onboarding and failed payout.
 - Provider timeout reuses idempotency key and cannot duplicate money movement.
 - Duplicate webhook is harmless.
 - Paid email sends only after confirmed success.
@@ -111,7 +113,7 @@ The infrastructure is production-ready only when:
 - Every queue and webhook consumer is idempotent.
 - Every financial change is represented in the immutable ledger.
 - Manual review and appeals are operational.
-- Stripe, ledger, bank, and accounting reconciliation has passed in sandbox and production canary.
+- Provider, ledger, bank, and accounting reconciliation has passed in sandbox and production canary.
 - Email bounce/complaint handling is live.
 - Security review, privacy review, threat model, and incident runbook are approved.
 - Load tests cover expected peak plus 10x link clicks and 3x activation events.
@@ -130,7 +132,7 @@ The infrastructure is production-ready only when:
 | Ledger and cap | 3 | Finance model |
 | Tracker read model | 4 | Activation states |
 | Campus admin | 4 | Application rubric |
-| Stripe onboarding and payouts | 5 | Stripe/tax approval, ledger |
+| Payment onboarding and payouts | 5 | Provider/tax approval, ledger |
 | Emails | 5 | Stable events and approved copy |
 | Reconciliation/observability | 5 | Payouts and events |
 | Shadow/canary rollout | 6 | All prior workstreams |

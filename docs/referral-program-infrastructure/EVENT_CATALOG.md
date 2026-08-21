@@ -96,7 +96,7 @@ product event ingestion:    producer/event_id
 reward creation:            reward/referral_id/terms_version
 email:                      email/template_key/domain_entity_id/template_version
 payout batch:               payout/participant_id/batch_id
-Stripe transfer:            stripe-transfer/batch_id
+provider payout:            provider-payout/batch_id
 manual adjustment:          adjustment/approved_change_request_id
 ```
 
@@ -115,7 +115,7 @@ For each queued event:
 7. Commit.
 8. Acknowledge the queue message.
 
-If step 3–6 fails, roll back and retry. After the configured retry count, send to a dead-letter queue and alert on-call. Cloudflare Queues can retry and route exhausted messages to a DLQ, but the application still needs deduplication because delivery is at least once. [Retries and delays](https://developers.cloudflare.com/queues/configuration/batching-retries/), [dead-letter queues](https://developers.cloudflare.com/queues/configuration/dead-letter-queues/)
+If step 3–6 fails, roll back and retry. The chosen job system must make repeated failures visible to the team rather than silently dropping them. A dead-letter queue is one option; a failed-jobs table and alert is also sufficient for an initial implementation. The application still needs deduplication because jobs may be retried.
 
 ## Reason codes
 

@@ -1,6 +1,8 @@
 # Referral Program Handoff Specification
 
-Status: implementation-ready design, pending the launch decisions listed in [README.md](./README.md).
+Status: technology-neutral product and system reference, pending the launch decisions listed in [README.md](./README.md).
+
+This document describes required behavior, not a mandated architecture. The team may implement it inside the existing Figwork application, as a small separate service, or with managed tools. Prefer the simplest option that preserves attribution, financial accuracy, security, and an audit trail.
 
 ## 1. Goals and boundaries
 
@@ -21,7 +23,7 @@ Status: implementation-ready design, pending the launch decisions listed in [REA
 - Payment for clicks, installs alone, applications, or recruiting other referrers.
 - A social-posting quota or required schedule.
 - Employment timekeeping, task assignment, or manager reporting.
-- Using Tally, the email provider, analytics, or Stripe as the reward system of record.
+- Using Tally, an email provider, analytics, or a payment provider as the reward system of record.
 
 ## 2. User types and permissions
 
@@ -31,7 +33,7 @@ Status: implementation-ready design, pending the launch decisions listed in [REA
 | Selected campus participant | Everything above, plus $10 rate for new referrals after selection, brand-kit access, campus-program title permission, and campus-event proposal access |
 | Referred person | Follow a referral link and complete the normal Figwork activation path; never sees referrer financial data |
 | Program Operations | Review applications, select/remove campus participants, review referrals, approve/reject event proposals, pause payouts, record support decisions |
-| Finance | Approve payout batches, reconcile Stripe and bank records, manage tax status, issue adjustments, export reports |
+| Finance | Approve payout batches, reconcile provider and bank records, manage tax status, issue adjustments, export reports |
 | Trust and Safety | Review fraud signals and appeals without changing commercial terms |
 | Support | Read participant and referral timelines; create escalations; cannot approve its own financial adjustments |
 | Engineer/on-call | Inspect service health and replay idempotent events; cannot invent ledger entries outside an approved operations workflow |
@@ -43,23 +45,23 @@ Use role-based access control. Finance actions above an approved threshold requi
 ```mermaid
 flowchart LR
   A["Figwork account"] --> B["Referral API"]
-  B --> C["PostgreSQL system of record"]
+  B --> C["Program database"]
   D["Referral link / landing page"] --> B
   E["Account, extension, résumé and identity services"] --> F["Product event ingress"]
   F --> C
   C --> G["Transactional outbox"]
-  G --> H["Durable queue"]
+  G --> H["Background jobs / queue"]
   H --> I["Activation and risk worker"]
   I --> C
-  I --> J["Hold workflow"]
+  I --> J["Scheduled hold check"]
   J --> K["Payout scheduler"]
-  K --> L["Stripe Connect"]
+  K --> L["Payment provider"]
   H --> M["Email worker"]
-  M --> N["Resend"]
+  M --> N["Email provider"]
   O["Tally application webhook"] --> P["Program admin service"]
   P --> C
   Q["Operations dashboard"] --> P
-  L --> R["Signed Stripe webhook"]
+  L --> R["Signed payment update"]
   N --> S["Signed email webhook"]
   R --> C
   S --> C
@@ -94,11 +96,11 @@ flowchart LR
 - Rechecks fraud flags, reversals, payout readiness, and annual cap.
 - Marks the reward payable or routes it to review.
 
-**Payout scheduler**
+**Payout process**
 
 - Groups payable rewards by participant.
 - Creates an immutable payout batch.
-- Uses a stable Stripe idempotency key.
+- Uses a stable provider idempotency key so retries cannot duplicate a payout.
 - Never marks a payout paid from the API response alone; it waits for a verified webhook and reconciliation.
 
 **Program admin service**
@@ -258,7 +260,7 @@ POST /v1/me/campus-event-proposals          selected members only
 GET  /r/{opaque_code}
 POST /v1/internal/product-events            signed service request
 POST /v1/webhooks/tally                     signed/secret-verified
-POST /v1/webhooks/stripe                    Stripe signature required
+POST /v1/webhooks/payments                  provider signature required
 POST /v1/webhooks/email                     provider signature required
 ```
 
@@ -289,7 +291,7 @@ Use database transactions for:
 
 Key unique constraints are included in [DATA_MODEL.sql](./DATA_MODEL.sql). Acquire a participant-year advisory lock or lock the cap-usage row before creating a reward. This prevents simultaneous referrals from exceeding the cap.
 
-Queue delivery is at-least-once, so deduplicate by stable event ID and make every handler safe to repeat. Cloudflare explicitly recommends application-level unique IDs for deduplication. [Cloudflare delivery guarantees](https://developers.cloudflare.com/queues/reference/delivery-guarantees/)
+If the chosen background-job system can deliver the same job more than once, deduplicate by a stable event ID and make every handler safe to repeat. A simple scheduled-job system is acceptable at launch if it provides equivalent protection and visibility.
 
 ## 10. Security and privacy
 
@@ -297,7 +299,7 @@ Queue delivery is at-least-once, so deduplicate by stable event ID and make ever
 - Verify raw webhook bodies before JSON parsing where the provider requires it.
 - Rotate webhook secrets and API keys with dual-key overlap.
 - Encrypt sensitive data in transit and at rest.
-- Let Stripe collect payout and bank information. Store only provider IDs and readiness status.
+- Let the chosen payment provider collect payout and bank information when possible. Store only provider IDs and readiness status.
 - Isolate tax metadata from general product data and log every read.
 - Keep raw résumé data out of this system. Consume only approved facts such as `resume_uploaded_at` and verification result.
 - Hash IP/device signals with a rotating keyed HMAC; do not store a permanent cross-product fingerprint without privacy approval.
@@ -368,13 +370,13 @@ Store proposal, vendor, estimated budget, audience, planned date, approval statu
 - Payout onboarding completion.
 - Payable balance age and payout success/failure.
 - Email delivery, bounce, complaint, and suppression rates.
-- Queue retries and dead-letter depth.
+- Background-job retries and unresolved failures.
 
 ### Alerts
 
 - Product events delayed more than 15 minutes.
 - Any payout-batch amount mismatch.
-- Stripe webhook failures or signature errors above baseline.
+- Payment-provider update failures or signature errors above baseline.
 - A payout stuck in processing longer than provider SLA.
 - Dead-letter queue non-empty.
 - Daily reward amount or activation volume exceeds configured anomaly threshold.

@@ -24,8 +24,8 @@ If the repository later needs to become private, move it into the Figwork GitHub
 - [ ] All launch-blocking policy decisions in [README.md](./README.md) are signed off.
 - [ ] Database migrations and rollback/forward-fix plan are reviewed.
 - [ ] Webhook endpoints, signing secrets, rotation procedure, and sandbox/live separation are documented.
-- [ ] Dashboards, alerts, queues, dead-letter queues, and on-call routing are provisioned.
-- [ ] Stripe test accounts and payout reconciliation pass.
+- [ ] Monitoring, failed-job visibility, alerts, and an engineering escalation route are ready.
+- [ ] Payment-provider test accounts and payout reconciliation pass.
 - [ ] Email sending domain, suppression handling, and reply inbox are live.
 - [ ] Support macros and appeals are trained.
 - [ ] Data retention and deletion workflows are tested.

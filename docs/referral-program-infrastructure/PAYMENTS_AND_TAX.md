@@ -1,34 +1,31 @@
 # Payments, Ledger, Reconciliation, and Tax
 
-This document is a technical and operational design. Finance, tax counsel, and Stripe must approve the final funds flow before production.
+This document describes the payout behavior Figwork needs. It does not select a payment provider. Finance, tax counsel, and the eventual provider must approve the final funds flow before production.
 
-## Recommended provider model
+## Payment-provider requirements
 
-Use Stripe Connect with Stripe-hosted or embedded onboarding. This lets Stripe collect required identity and bank information while Figwork stores only connected-account IDs and readiness states. Connect supports connected-account onboarding, payout management, and tax-reporting tooling. [How Connect works](https://docs.stripe.com/connect/how-connect-works), [Connect integration guide](https://docs.stripe.com/connect/design-an-integration)
+Choose a provider that can securely onboard participants, collect payout details, report payout readiness, send payments, report failures or returns, and support the tax process approved by Finance. Reuse an existing Figwork provider if it meets those needs.
 
-The exact connected-account configuration, controller properties, liability allocation, and transfer method must be chosen with Stripe. Do not assume that an e-commerce marketplace example maps directly to referral rewards.
+Stripe Connect is one possible option, not a requirement. Other managed payout platforms or an existing company payment workflow may work. The implementation should follow the selected provider’s model rather than assuming that an e-commerce marketplace example maps directly to referral rewards.
 
 ### Required provider events
 
-At minimum, listen for:
+At minimum, receive or regularly retrieve:
 
-- `account.updated`
-- external-account updates relevant to payouts
-- transfer/payout success
-- transfer/payout failure or return
-- account deauthorization, if applicable
+- Participant onboarding/readiness changes.
+- Payout success.
+- Payout failure or return.
+- Account closure or deauthorization, if applicable.
 
-Stripe says Connect integrations should establish webhook endpoints, and a failed payout can disable the affected external account until it is updated. [Stripe Connect webhooks](https://docs.stripe.com/connect/webhooks)
-
-Verify the Stripe signature against the raw body, check live/test mode, store each provider event ID once, and retrieve the object from Stripe when a financial decision needs confirmation.
+If the provider sends webhooks, verify their signatures, keep test and live events separate, and store each provider event only once. If it does not use webhooks, schedule a reliable reconciliation job.
 
 ## Participant onboarding
 
 1. Participant has a pending or payable reward.
-2. Figwork creates or retrieves the participant’s connected account.
-3. Figwork creates a single-use hosted onboarding link or embedded session.
-4. Participant completes identity, tax, and payout-destination requirements directly with Stripe.
-5. `account.updated` advances local payout readiness only when the required payout fields/capabilities are satisfied.
+2. Figwork creates or retrieves the participant’s provider account.
+3. Figwork opens the provider’s secure onboarding flow.
+4. Participant completes identity, tax, and payout-destination requirements directly with the provider.
+5. Verified provider status advances local payout readiness when the required information is complete.
 6. Figwork reminds the participant about incomplete requirements without exposing the requirements in email.
 
 Never infer readiness from the participant returning to Figwork. Use verified provider state.
@@ -45,21 +42,21 @@ verified activation
   -> provider confirmed paid
 ```
 
-At every transition, append a ledger entry and publish an outbox event in one database transaction.
+At every transition, record the change in the reward history. The implementation may use database transactions, an event system, or existing Figwork financial tooling, but it must not leave the reward and payout records disagreeing.
 
 ## Batching policy
 
 Do not send a separate provider payout for every $5 or $10 reward. Keep rewards itemized in the ledger, then batch payable entries by participant on a predictable schedule.
 
-Recommended launch policy:
+Possible launch policy—the final cadence is a business decision:
 
 - Evaluate payable balances daily.
 - Create payout batches weekly.
 - Include only rewards whose hold has ended and whose participant is payout-ready.
-- Skip a batch when the payable balance is below a Finance-approved minimum, unless the account is being closed or a maximum waiting period has elapsed.
+- A minimum balance is optional. Do not add one unless Finance sees a cost or operational reason.
 - Freeze batch contents before approval.
-- Require Finance approval for the first production batches and for any batch over a configured threshold.
-- Use `stripe-transfer/{batch_id}` as the provider idempotency key.
+- Require manual review of the first production batches; automate approval later if volume and controls justify it.
+- Use `provider-payout/{batch_id}` as the provider idempotency key.
 
 Publish the actual cadence and any minimum/maximum wait in user-facing terms before launch.
 
@@ -84,7 +81,7 @@ IRS materials state that the reporting threshold for certain Form 1099-NEC payme
 Before launch, tax counsel must determine:
 
 - Whether these rewards are reportable as nonemployee compensation or another category.
-- Whether Figwork or Stripe is responsible for collecting forms and filing information returns under the selected Connect model.
+- Whether Figwork or the selected provider is responsible for collecting forms and filing information returns.
 - When to collect W-9 information.
 - How backup withholding is handled.
 - How returned, reversed, or year-end pending rewards affect reporting.
@@ -108,7 +105,7 @@ for each payout-ready participant with payable entries:
   append payout_reserved entries
   commit
 
-submit frozen batch to Stripe with stable idempotency key
+submit frozen batch to the provider with a stable idempotency key
 record provider transfer ID
 wait for signed provider event
 append payout_settled only after confirmed success
@@ -135,7 +132,7 @@ Run three levels:
 
 **Monthly/year-end**
 
-- Ledger, Stripe, bank funding, and general ledger agree.
+- Ledger, payment provider, bank funding, and general ledger agree.
 - Participant-year totals and tax-system totals agree.
 - All manual adjustments have approval evidence.
 - Unclaimed/incomplete-onboarding balances receive the approved notices and disposition.
@@ -158,9 +155,9 @@ Finance signs and stores a reconciliation report. Differences block new payout b
 ## Financial controls
 
 - Separate Program Operations, payout approval, and reconciliation permissions.
-- Two-person approval for manual positive adjustments and high-value batches.
+- Follow Figwork’s existing approval policy for manual adjustments and high-value batches. Add a second approver where Finance considers the risk material.
 - Daily and per-participant payout limits.
 - No direct database edits to balances or payment status.
 - Immutable operator, timestamp, reason, ticket, and before/after metadata for adjustments.
-- Production Stripe access protected by MFA and least privilege.
+- Production payment-provider access protected by MFA and least privilege.
 - Test and live credentials, webhooks, and connected accounts remain strictly separated.

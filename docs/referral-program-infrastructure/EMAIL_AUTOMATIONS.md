@@ -1,6 +1,8 @@
 # Automated Email Specification
 
-Provider recommendation: Resend behind a small provider interface so it can be replaced without changing business logic. Use a verified Figwork sending domain, SPF, DKIM, DMARC, signed webhooks, and provider idempotency keys. Resend retains idempotency keys for 24 hours, so Figwork must also keep a permanent local message key. [Resend idempotency keys](https://resend.com/docs/dashboard/emails/idempotency-keys)
+No email provider is required by this specification. Reuse Figwork’s existing transactional email system if possible. If the team later chooses Resend, Postmark, SendGrid, or another provider, keep provider-specific code behind a small interface so it can be replaced without changing program rules.
+
+Whatever provider is used, configure a verified Figwork sending domain and make each logical email safe to retry without sending duplicates. Store a permanent local message key; do not rely only on the provider’s temporary deduplication window.
 
 Transactional messages must describe an existing program event; do not use the transaction stream for marketing campaigns.
 
@@ -14,6 +16,8 @@ Transactional messages must describe an existing program event; do not use the t
 Final aliases must be provisioned and monitored before launch. If only the support address exists, send from a verified no-reply address and use `businessdevelopment@figwork.ai` as reply-to.
 
 ## Trigger matrix
+
+The first launch does not need every message below. Start with application confirmation/decision, referral outcome, payout setup, and payout outcome. Add progress reminders only when participant support data shows they are needed.
 
 | Template key | Trigger | Recipient | Send timing | Stop/suppress condition |
 | --- | --- | --- | --- | --- |
@@ -119,7 +123,7 @@ Subject: `Welcome to the Figwork campus program`
 5. Save provider message ID and request metadata, never the full secret-bearing provider response.
 6. Verify delivery webhooks and deduplicate by webhook ID.
 7. Mark hard bounces and complaints on the suppression table immediately.
-8. Retry transient errors with exponential backoff; route exhausted messages to the DLQ.
+8. Retry temporary errors and place messages that continue failing in a visible failed-jobs list for staff or engineering review.
 
 Store template key, version, subject, recipient ID, provider ID, status, and timestamps. Retain rendered content only for the legally approved period.
 
