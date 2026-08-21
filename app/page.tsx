@@ -203,7 +203,7 @@ function Tracker() {
       <div className="tracker__topline">
         <div>
           <span className="tracker__eyebrow">your tracker</span>
-          <h3>Referral progress</h3>
+          <p className="tracker__title">Referral progress</p>
         </div>
         <span className="preview-tag">preview</span>
       </div>
@@ -269,10 +269,9 @@ export default function Home() {
         }}
       >
         <header className="site-header">
-          {/* TODO: LOGO_ASSET — replace this placeholder with the official SVG, unmodified. */}
-          <div className="logo-placeholder" aria-label="Figwork logo placeholder">
-            LOGO ASSET
-          </div>
+          <a className="site-logo" href="#top" aria-label="Figwork home">
+            <img src="/figwork-logo-light.png" alt="Figwork" />
+          </a>
           <a className="button button--glow button--small" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">
             Apply now
           </a>

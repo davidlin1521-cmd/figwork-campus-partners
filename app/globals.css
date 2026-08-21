@@ -84,15 +84,16 @@ summary {
   border-bottom: 1px solid rgba(239, 237, 229, 0.5);
 }
 
-.logo-placeholder {
-  display: inline-flex;
-  align-items: center;
-  min-height: 36px;
-  padding: 0 11px;
-  border: 1px dashed rgba(239, 237, 229, 0.65);
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 0.16em;
+.site-logo {
+  display: block;
+  width: clamp(132px, 13vw, 176px);
+  line-height: 0;
+}
+
+.site-logo img {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 
 .header-link {
@@ -562,9 +563,12 @@ h3 {
   text-transform: uppercase;
 }
 
-.tracker h3 {
+.tracker__title {
   margin: 4px 0 0;
   font-size: clamp(28px, 3vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  line-height: 1.05;
 }
 
 .preview-tag {
@@ -1314,7 +1318,7 @@ footer a {
   .hero { min-height: 760px; padding: 18px 20px 50px; }
   .site-header { padding-bottom: 15px; }
   .site-header .button { width: auto; min-height: 38px; padding-inline: 14px; font-size: 10px; }
-  .logo-placeholder { min-height: 31px; font-size: 9px; }
+  .site-logo { width: 128px; }
   .hero__grid { display: block; margin-top: 54px; }
   h1 { font-size: clamp(58px, 18.2vw, 96px); line-height: 0.9; }
   .outline-word { -webkit-text-stroke-width: 1.3px; }

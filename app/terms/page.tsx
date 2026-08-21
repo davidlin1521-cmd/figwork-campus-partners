@@ -18,7 +18,7 @@ export default function TermsPage() {
       <header className="terms-header">
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <a className="terms-logo" href="/" aria-label="Back to the Figwork Student Ambassador Program">
-          LOGO ASSET
+          <img src="/figwork-logo-light.png" alt="Figwork" />
         </a>
         {/* eslint-disable-next-line @next/next/no-html-link-for-pages */}
         <div className="terms-header__links">
