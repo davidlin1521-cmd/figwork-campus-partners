@@ -1,6 +1,7 @@
--- Figwork referral program: proposed PostgreSQL schema.
--- This is a design artifact, not a ready-to-run migration. Adapt identity types,
--- naming, extensions, RLS, partitioning, and migration conventions to Figwork's backend.
+-- Figwork referral program: illustrative PostgreSQL schema.
+-- PostgreSQL has not been selected. This file shows the records and relationships
+-- the program needs; it is not a requirement or a ready-to-run migration.
+-- Adapt it to Figwork's existing database, identity model, naming, and migration conventions.
 
 create type referral_track as enum ('open_referral', 'campus_selected');
 create type referral_status as enum (

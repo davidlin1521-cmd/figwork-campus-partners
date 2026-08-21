@@ -50,7 +50,7 @@ The application buttons open [the approved Tally form](https://tally.so/r/PdZv5x
 - OpenAI Sites hosting metadata
 - Plain CSS for the page-specific visual system
 
-No database is connected to the live marketing site. The included D1/Drizzle files are inactive scaffolding and can be used later if the team chooses that architecture. The production referral design recommends PostgreSQL as its system of record; see the infrastructure handoff before implementing persistence.
+No database is connected to the live marketing site. The included D1/Drizzle files are inactive scaffolding and can be used later if the team chooses that architecture. The referral handoff does not mandate a backend or database; it includes an illustrative PostgreSQL schema only to show the records and relationships the future system needs.
 
 ## Local development
 
@@ -127,10 +127,10 @@ Start with [`docs/referral-program-infrastructure/README.md`](./docs/referral-pr
 
 - System architecture and service boundaries
 - Referral attribution and activation state machines
-- PostgreSQL schema proposal
+- Technology-neutral data requirements with an optional PostgreSQL example
 - Canonical event contracts
 - Automated email lifecycle and draft templates
-- Stripe Connect payout, ledger, reconciliation, and tax design
+- Provider-neutral payout, ledger, reconciliation, and tax design
 - Fraud review, appeals, support, and incident operations
 - Phased implementation and launch criteria
 

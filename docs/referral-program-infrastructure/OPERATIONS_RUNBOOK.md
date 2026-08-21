@@ -18,7 +18,7 @@ Do not launch with an owner column blank.
 
 ## Daily checklist
 
-1. Check ingestion lag, queue retries, and dead-letter queues.
+1. Check that product updates are arriving and review any background jobs that continue to fail.
 2. Review referrals waiting beyond the normal state SLA.
 3. Work the manual-review queue oldest first, except urgent payout/security cases.
 4. Review incomplete payout onboarding and failed payouts.
@@ -118,7 +118,7 @@ An approval includes a maximum amount and expiration date. Out-of-pocket reimbur
 ## Incident severity
 
 - **SEV-1:** Incorrect or duplicate money movement, broad data exposure, compromised payment credentials. Stop payouts, page Engineering/Finance/Security, preserve evidence, and begin the incident plan immediately.
-- **SEV-2:** Reward-state corruption, widespread attribution failure, webhooks down, growing DLQ, or participant tracker broadly incorrect. Pause affected processing and notify owners.
+- **SEV-2:** Reward-state corruption, widespread attribution failure, provider updates down, a growing failed-jobs list, or a broadly incorrect participant tracker. Pause affected processing and notify owners.
 - **SEV-3:** Individual stuck referral, email issue, or isolated provider failure. Route through normal queues with SLA.
 
 Never delete or “repair” financial rows during an incident. Disable the worker or feature flag, preserve the state, and correct through tested append-only operations.
@@ -132,5 +132,5 @@ Never delete or “repair” financial rows during an incident. Disable the work
 - Review email complaints and deliverability.
 - Confirm program configuration matches public terms.
 - Confirm tax thresholds and cohort dates are current.
-- Exercise payout-webhook replay and DLQ recovery in a non-production environment.
+- Exercise payment-update replay and failed-job recovery in a non-production environment.
 - Review retention/deletion queues with Privacy.

@@ -1,77 +1,192 @@
 # Figwork Referral Program Infrastructure
 
-This folder is the implementation handoff for the Figwork referral program and the selected-campus program. It describes the current rules, the recommended production architecture, the data and event contracts, automated communications, payouts, fraud controls, operations, testing, and rollout.
+## Start here
 
-The public marketing pages remain the source for approved customer-facing copy. This package is the source for product and engineering behavior. When the two conflict, stop the launch and resolve the conflict with Program Operations and counsel; do not silently change either one.
+This folder explains what Figwork needs to build behind the Campus Partners website. It is written so a person who has never seen the program can understand the product, the required systems, and the next decisions.
 
-## Current program, in one page
+**No technology stack has been selected by this document.** References to databases, queues, Stripe, Resend, Cloudflare, or other products are examples for engineers to evaluate. Figwork should reuse its existing account, backend, database, email, payment, and hosting systems whenever they can meet the requirements below.
 
-Figwork has two related tracks that use the same referral infrastructure.
+For an executive or project owner, this README is enough to understand the project. The other files are optional implementation references for the teams that eventually build and operate it.
 
-| Track | Entry | Current reward | What the participant receives |
+## The program in 60 seconds
+
+Figwork has one referral program with two ways to participate:
+
+| Track | How someone joins | Current reward | Extra benefits |
 | --- | --- | ---: | --- |
-| Open referral program | Available to any eligible Figwork user; no application | $5 per verified activation | Cash rewards and an in-account tracker |
-| Selected campus program | Application and Figwork selection required | $10 per verified activation for referrals started after selection | Cash rewards, a partner brand kit, permission to propose approved campus events, and the right to use “Figwork Campus Growth Partner,” “Figwork Campus Partner,” or “Figwork Student Ambassador” on a résumé or professional profile |
+| Open referral program | Any eligible Figwork user uses the personal link in their Figwork account; no application | $5 per verified activation | Referral tracker and cash rewards |
+| Selected campus program | A student applies and Figwork selects them | $10 per verified activation for referrals that begin after selection | Brand kit, campus-event proposals, and permission to use an approved Campus Partner / Student Ambassador title |
 
-Open-referral participants are not selected campus partners and cannot use a campus-program title or receive the partner brand kit.
+Open-referral participants are not selected campus participants. They do not receive the brand kit and cannot use the campus-program titles.
 
-The personal referral link is available in the participant’s Figwork account. The selected-campus application currently opens at [Tally](https://tally.so/r/PdZv5x). Program support goes to [businessdevelopment@figwork.ai](mailto:businessdevelopment@figwork.ai).
+Application: [https://tally.so/r/PdZv5x](https://tally.so/r/PdZv5x)
 
-### Verified activation
+Support: [businessdevelopment@figwork.ai](mailto:businessdevelopment@figwork.ai)
 
-A reward is created only when a new, unique referred person completes all required steps within 14 days of the attributed referral click:
+## What earns a reward
 
-1. Installs the Figwork Chrome extension.
-2. Creates a Figwork account.
-3. Uploads a résumé.
-4. Passes Figwork’s uniqueness, authenticity, eligibility, and fraud checks.
+A new person must use the participant’s referral link and complete all required actions within 14 days:
 
-An install by itself does not qualify. A referred person can generate at most one reward, ever. Duplicate, shared, self-referred, or fabricated accounts do not qualify. Recruiting another referrer never earns a reward.
+1. Create a Figwork account.
+2. Install the Figwork Chrome extension.
+3. Upload a résumé.
+4. Pass Figwork’s basic uniqueness and fraud checks.
 
-Rewards enter an approximately 10-day verification hold before becoming payable. The current annual reward cap is $2,000 per participant across both tracks. Program rates may change prospectively with notice, but each referral must keep the rate, track, terms version, and attribution window recorded when it started.
+An install alone does not earn a reward. A person can generate only one reward, ever. Self-referrals, duplicate accounts, fabricated accounts, and recruiting other referrers do not earn rewards.
 
-## Documents in this package
+After verification, the reward is held for approximately 10 days before payout. The current program cap is $2,000 per participant per calendar year across both tracks.
 
-- [HANDOFF_SPEC.md](./HANDOFF_SPEC.md) — complete system design and product behavior.
-- [DATA_MODEL.sql](./DATA_MODEL.sql) — proposed PostgreSQL schema and integrity constraints.
-- [EVENT_CATALOG.md](./EVENT_CATALOG.md) — canonical event names, payloads, and state transitions.
-- [EMAIL_AUTOMATIONS.md](./EMAIL_AUTOMATIONS.md) — lifecycle messages, templates, delivery rules, and suppression handling.
-- [PAYMENTS_AND_TAX.md](./PAYMENTS_AND_TAX.md) — reward ledger, Stripe Connect, payout batching, reconciliation, tax gates, and failure handling.
-- [OPERATIONS_RUNBOOK.md](./OPERATIONS_RUNBOOK.md) — daily operations, fraud review, support, incidents, and audit procedures.
-- [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) — phased build plan, ownership, tests, rollout, and definition of done.
-- [ACCESS_AND_HANDOFF.md](./ACCESS_AND_HANDOFF.md) — repository access and handoff checklist.
+## What needs to be built
 
-## Recommended production stack
+The first working version needs six connected pieces:
 
-Use the existing Figwork application, authentication, account, and product-event services wherever possible. The recommended incremental stack is:
+### 1. Personal referral links
 
-- TypeScript API and workers in the existing Figwork backend.
-- PostgreSQL as the system of record.
-- A transactional outbox plus a durable queue. If Figwork continues on Cloudflare, use Cloudflare Queues and Workflows. Queues are at-least-once, so every consumer must be idempotent; failed messages must go to a dead-letter queue. [Cloudflare delivery guarantees](https://developers.cloudflare.com/queues/reference/delivery-guarantees/), [Cloudflare Workflows](https://developers.cloudflare.com/workflows/)
-- Stripe Connect hosted or embedded onboarding for payout identity and bank details. Do not collect bank details in Figwork. [Stripe Connect overview](https://docs.stripe.com/connect/how-connect-works)
-- Resend behind an email-provider adapter for transactional email, using a unique idempotency key per message. [Resend idempotency keys](https://resend.com/docs/dashboard/emails/idempotency-keys)
-- The existing analytics platform for aggregate funnels only; do not send résumé content, tax identifiers, bank details, or raw identity data to analytics.
+Every eligible Figwork user receives one personal link in their account. When a new person uses the link, Figwork records which participant referred them and when the 14-day window ends.
 
-## Non-negotiable engineering principles
+### 2. Activation tracking
 
-1. The reward ledger is append-only. Corrections are new adjustment entries, never destructive edits.
-2. Every externally received event and every externally issued payment/email has an idempotency key.
-3. Product state, reward state, and payout state are separate state machines.
-4. The server determines attribution, eligibility, rate, cap, and reward status. The browser never does.
-5. A referral snapshots its commercial terms when it begins.
-6. Every manual decision is attributable to an operator and stored in an audit log.
-7. No payment leaves the platform until identity, tax, fraud, cap, and hold checks all pass.
+The existing Figwork product reports when the referred person creates an account, installs the extension, and uploads a résumé. The referral system combines those facts and decides when all requirements are complete.
 
-## Decisions required before production
+### 3. Reward records and participant tracker
 
-These are launch blockers, not implementation details to guess:
+When an activation qualifies, the system creates one reward at the correct $5 or $10 rate. The participant sees a simple status such as link clicked, installed, résumé uploaded, in review, verified, or paid.
 
-- Legal approval of participant eligibility, including the F-1/J-1 restriction and state-specific rules.
-- Tax counsel’s determination of reward classification, W-9 timing, backup withholding, and which party files information returns.
-- Stripe approval of the exact Connect configuration and funds flow.
-- Privacy approval for attribution cookies, résumé-derived verification signals, retention, and deletion.
-- Final definition of “verified activation,” including what identity evidence is necessary and proportionate.
-- Program Operations ownership of fraud appeals, payout exceptions, campus selection, event-budget approvals, and participant removal.
-- Configurable dates for each seasonal cohort; dates must not be hard-coded into the referral engine.
+The system keeps a permanent history of rewards and adjustments so money cannot be duplicated or silently changed.
 
-This material is an engineering and operations specification, not legal or tax advice.
+### 4. Basic review and administration
+
+Figwork staff need a simple internal screen to:
+
+- Review questionable or duplicate referrals.
+- Approve or reject campus applications.
+- Start or end selected-campus membership.
+- See participant and referral history.
+- Pause or correct a payout with a recorded reason.
+- Review campus-event proposals.
+
+This can begin as a small internal tool. It does not need to be an elaborate dashboard.
+
+### 5. Payouts
+
+Participants securely provide the information needed to receive money. Figwork groups verified rewards into payouts, sends them through the chosen payment provider, and records whether each payout succeeds or fails.
+
+Figwork should not store bank details itself if the chosen payment provider can collect them securely.
+
+### 6. Essential emails
+
+The first version needs only a small set of automatic messages:
+
+- Campus application received and decision.
+- Referral verified or not eligible.
+- Payout setup required.
+- Payout sent or failed.
+- Important terms or rate changes.
+
+Additional progress emails can be added later if participants need them.
+
+## Simple end-to-end flow
+
+```text
+Participant gets a personal link
+        ↓
+New person clicks the link
+        ↓
+Figwork remembers the referrer for 14 days
+        ↓
+New person creates an account, installs, and uploads a résumé
+        ↓
+Figwork checks that the person and activity are real and unique
+        ↓
+One $5 or $10 reward is created
+        ↓
+Approximately 10-day verification hold
+        ↓
+Reward is included in a payout
+        ↓
+Participant receives money and the tracker shows “paid”
+```
+
+## What is fixed versus undecided
+
+### Current program requirements
+
+- One personal referral link per participant.
+- A 14-day activation window.
+- Account creation, extension installation, résumé upload, and uniqueness verification.
+- $5 open-referral rate.
+- $10 selected-campus rate for referrals starting after selection.
+- Approximately 10-day verification hold.
+- $2,000 annual participant cap across both tracks.
+- One reward per referred person.
+- A participant-facing tracker.
+- An application and selection process for the campus program.
+- A recorded history of referrals, rewards, reviews, and payouts.
+
+### Decisions the team can make later
+
+- Backend language and framework.
+- Database product.
+- Whether background work uses a queue, scheduled jobs, or an existing workflow system.
+- Payment and tax provider.
+- Transactional email provider.
+- Internal administration tool.
+- Hosting and monitoring products.
+- Exact payout schedule and whether a minimum payout balance is useful.
+- How much fraud review is automated at launch.
+
+The implementation should fit Figwork’s existing systems instead of creating a separate stack without a clear reason.
+
+## Minimum launch protections
+
+These are outcomes the system needs, regardless of technology:
+
+- The same person cannot create two rewards.
+- Retrying a request cannot send two emails or two payments.
+- Old referrals keep the rate and terms that applied when they began.
+- Every reward, adjustment, and payout has a traceable history.
+- Staff changes record who made the change and why.
+- Sensitive résumé, tax, and payment data are not exposed in the tracker or general analytics.
+- Money is not sent until eligibility, the annual cap, the verification hold, and payout readiness are checked.
+
+These protections can be implemented simply. They do not require a large microservice architecture.
+
+## Suggested build order
+
+1. Confirm the program rules, ownership, tax treatment, and payout approach.
+2. Add personal referral links and attribution to the existing Figwork account experience.
+3. Connect the three activation signals from the existing product.
+4. Create the reward history and participant tracker.
+5. Add a small internal review screen.
+6. Add payment onboarding and controlled payout batches.
+7. Add the essential emails.
+8. Test internally without real payments.
+9. Launch with a small group and manually review the first payouts.
+10. Automate more only after the team sees where manual work is actually slowing things down.
+
+## What each file is for
+
+You do not need to read every file immediately.
+
+| File | Audience | Purpose |
+| --- | --- | --- |
+| [README.md](./README.md) | Bosses and project owners | Plain-language program and build overview |
+| [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) | Project owner and engineering lead | Suggested phases and launch checklist |
+| [HANDOFF_SPEC.md](./HANDOFF_SPEC.md) | Product and engineering | Detailed behavior and system boundaries; technology-neutral requirements |
+| [OPERATIONS_RUNBOOK.md](./OPERATIONS_RUNBOOK.md) | Program Operations, Support, Finance | How to review referrals, run payouts, and handle incidents |
+| [EMAIL_AUTOMATIONS.md](./EMAIL_AUTOMATIONS.md) | Program and lifecycle teams | Email triggers and draft copy; most are optional after MVP |
+| [PAYMENTS_AND_TAX.md](./PAYMENTS_AND_TAX.md) | Finance and engineering | Provider-neutral payout workflow, reconciliation, and tax decisions |
+| [EVENT_CATALOG.md](./EVENT_CATALOG.md) | Engineering | Optional example of how product systems can exchange referral events |
+| [DATA_MODEL.sql](./DATA_MODEL.sql) | Engineering | Illustrative PostgreSQL schema, not a required database choice or ready migration |
+| [ACCESS_AND_HANDOFF.md](./ACCESS_AND_HANDOFF.md) | Repository owners | Ownership, access, and transfer checklist |
+
+## Decisions required before real payouts
+
+- Legal approval of participant eligibility and program terms.
+- Tax/Finance decision on payment classification, tax forms, and the annual reporting process.
+- Choice of a payment provider and confirmation of what information it collects.
+- Privacy approval for referral attribution, fraud signals, and data retention.
+- A named owner for campus selection, referral appeals, payout exceptions, and event budgets.
+- Final cohort dates and an effective date for the terms.
+
+The website and this handoff describe the intended program. They do not replace Legal, Tax, Finance, Privacy, or payment-provider approval.
