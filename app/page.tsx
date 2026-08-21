@@ -203,7 +203,7 @@ function Tracker() {
       <div className="tracker__topline">
         <div>
           <span className="tracker__eyebrow">your tracker</span>
-          <h3>Referral progress</h3>
+          <p className="tracker__title">Referral progress</p>
         </div>
         <span className="preview-tag">preview</span>
       </div>
@@ -321,7 +321,7 @@ export default function Home() {
           {steps.map((step, index) => (
             <Reveal className={`process-card process-card--${index + 1}`} key={step.number}>
               <span className="card-number">{step.number}</span>
-              <h3>{step.title}</h3>
+              <p className="card-title">{step.title}</p>
               <p>{step.body}</p>
             </Reveal>
           ))}
@@ -347,7 +347,7 @@ export default function Home() {
                 <span className="benefit-index">0{index + 1}</span>
               </div>
               <div className="benefit-card__copy">
-                <h3>{benefit.title}</h3>
+                <p className="benefit-title">{benefit.title}</p>
                 <p>{benefit.body}</p>
               </div>
             </Reveal>
@@ -367,7 +367,7 @@ export default function Home() {
             <Reveal className="playbook-item" key={move.number}>
               <span className="playbook-item__number">{move.number}</span>
               <div>
-                <h3>{move.title}</h3>
+                <p className="playbook-title">{move.title}</p>
                 <p>{move.body}</p>
               </div>
             </Reveal>
@@ -391,12 +391,12 @@ export default function Home() {
           <div className="faq-list">
             {faq.map((item) => (
               <details key={item.question} open={isPdfExport || undefined}>
-                <summary>{item.question}<span aria-hidden="true">+</span></summary>
+                <summary><h3>{item.question}</h3><span aria-hidden="true">+</span></summary>
                 <p>{item.answer}</p>
               </details>
             ))}
             <details className="program-notes" open={isPdfExport || undefined}>
-              <summary>Program notes<span aria-hidden="true">+</span></summary>
+              <summary><h3>Program notes</h3><span aria-hidden="true">+</span></summary>
               <div className="program-notes__body">
                 <p>No schedules, no quotas, no scripts. You decide what to do and when.</p>
                 <p>Not employment — a program. There’s nothing to clock into and nobody to report to.</p>
