@@ -46,7 +46,7 @@ export default function TermsPage() {
         <details className="term-section" id="what-the-program-is" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">01</span>
-            <p className="term-title">What is the program?</p>
+            <h3>What is the program?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
@@ -62,7 +62,7 @@ export default function TermsPage() {
         <details className="term-section" id="who-can-participate" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">02</span>
-            <p className="term-title">Who can participate?</p>
+            <h3>Who can participate?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
@@ -79,7 +79,7 @@ export default function TermsPage() {
         <details className="term-section" id="verified-activation" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">03</span>
-            <p className="term-title">What counts as a verified activation?</p>
+            <h3>What counts as a verified activation?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
@@ -94,7 +94,7 @@ export default function TermsPage() {
         <details className="term-section" id="payment" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">04</span>
-            <p className="term-title">How and when are rewards paid?</p>
+            <h3>How and when are rewards paid?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
@@ -112,7 +112,7 @@ export default function TermsPage() {
         <details className="term-section" id="taxes" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">05</span>
-            <p className="term-title">What should I know about taxes?</p>
+            <h3>What should I know about taxes?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
@@ -126,7 +126,7 @@ export default function TermsPage() {
         <details className="term-section" id="posting" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">06</span>
-            <p className="term-title">Do I have to post about Figwork?</p>
+            <h3>Do I have to post about Figwork?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
@@ -142,7 +142,7 @@ export default function TermsPage() {
         <details className="term-section" id="sharing" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">07</span>
-            <p className="term-title">How can I share my link?</p>
+            <h3>How can I share my link?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
@@ -156,7 +156,7 @@ export default function TermsPage() {
         <details className="term-section" id="changes" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">08</span>
-            <p className="term-title">Can the program or its terms change?</p>
+            <h3>Can the program or its terms change?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">
@@ -171,7 +171,7 @@ export default function TermsPage() {
         <details className="term-section" id="campus-partners" open={isPdfExport || undefined}>
           <summary>
             <span className="term-number">09</span>
-            <p className="term-title">What titles may selected students use?</p>
+            <h3>What titles may selected students use?</h3>
             <span className="term-toggle" aria-hidden="true">+</span>
           </summary>
           <div className="term-section__body">

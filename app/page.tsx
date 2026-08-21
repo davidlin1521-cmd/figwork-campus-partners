@@ -203,7 +203,7 @@ function Tracker() {
       <div className="tracker__topline">
         <div>
           <span className="tracker__eyebrow">your tracker</span>
-          <p className="tracker__title">Referral progress</p>
+          <h3>Referral progress</h3>
         </div>
         <span className="preview-tag">preview</span>
       </div>
@@ -321,7 +321,7 @@ export default function Home() {
           {steps.map((step, index) => (
             <Reveal className={`process-card process-card--${index + 1}`} key={step.number}>
               <span className="card-number">{step.number}</span>
-              <p className="card-title">{step.title}</p>
+              <h3>{step.title}</h3>
               <p>{step.body}</p>
             </Reveal>
           ))}
@@ -347,7 +347,7 @@ export default function Home() {
                 <span className="benefit-index">0{index + 1}</span>
               </div>
               <div className="benefit-card__copy">
-                <p className="benefit-title">{benefit.title}</p>
+                <h3>{benefit.title}</h3>
                 <p>{benefit.body}</p>
               </div>
             </Reveal>
@@ -367,7 +367,7 @@ export default function Home() {
             <Reveal className="playbook-item" key={move.number}>
               <span className="playbook-item__number">{move.number}</span>
               <div>
-                <p className="playbook-title">{move.title}</p>
+                <h3>{move.title}</h3>
                 <p>{move.body}</p>
               </div>
             </Reveal>

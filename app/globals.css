@@ -459,10 +459,7 @@ h2 {
   font-size: 18px;
 }
 
-h3,
-.card-title,
-.benefit-title,
-.playbook-title {
+h3 {
   margin-bottom: 12px;
   font-size: clamp(24px, 2.1vw, 32px);
   font-weight: 800;
@@ -532,12 +529,6 @@ h3,
   color: var(--charcoal);
 }
 
-.process-card .card-title,
-.benefit-card .benefit-title {
-  margin-bottom: 12px;
-  line-height: 1.05;
-}
-
 .tracker-wrap {
   position: relative;
   z-index: 3;
@@ -571,12 +562,9 @@ h3,
   text-transform: uppercase;
 }
 
-.tracker__title {
+.tracker h3 {
   margin: 4px 0 0;
   font-size: clamp(28px, 3vw, 40px);
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
 }
 
 .preview-tag {
@@ -797,7 +785,7 @@ h3,
   -webkit-text-stroke: 1.5px var(--rust);
 }
 
-.playbook-title {
+.playbook-item h3 {
   margin-bottom: 10px;
   color: var(--rust);
   font-size: clamp(28px, 3vw, 42px);
@@ -1369,7 +1357,7 @@ footer a {
   .benefit-card__topline { display: block; }
   .benefit-card__topline .accent-line { margin-bottom: 18px; }
   .benefit-card__copy { display: block; }
-  .benefit-title { margin-bottom: 10px; }
+  .benefit-card__copy h3 { margin-bottom: 10px; }
   .faq-layout,
   .application__grid { display: block; }
   .playbook-heading { width: auto; margin-left: 0; }
@@ -1378,7 +1366,7 @@ footer a {
   .playbook-item,
   .playbook-item:nth-child(2) { grid-template-columns: 58px 1fr; gap: 16px; margin-left: 0; padding: 28px 0 30px; }
   .playbook-item__number { font-size: 48px; }
-  .playbook-title { font-size: 27px; }
+  .playbook-item h3 { font-size: 27px; }
   .mid-page-cta { display: block; margin-top: 72px; padding: 40px 24px; border-width: 6px; }
   .mid-page-cta h2 { margin-bottom: 32px; }
   .mid-page-cta .button { width: 100%; }

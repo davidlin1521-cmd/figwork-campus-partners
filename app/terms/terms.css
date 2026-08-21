@@ -161,13 +161,10 @@
   letter-spacing: 0.12em;
 }
 
-.term-title {
+.term-section h3 {
   margin: 0;
   color: var(--rust);
   font-size: clamp(27px, 3vw, 38px);
-  font-weight: 800;
-  letter-spacing: -0.035em;
-  line-height: 1.05;
 }
 
 .term-toggle {
