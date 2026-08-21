@@ -26,29 +26,6 @@ const steps = [
 
 const benefits = [
   {
-    title: "Cash per activation",
-    body: "Open referral participants earn $5 per verified activation. Selected Campus Growth Partners earn $10.",
-    accent: "rust",
-  },
-  {
-    title: "Real campaign budgets",
-    body: "Pitch us a campus event — pizza for your club's study night, a table at the career fair. If we fund it, we pay the vendor directly. You run the event.",
-    accent: "sage",
-  },
-  {
-    title: "The title and the kit",
-    body: "Campus Growth Partner at a funded startup, plus a welcome kit.",
-    accent: "steel",
-  },
-  {
-    title: "Your own numbers",
-    body: "A live tracker of everything you drove. Real acquisition results you generated — strong material for any growth or marketing application.",
-    accent: "ochre",
-  },
-];
-
-const benefitsUpdated = [
-  {
     title: "Run your own campaign as a campus ambassador",
     body: "Choose where and how Figwork shows up, from clubs and study groups to career communities.",
     accent: "rust",
@@ -261,10 +238,7 @@ function Tracker() {
 }
 
 export default function Home() {
-  const [copyVersion, setCopyVersion] = useState<"original" | "updated">("updated");
   const [isPdfExport, setIsPdfExport] = useState(false);
-  const isUpdated = copyVersion === "updated";
-  const visibleBenefits = isUpdated ? benefitsUpdated : benefits;
 
   useEffect(() => {
     const exporting = new URLSearchParams(window.location.search).has("pdf");
@@ -279,23 +253,6 @@ export default function Home() {
 
   return (
     <main className={`mode--light energy--studio background--wash wash--strong accents--solid ${isPdfExport ? "pdf-export" : ""}`}>
-      {!isPdfExport && <div className="copy-switcher" role="group" aria-label="Compare page wording">
-        <span>Page copy</span>
-        <button
-          type="button"
-          aria-pressed={!isUpdated}
-          onClick={() => setCopyVersion("original")}
-        >
-          Original
-        </button>
-        <button
-          type="button"
-          aria-pressed={isUpdated}
-          onClick={() => setCopyVersion("updated")}
-        >
-          Benefits edit
-        </button>
-      </div>}
       <section
         className="hero"
         id="top"
@@ -329,11 +286,7 @@ export default function Home() {
             </h1>
           </div>
           <div className="hero__copy">
-            <p>
-              {isUpdated
-                ? "Figwork helps students find the recruiter behind a career posting. Bring it to your campus, run a real campaign, and track what you make happen."
-                : "Figwork finds the actual recruiter behind career postings. We’re picking 2–3 students at each of a handful of universities to help it spread — and paying for every person you bring in."}
-            </p>
+            <p>Figwork helps students find the recruiter behind a career posting. Bring it to your campus, run a real campaign, and track what you make happen.</p>
             <div className="hero__actions">
               <a className="button button--glow" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">
                 Apply now
@@ -383,11 +336,11 @@ export default function Home() {
       <section className="section section--benefits" id="benefits">
         <div className="section-number section-number--right" aria-hidden="true">02</div>
         <Reveal className="section-heading section-heading--benefits">
-          <p className="kicker">{isUpdated ? "WHAT YOU’LL BUILD AS A STUDENT AMBASSADOR" : "WHAT PARTNERS GET"}</p>
-          <h2>{isUpdated ? "Your brand ambassador campaign. Your results." : "Proof you can point to."}</h2>
+          <p className="kicker">WHAT YOU’LL BUILD AS A STUDENT AMBASSADOR</p>
+          <h2>Your brand ambassador campaign. Your results.</h2>
         </Reveal>
         <div className="benefit-grid">
-          {visibleBenefits.map((benefit, index) => (
+          {benefits.map((benefit, index) => (
             <Reveal className={`benefit-card benefit-card--${index + 1}`} key={benefit.title}>
               <div className="benefit-card__topline">
                 <span className={`accent-line accent-line--${benefit.accent}`} />
@@ -438,12 +391,12 @@ export default function Home() {
           <div className="faq-list">
             {faq.map((item) => (
               <details key={item.question} open={isPdfExport || undefined}>
-                <summary><h3>{item.question}</h3><span aria-hidden="true">+</span></summary>
+                <summary>{item.question}<span aria-hidden="true">+</span></summary>
                 <p>{item.answer}</p>
               </details>
             ))}
             <details className="program-notes" open={isPdfExport || undefined}>
-              <summary><h3>Program notes</h3><span aria-hidden="true">+</span></summary>
+              <summary>Program notes<span aria-hidden="true">+</span></summary>
               <div className="program-notes__body">
                 <p>No schedules, no quotas, no scripts. You decide what to do and when.</p>
                 <p>Not employment — a program. There’s nothing to clock into and nobody to report to.</p>
