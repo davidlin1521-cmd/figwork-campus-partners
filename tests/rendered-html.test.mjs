@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFile } from "node:fs/promises";
 
 async function render(pathname = "/") {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
@@ -33,14 +34,22 @@ test("server-renders the current Campus Partners page", async () => {
   const text = visibleText(html);
 
   assert.match(html, /<title>Student Ambassador Program - Figwork<\/title>/i);
+  assert.match(html, /<meta name="description" content="Become a Figwork campus ambassador through our student ambassador program: run real referral campaigns, earn cash per activation, and build your resume\."/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/figwork\.ai\/student-ambassador-program"/i);
+  assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
   assert.match(text, /Run growth for a real startup\. On your campus\./);
   assert.match(text, /How the Student Ambassador Program works/);
   assert.match(text, /Your brand ambassador campaign\. Your results\./);
   assert.match(text, /Turn your campus into your campaign\./);
   assert.match(text, /Ambassador Program FAQs/);
   assert.match(text, /Apply for fall\/winter/);
+  assert.equal((html.match(/<h2\b/gi) ?? []).length, 6);
+  assert.ok((html.match(/<h3\b/gi) ?? []).length >= 20);
+  assert.doesNotMatch(html, /<h3[^>]*>\s*Referral progress\s*<\/h3>/i);
   assert.match(text, /Campus Growth Partners earn \$10 per verified activation/);
   assert.match(text, /Open referral participants earn \$5/);
+  assert.match(text, /Figwork Campus Growth Partner, Campus Partner, or Student Ambassador on a resume/);
+  assert.doesNotMatch(text, /\b(?:job|role|position|hire|interview|hours|shift|salary|wage)\b/i);
   assert.ok((text.match(/Apply now/gi) ?? []).length >= 3);
   assert.match(html, /https:\/\/tally\.so\/r\/PdZv5x/);
   assert.match(html, /https:\/\/tally\.so\/embed\/PdZv5x/);
@@ -66,6 +75,10 @@ test("server-renders the current terms and conditions", async () => {
   const text = visibleText(html);
 
   assert.match(html, /<title>Terms and Conditions \| Figwork Student Ambassador Program<\/title>/i);
+  assert.match(html, /<link rel="canonical" href="https:\/\/figwork\.ai\/student-ambassador-program\/terms"/i);
+  assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
+  assert.equal((html.match(/<h2\b/gi) ?? []).length, 1);
+  assert.equal((html.match(/<h3\b/gi) ?? []).length, 9);
   assert.match(text, /Terms and conditions\./);
   assert.match(text, /The details, plainly\./);
   assert.match(text, /What counts as a verified activation\?/);
@@ -77,4 +90,35 @@ test("server-renders the current terms and conditions", async () => {
   assert.match(text, /businessdevelopment@figwork\.ai/);
   assert.match(html, /href="\/downloads\/figwork-terms-and-conditions\.pdf"/);
   assert.doesNotMatch(text, /COUNSEL:|qualifying product action|\[CAP\]|\[PARTNER CAP\]|\$\[RATE\]|\[CONTACT EMAIL\]/);
+});
+
+test("referral infrastructure matches the current public program", async () => {
+  const infrastructureReadme = await readFile(
+    new URL("../docs/referral-program-infrastructure/README.md", import.meta.url),
+    "utf8",
+  );
+  const diagrams = await readFile(
+    new URL("../docs/referral-program-infrastructure/SYSTEM_DIAGRAMS.md", import.meta.url),
+    "utf8",
+  );
+
+  for (const required of [
+    "$5",
+    "$10",
+    "$2,000",
+    "14 days",
+    "10-day",
+    "https://tally.so/r/PdZv5x",
+    "businessdevelopment@figwork.ai",
+  ]) {
+    assert.match(infrastructureReadme, new RegExp(required.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")));
+  }
+
+  assert.match(diagrams, /## 1\. Program and user flow/);
+  assert.match(diagrams, /## 2\. Engineering system architecture/);
+  assert.match(diagrams, /PostgreSQL/);
+  assert.match(diagrams, /Cloudflare Queues/);
+  assert.match(diagrams, /Stripe Connect/);
+  assert.match(diagrams, /Resend/);
+  assert.doesNotMatch(`${infrastructureReadme}\n${diagrams}`, /5Baz1o|SPRING COHORT/i);
 });

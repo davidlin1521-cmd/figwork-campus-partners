@@ -2,6 +2,12 @@
 
 This is a suggested order, not a required project methodology. Combine phases when Figwork’s existing systems already provide the capability, and start with manual operations where automation would add more complexity than value.
 
+## Recommended delivery shape
+
+Plan the first release as one referral module inside Figwork's existing backend, one relational database, one reliable job runner, one small staff screen, Tally, a managed payment provider, and a transactional email provider. This is the simplest complete shape; the boxes in [SYSTEM_DIAGRAMS.md](./SYSTEM_DIAGRAMS.md) do not need to become separate microservices.
+
+If Figwork's current stack does not already decide the vendors, estimate PostgreSQL, Cloudflare Queues plus scheduled Workflows/Cron, Stripe Connect hosted onboarding, and Resend as the baseline. Treat each as replaceable until Engineering, Finance, Tax, Security, and Privacy approve the choices.
+
 ## Phase 0 — decisions and ownership
 
 Deliverables:
@@ -23,7 +29,7 @@ Build:
 - Referral-code creation and in-account display.
 - `/r/{code}` resolver, signed attribution token, consent behavior, and redirect.
 - Account-creation redemption and immutable attribution.
-- Product-event ingress, schema registry, raw event store, transactional outbox.
+- Product-event intake, validation, raw event record, and a reliable handoff to background work. A transactional outbox is the preferred pattern when the database and job system support it.
 - Participant tracker read model with no financial payout yet.
 
 Tests:
@@ -137,4 +143,4 @@ The infrastructure is production-ready only when:
 | Reconciliation/observability | 5 | Payouts and events |
 | Shadow/canary rollout | 6 | All prior workstreams |
 
-Do not estimate calendar dates until the owners and existing Figwork service boundaries are known.
+Do not estimate calendar dates until the owners and existing Figwork service boundaries are known. The implementation should stay close to the recommended one-application baseline until real scale or ownership needs justify more separation.

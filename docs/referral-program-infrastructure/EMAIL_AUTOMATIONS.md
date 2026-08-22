@@ -1,8 +1,8 @@
 # Automated Email Specification
 
-No email provider is required by this specification. Reuse Figwork’s existing transactional email system if possible. If the team later chooses Resend, Postmark, SendGrid, or another provider, keep provider-specific code behind a small interface so it can be replaced without changing program rules.
+Reuse Figwork’s existing transactional email system if possible. If Figwork does not have one, **Resend is the recommended lightweight starting point**, with Postmark as a reasonable alternative. Keep provider-specific code behind a small interface so the provider can be changed without changing program rules.
 
-Whatever provider is used, configure a verified Figwork sending domain and make each logical email safe to retry without sending duplicates. Store a permanent local message key; do not rely only on the provider’s temporary deduplication window.
+Whatever provider is used, configure a verified Figwork sending domain and make each logical email safe to retry without sending duplicates. Store a permanent local message key; do not rely only on the provider’s temporary deduplication window. Resend supports request idempotency keys, but its documented key window is 24 hours, so Figwork still needs its own permanent `message_key` record. [Resend idempotency keys](https://resend.com/docs/dashboard/emails/idempotency-keys)
 
 Transactional messages must describe an existing program event; do not use the transaction stream for marketing campaigns.
 
