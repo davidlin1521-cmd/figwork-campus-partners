@@ -37,7 +37,11 @@ test("server-renders the current Campus Partners page", async () => {
   assert.match(html, /<meta name="description" content="Become a Figwork campus ambassador through our student ambassador program: run real referral campaigns, earn cash per activation, and build your resume\."/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/figwork\.ai\/student-ambassador-program"/i);
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
-  assert.match(text, /Run growth for a real startup\. On your campus\./);
+  assert.match(text, /Run growth for a real startup\./);
+  assert.doesNotMatch(text, /Run growth for a real startup\. On your campus\./);
+  assert.match(text, /FIGWORK CAMPUS PARTNERS Run growth/);
+  assert.doesNotMatch(text, /FIGWORK CAMPUS PARTNERS · STUDENT AMBASSADOR PROGRAM/);
+  assert.match(text, /Figwork's college student ambassador program helps students find the recruiter behind a career posting\. Be a university ambassador on your campus, run a real campaign, and track what you make happen\./);
   assert.match(text, /How the Student Ambassador Program works/);
   assert.match(text, /Your brand ambassador campaign\. Your results\./);
   assert.match(text, /Turn your campus into your campaign\./);
@@ -49,7 +53,8 @@ test("server-renders the current Campus Partners page", async () => {
   assert.match(text, /Campus Growth Partners earn \$10 per verified activation/);
   assert.match(text, /Open referral participants earn \$5/);
   assert.match(text, /Figwork Campus Growth Partner, Campus Partner, or Student Ambassador on a resume/);
-  assert.doesNotMatch(text, /\b(?:job|role|position|hire|interview|hours|shift|salary|wage)\b/i);
+  assert.match(text, /Build skills in a startup growth role/);
+  assert.doesNotMatch(text, /\b(?:job|position|hire|interview|hours|shift|salary|wage)\b/i);
   assert.ok((text.match(/Apply now/gi) ?? []).length >= 3);
   assert.match(html, /https:\/\/tally\.so\/r\/PdZv5x/);
   assert.match(html, /https:\/\/tally\.so\/embed\/PdZv5x/);
@@ -63,7 +68,7 @@ test("SEO alias renders the same program", async () => {
   assert.equal(response.status, 200);
 
   const text = visibleText(await response.text());
-  assert.match(text, /Run growth for a real startup\. On your campus\./);
+  assert.match(text, /Run growth for a real startup\./);
   assert.match(text, /Apply for fall\/winter/);
 });
 
