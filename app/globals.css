@@ -433,8 +433,11 @@ summary:focus-visible {
 }
 
 .section-number--right {
-  right: clamp(24px, 4vw, 60px);
-  left: auto;
+  right: auto;
+  left: clamp(20px, 2vw, 44px);
+  z-index: 0;
+  color: rgba(151, 67, 21, 0.28);
+  pointer-events: none;
 }
 
 .section-heading {

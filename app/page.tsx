@@ -37,7 +37,7 @@ const benefits = [
     accent: "sage",
   },
   {
-    title: "Build startup growth skills",
+    title: "Build skills in a startup growth role",
     body: "Practice outreach, campaign planning, positioning, and conversion with a live product.",
     accent: "steel",
   },
@@ -281,13 +281,13 @@ export default function Home() {
 
         <div className="hero__grid">
           <div className="hero__title-block">
-            <p className="kicker kicker--cream">FIGWORK CAMPUS PARTNERS · STUDENT AMBASSADOR PROGRAM</p>
+            <p className="kicker kicker--cream">FIGWORK CAMPUS PARTNERS</p>
             <h1>
-              Run <span className="outline-word">growth</span> for a real startup. On your campus.
+              Run <span className="outline-word">growth</span> for a real startup.
             </h1>
           </div>
           <div className="hero__copy">
-            <p>Figwork helps students find the recruiter behind a career posting. Bring it to your campus, run a real campaign, and track what you make happen.</p>
+            <p>Figwork&apos;s college student ambassador program helps students find the recruiter behind a career posting. Be a university ambassador on your campus, run a real campaign, and track what you make happen.</p>
             <div className="hero__actions">
               <a className="button button--glow" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">
                 Apply now
