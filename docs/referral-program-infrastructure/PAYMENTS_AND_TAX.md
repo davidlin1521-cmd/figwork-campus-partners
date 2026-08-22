@@ -1,12 +1,14 @@
 # Payments, Ledger, Reconciliation, and Tax
 
-This document describes the payout behavior Figwork needs. It does not select a payment provider. Finance, tax counsel, and the eventual provider must approve the final funds flow before production.
+This document describes the payout behavior Figwork needs. Finance, tax counsel, and the eventual provider must approve the final funds flow before production.
 
 ## Payment-provider requirements
 
 Choose a provider that can securely onboard participants, collect payout details, report payout readiness, send payments, report failures or returns, and support the tax process approved by Finance. Reuse an existing Figwork provider if it meets those needs.
 
-Stripe Connect is one possible option, not a requirement. Other managed payout platforms or an existing company payment workflow may work. The implementation should follow the selected provider’s model rather than assuming that an e-commerce marketplace example maps directly to referral rewards.
+If Figwork does not already have a suitable payout system, **Stripe Connect with Stripe-hosted onboarding is the recommended first option to evaluate**. Connect supports connected-account onboarding and payouts, while hosted onboarding can collect identity and payout information outside Figwork's application. Other managed payout platforms or an existing company payment workflow may be a better fit after Finance review. The implementation must follow the selected provider’s actual model rather than assuming that an e-commerce marketplace example maps directly to referral rewards. [Stripe Connect overview](https://docs.stripe.com/connect/how-connect-works), [Stripe-hosted onboarding](https://docs.stripe.com/connect/hosted-onboarding)
+
+Do not assume that choosing Stripe automatically makes Stripe responsible for Figwork's tax filing. Stripe's tax-form features depend on the Connect configuration and enabled capabilities, and some collection features can be limited or separately configured. Finance and tax counsel must confirm who collects W-9 information, who files, and how forms are delivered before implementation. [Stripe tax verification requirements](https://docs.stripe.com/connect/required-verification-information-taxes)
 
 ### Required provider events
 
@@ -76,7 +78,7 @@ The cap is a program limit. It is separate from tax-reporting thresholds and mus
 
 ## 2026 information-reporting note
 
-IRS materials state that the reporting threshold for certain Form 1099-NEC payments is $2,000 for payments made in 2026, with later years subject to inflation adjustment. The IRS also notes that backup-withholding situations can require reporting regardless of amount. [IRS 2026 Publication 15](https://www.irs.gov/publications/p15), [IRS information-return guidance](https://www.irs.gov/businesses/small-businesses-self-employed/am-i-required-to-file-a-form-1099-or-other-information-return)
+IRS materials state that the reporting threshold for certain Form 1099-NEC payments is $2,000 for payments made in 2026, with later years subject to inflation adjustment. The IRS also notes that backup-withholding situations can require reporting regardless of amount. [IRS information-return guidance](https://www.irs.gov/businesses/small-businesses-self-employed/am-i-required-to-file-a-form-1099-or-other-information-return), [2026 Form 1099-MISC/1099-NEC instructions](https://www.irs.gov/instructions/i1099mec)
 
 Before launch, tax counsel must determine:
 

@@ -4,9 +4,11 @@
 
 This folder explains what Figwork needs to build behind the Campus Partners website. It is written so a person who has never seen the program can understand the product, the required systems, and the next decisions.
 
-**No technology stack has been selected by this document.** References to databases, queues, Stripe, Resend, Cloudflare, or other products are examples for engineers to evaluate. Figwork should reuse its existing account, backend, database, email, payment, and hosting systems whenever they can meet the requirements below.
+**No technology stack has been locked by this document.** It still includes a practical recommended baseline so the next team is not starting from a blank page. Figwork should reuse its existing account, backend, database, email, payment, and hosting systems whenever they can meet the requirements below; use the recommendations when an existing system does not already answer the choice.
 
 For an executive or project owner, this README is enough to understand the project. The other files are optional implementation references for the teams that eventually build and operate it.
+
+Start with [SYSTEM_DIAGRAMS.md](./SYSTEM_DIAGRAMS.md) when you want to see how the participant journey, tracking, fraud review, dashboards, money, and technical components connect.
 
 ## The program in 60 seconds
 
@@ -122,6 +124,8 @@ Participant receives money and the tracker shows “paid”
 - A participant-facing tracker.
 - An application and selection process for the campus program.
 - A recorded history of referrals, rewards, reviews, and payouts.
+- Public eligibility rules: participant is 18 or older, physically in the United States, not participating on an F-1 or J-1 student visa, has a valid U.S. taxpayer identification number, and can complete a Form W-9 when required.
+- Figwork employees and their immediate family cannot earn referral rewards; college athletes remain responsible for applicable school or athletic-association reporting.
 
 ### Decisions the team can make later
 
@@ -137,6 +141,21 @@ Participant receives money and the tracker shows “paid”
 
 The implementation should fit Figwork’s existing systems instead of creating a separate stack without a clear reason.
 
+## Recommended technical baseline
+
+This is the default recommendation if discovery does not identify an existing Figwork tool that already solves the problem:
+
+- **Backend:** add the referral module to Figwork's existing authenticated backend. If a separate API is unavoidable, keep it small and use the language the team already supports.
+- **Database:** use Figwork's existing relational database; choose PostgreSQL if the team needs a new database.
+- **Background work:** use the existing job runner. If Figwork continues on Cloudflare and has no job system, evaluate Cloudflare Queues plus scheduled Workflows or Cron.
+- **Applications:** keep Tally for the first campus cohort and import or receive submissions into a simple internal queue.
+- **Payments:** evaluate Stripe Connect with hosted onboarding first, while Finance and tax counsel confirm the provider model, funds flow, and reporting responsibility.
+- **Email:** use Figwork's existing transactional provider. If none exists, evaluate Resend or Postmark behind a replaceable adapter.
+- **Administration:** begin with a protected internal page for applications, referral review, corrections, and payout exceptions.
+- **Monitoring:** use Figwork's existing logs and alerts; make failed jobs, delayed events, and payout mismatches visible.
+
+This baseline is intentionally one application, one primary database, and a few managed services. It is not a microservice requirement. See [SYSTEM_DIAGRAMS.md](./SYSTEM_DIAGRAMS.md) for both the executive flow and engineering architecture.
+
 ## Minimum launch protections
 
 These are outcomes the system needs, regardless of technology:
@@ -150,6 +169,25 @@ These are outcomes the system needs, regardless of technology:
 - Money is not sent until eligibility, the annual cap, the verification hold, and payout readiness are checked.
 
 These protections can be implemented simply. They do not require a large microservice architecture.
+
+## Public wording and legal-feedback alignment
+
+The current website, terms, and this handoff use the same operating rules:
+
+| Topic | Current rule carried through the project |
+| --- | --- |
+| Program structure | Open referral program for eligible Figwork users plus an application-only selected campus program |
+| Program names | Figwork Campus Growth Partner, Figwork Campus Partner, and Figwork Student Ambassador are permitted only for selected participants |
+| Current rates | $5 for open referrals; $10 for referrals that begin after selected-campus membership becomes effective |
+| Verified activation | New unique person, valid attribution, account created, extension installed, and resume uploaded within 14 days; install alone never pays |
+| Reward timing | Approximately 10-day verification hold before payout |
+| Program cap | $2,000 per participant per calendar year across both tracks |
+| Employment boundary | No employment, contractor, or agency relationship; no schedules, duties, quotas, scripts, or required posting |
+| Sharing and endorsements | Personal sharing only; no automated or mass sending; material connections must be clearly disclosed when posting |
+| Fraud | No self-referrals, duplicate/fabricated accounts, downstream-referrer rewards, or silent deletion of financial history |
+| Support and application | `businessdevelopment@figwork.ai` and `https://tally.so/r/PdZv5x` |
+
+This is a consistency check, not legal approval. Before a Figwork-owned launch, Legal and Tax still need to approve the final eligibility/visa language, tax classification and forms, payment flow, disclosure training, terms effective date, and any state-specific requirements. The website currently leaves the effective date as `[DATE]` so it cannot be mistaken for a completed legal sign-off.
 
 ## Suggested build order
 
@@ -171,6 +209,7 @@ You do not need to read every file immediately.
 | File | Audience | Purpose |
 | --- | --- | --- |
 | [README.md](./README.md) | Bosses and project owners | Plain-language program and build overview |
+| [SYSTEM_DIAGRAMS.md](./SYSTEM_DIAGRAMS.md) | Bosses, product, and engineering | Executive program flow plus engineering architecture and recommended baseline |
 | [IMPLEMENTATION_PLAN.md](./IMPLEMENTATION_PLAN.md) | Project owner and engineering lead | Suggested phases and launch checklist |
 | [HANDOFF_SPEC.md](./HANDOFF_SPEC.md) | Product and engineering | Detailed behavior and system boundaries; technology-neutral requirements |
 | [OPERATIONS_RUNBOOK.md](./OPERATIONS_RUNBOOK.md) | Program Operations, Support, Finance | How to review referrals, run payouts, and handle incidents |

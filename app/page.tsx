@@ -37,7 +37,7 @@ const benefits = [
     accent: "sage",
   },
   {
-    title: "Build skills in a startup growth role",
+    title: "Build startup growth skills",
     body: "Practice outreach, campaign planning, positioning, and conversion with a live product.",
     accent: "steel",
   },
@@ -48,7 +48,7 @@ const benefits = [
   },
   {
     title: "Get the title and kit",
-    body: "Selected students can use the Campus Growth Partner title and receive the Figwork brand kit.",
+    body: "Selected students may use Figwork Campus Growth Partner, Campus Partner, or Student Ambassador on a resume and receive the brand kit.",
     accent: "rust",
   },
   {
@@ -80,12 +80,12 @@ const faq = [
   {
     question: "Who is this campus ambassador application for?",
     answer:
-      "This application is only for students who want to be selected as Campus Growth Partners. Selected Partners may use the Campus Growth Partner title, receive the brand kit, and propose campus events for Figwork to fund.",
+      "This application is only for students who want to join the selected campus program. Selected students may use Figwork Campus Growth Partner, Campus Partner, or Student Ambassador on a resume, receive the brand kit, and propose campus events for Figwork to fund.",
   },
   {
     question: "Do I need to apply to earn referral rewards?",
     answer:
-      "No. Anyone who meets the referral eligibility requirements can use their personal Figwork referral link and earn cash. Open referral participants are not Campus Growth Partners and do not receive the Campus Growth Partner title or brand kit.",
+      "No. Anyone who meets the referral eligibility requirements can use their personal Figwork referral link and earn cash. Open referral participants are not part of the selected campus program, cannot use its titles, and do not receive the brand kit.",
   },
   {
     question: "How much can I earn?",

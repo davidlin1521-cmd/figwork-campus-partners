@@ -25,6 +25,18 @@ This document describes required behavior, not a mandated architecture. The team
 - Employment timekeeping, task assignment, or manager reporting.
 - Using Tally, an email provider, analytics, or a payment provider as the reward system of record.
 
+### Program rules that shape the build
+
+- The public eligibility rule is 18 or older, physically located in the United States, not participating while in the U.S. on an F-1 or J-1 student visa, able to provide a valid U.S. taxpayer identification number, and able to complete a Form W-9 when required. Keep this rule versioned and block cash eligibility safely when required data is missing. Legal and Tax must approve the final implementation wording before launch.
+- Figwork employees and their immediate family cannot earn rewards. College athletes remain responsible for applicable reporting; the application should capture the minimum approved flag without turning the referral database into an athletics-compliance system.
+- No participant is paid for time, posting, applications, clicks, installs alone, or recruiting another referrer.
+- Do not build hours, schedules, duties, quotas, scripts, task assignment, or manager reporting into the campus program.
+- Figwork supplies a personal link, not pre-written messages or automated sharing. The product must not message a participant's contacts.
+- Posting is optional. If a selected participant endorses Figwork, program guidance must require a clear disclosure of the material relationship in the post itself.
+- Participants who receive program benefits must not be prompted to review Figwork in the Chrome Web Store or an app store while participating.
+- Product and program copy must not promise employment, hiring outcomes, or specific earnings beyond approved current rates and limits.
+- Referral rewards are single-level. There is no downline, and no reward is created for a referred person's referrals.
+
 ## 2. User types and permissions
 
 | Actor | Capabilities |
@@ -41,6 +53,8 @@ This document describes required behavior, not a mandated architecture. The team
 Use role-based access control. Finance actions above an approved threshold require a second approver. Support must not see W-9 fields, bank details, or raw résumé contents.
 
 ## 3. System architecture
+
+This is the detailed engineering view. [SYSTEM_DIAGRAMS.md](./SYSTEM_DIAGRAMS.md) also includes a simpler participant/program flow and explains how the two diagrams relate.
 
 ```mermaid
 flowchart LR
@@ -66,6 +80,20 @@ flowchart LR
   R --> C
   S --> C
 ```
+
+### Recommended implementation mapping
+
+The architecture above names responsibilities, not mandatory services. If Figwork's existing stack does not already decide a component, use this baseline for estimation:
+
+- Existing Figwork backend and authentication for the Referral API and participant dashboard.
+- Existing relational database, or PostgreSQL if a new database is required.
+- Existing background jobs, or Cloudflare Queues plus scheduled Workflows/Cron when the team remains on Cloudflare.
+- Existing internal admin surface, or one small protected admin page.
+- Tally for the first campus application intake.
+- Stripe Connect with hosted onboarding as the first payout option to evaluate.
+- Existing transactional email provider, or Resend/Postmark behind a provider interface.
+
+This can run as one application plus workers. Split components into separate services only if scale, ownership, security, or an existing Figwork boundary makes that useful.
 
 ### Component responsibilities
 
@@ -343,6 +371,10 @@ Provide an appeal path. Do not reveal detection thresholds or raw signals in par
 5. Send confirmation email.
 6. Program Operations records selected, waitlisted, or declined.
 7. On selection, create membership with an explicit `effective_at`, unlock the brand kit, and send onboarding.
+
+The application should collect only the approved information needed to select organizers and apply program safeguards. The current planning set is: name, school and expected graduation year, student email, optional professional/profile links, communities or activities, a short strategy response, a short motivation response, age confirmation, athlete flag, student-visa/work-authorization flag, and application source. Keep the exact fields synchronized with the live Tally form and Legal-approved wording.
+
+Do not add resume upload, GPA, demographic screening, hours/availability ranges, an interview step, or language that describes employment. Use a consistent written rubric and record the decision without creating employment-style supervision.
 
 If Tally cannot provide sufficient signature verification, place it behind a narrow integration endpoint with an unguessable URL, strict schema, replay detection, rate limits, and periodic reconciliation against exports.
 

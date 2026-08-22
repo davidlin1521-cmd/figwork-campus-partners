@@ -18,6 +18,7 @@ Production-ready source and handoff documentation for the Figwork Campus Partner
 | Program support | [businessdevelopment@figwork.ai](mailto:businessdevelopment@figwork.ai) |
 | Website handoff | [docs/WEBSITE_HANDOFF.md](./docs/WEBSITE_HANDOFF.md) |
 | Referral infrastructure handoff | [docs/referral-program-infrastructure](./docs/referral-program-infrastructure/README.md) |
+| Referral system diagrams | [Executive flow and engineering architecture](./docs/referral-program-infrastructure/SYSTEM_DIAGRAMS.md) |
 
 ## What this repository contains
 
@@ -50,7 +51,7 @@ The application buttons open [the approved Tally form](https://tally.so/r/PdZv5x
 - OpenAI Sites hosting metadata
 - Plain CSS for the page-specific visual system
 
-No database is connected to the live marketing site. The included D1/Drizzle files are inactive scaffolding and can be used later if the team chooses that architecture. The referral handoff does not mandate a backend or database; it includes an illustrative PostgreSQL schema only to show the records and relationships the future system needs.
+No database is connected to the live marketing site. The included D1/Drizzle files are inactive scaffolding and can be used later if the team chooses that architecture. The referral handoff does not lock a backend or database. It includes a recommended baseline and an illustrative PostgreSQL schema so a new team has a concrete starting point while remaining free to reuse Figwork's actual stack.
 
 ## Local development
 
@@ -126,6 +127,8 @@ The Sites project identifier in `.openai/hosting.json` is deployment metadata, n
 Start with [`docs/referral-program-infrastructure/README.md`](./docs/referral-program-infrastructure/README.md). The package includes:
 
 - System architecture and service boundaries
+- Executive program flow and engineering architecture diagrams
+- Practical default technology recommendations with replaceable alternatives
 - Referral attribution and activation state machines
 - Technology-neutral data requirements with an optional PostgreSQL example
 - Canonical event contracts
@@ -134,7 +137,7 @@ Start with [`docs/referral-program-infrastructure/README.md`](./docs/referral-pr
 - Fraud review, appeals, support, and incident operations
 - Phased implementation and launch criteria
 
-The specification clearly marks decisions that still require Legal, Tax, Finance, Privacy, and Stripe approval.
+The specification clearly marks decisions that still require Legal, Tax, Finance, Privacy, Engineering, and the chosen payment provider.
 
 ## Ownership and licensing
 
