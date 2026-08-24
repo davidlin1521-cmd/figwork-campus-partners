@@ -1,0 +1,14 @@
+{
+  "name": "figwork-referral-program-reference",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Optional executable starter for the Figwork referral program infrastructure.",
+  "scripts": {
+    "demo": "node src/demo.mjs",
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

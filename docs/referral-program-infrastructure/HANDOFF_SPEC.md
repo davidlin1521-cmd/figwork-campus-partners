@@ -4,6 +4,8 @@ Status: technology-neutral product and system reference, pending the launch deci
 
 This document describes required behavior, not a mandated architecture. The team may implement it inside the existing Figwork application, as a small separate service, or with managed tools. Prefer the simplest option that preserves attribution, financial accuracy, security, and an audit trail.
 
+The [optional standalone reference implementation](./reference-implementation/README.md) demonstrates these rules in working code. Its storage, email, risk, and payment adapters are replaceable so the next team can reuse the domain logic without adopting a separate mandatory stack.
+
 ## 1. Goals and boundaries
 
 ### Goals
