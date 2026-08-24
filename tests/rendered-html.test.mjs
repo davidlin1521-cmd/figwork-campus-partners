@@ -86,6 +86,8 @@ test("server-renders the current terms and conditions", async () => {
   assert.equal((html.match(/<h2\b/gi) ?? []).length, 1);
   assert.equal((html.match(/<h3\b/gi) ?? []).length, 9);
   assert.match(text, /Terms and conditions\./);
+  assert.match(text, /FIGWORK STUDENT AMBASSADOR PROGRAM Terms and conditions\./);
+  assert.doesNotMatch(text, /FIGWORK CAMPUS PARTNERS · STUDENT AMBASSADOR PROGRAM/);
   assert.match(text, /The details, plainly\./);
   assert.match(text, /What counts as a verified activation\?/);
   assert.match(text, /capped at \$2,000 per participant per calendar year/);
