@@ -32,7 +32,7 @@ export default function TermsPage() {
         <p className="terms-kicker">FIGWORK STUDENT AMBASSADOR PROGRAM</p>
         <h1>Terms and conditions.</h1>
         <p className="terms-deck">
-          The plain-language rules for the Figwork referral program and selected campus partner program.
+          The rules for the Figwork referral program and selected campus partner program.
         </p>
       </section>
 
