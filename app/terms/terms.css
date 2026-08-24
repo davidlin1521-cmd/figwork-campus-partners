@@ -230,13 +230,18 @@
 }
 
 .terms-document__footer {
-  display: grid;
-  gap: 8px;
-  margin-top: 42px;
-  padding: 28px;
-  color: var(--charcoal);
-  background: rgba(255, 255, 255, 0.58);
-  border: 1px solid var(--rust);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  width: 100vw;
+  margin: 42px 0 -120px calc(50% - 50vw);
+  padding: 22px clamp(24px, 5vw, 78px);
+  color: var(--cream);
+  background: var(--charcoal);
+  border: 0;
+  font-size: 12px;
+  letter-spacing: 0.03em;
 }
 
 .terms-document__footer p {
@@ -255,4 +260,9 @@
   .term-section summary { grid-template-columns: 40px minmax(0, 1fr) 26px; gap: 12px; min-height: 92px; }
   .term-section__body { padding: 0 0 28px 52px; }
   .terms-document { padding-bottom: 90px; }
+  .terms-document__footer {
+    align-items: flex-start;
+    flex-direction: column;
+    margin-bottom: -90px;
+  }
 }
