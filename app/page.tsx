@@ -281,9 +281,9 @@ export default function Home() {
 
         <div className="hero__grid">
           <div className="hero__title-block">
-            <p className="kicker kicker--cream">FIGWORK CAMPUS PARTNERS</p>
+            <p className="kicker kicker--cream">FIGWORK STUDENT AMBASSADOR PROGRAM</p>
             <h1>
-              Run <span className="outline-word">growth</span> for a real startup.
+              Run campus <span className="outline-word">growth</span> for a real startup.
             </h1>
           </div>
           <div className="hero__copy">

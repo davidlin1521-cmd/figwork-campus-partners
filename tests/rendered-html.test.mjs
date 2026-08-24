@@ -37,9 +37,10 @@ test("server-renders the current Campus Partners page", async () => {
   assert.match(html, /<meta name="description" content="Become a Figwork campus ambassador through our student ambassador program: run real referral campaigns, earn cash per activation, and build your resume\."/i);
   assert.match(html, /<link rel="canonical" href="https:\/\/figwork\.ai\/student-ambassador-program"/i);
   assert.equal((html.match(/<h1\b/gi) ?? []).length, 1);
-  assert.match(text, /Run growth for a real startup\./);
-  assert.doesNotMatch(text, /Run growth for a real startup\. On your campus\./);
-  assert.match(text, /FIGWORK CAMPUS PARTNERS Run growth/);
+  assert.match(text, /Run campus growth for a real startup\./);
+  assert.doesNotMatch(text, /Run campus growth for a real startup\. On your campus\./);
+  assert.match(text, /FIGWORK STUDENT AMBASSADOR PROGRAM Run campus growth/);
+  assert.doesNotMatch(text, /FIGWORK CAMPUS PARTNERS Run/);
   assert.doesNotMatch(text, /FIGWORK CAMPUS PARTNERS · STUDENT AMBASSADOR PROGRAM/);
   assert.match(text, /Figwork's college student ambassador program helps students find the recruiter behind a career posting\. Be a university ambassador on your campus, run a real campaign, and track what you make happen\./);
   assert.match(text, /How the Student Ambassador Program works/);
@@ -68,7 +69,7 @@ test("SEO alias renders the same program", async () => {
   assert.equal(response.status, 200);
 
   const text = visibleText(await response.text());
-  assert.match(text, /Run growth for a real startup\./);
+  assert.match(text, /Run campus growth for a real startup\./);
   assert.match(text, /Apply for fall\/winter/);
 });
 
