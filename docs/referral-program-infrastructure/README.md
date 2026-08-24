@@ -10,6 +10,8 @@ For an executive or project owner, this README is enough to understand the proje
 
 Start with [SYSTEM_DIAGRAMS.md](./SYSTEM_DIAGRAMS.md) when you want to see how the participant journey, tracking, fraud review, dashboards, money, and technical components connect.
 
+For working starter code, use the [optional standalone reference implementation](./reference-implementation/README.md). It includes executable referral logic, tests, a local end-to-end demo, provider adapters, and a PostgreSQL starting schema. It is code to edit and integrate later, not a required stack or an approved production service.
+
 ## The program in 60 seconds
 
 Figwork has one referral program with two ways to participate:
@@ -218,6 +220,7 @@ You do not need to read every file immediately.
 | [EVENT_CATALOG.md](./EVENT_CATALOG.md) | Engineering | Optional example of how product systems can exchange referral events |
 | [DATA_MODEL.sql](./DATA_MODEL.sql) | Engineering | Illustrative PostgreSQL schema, not a required database choice or ready migration |
 | [ACCESS_AND_HANDOFF.md](./ACCESS_AND_HANDOFF.md) | Repository owners | Ownership, access, and transfer checklist |
+| [reference-implementation/](./reference-implementation/README.md) | Engineering | Optional runnable code from unique referral code through verification, hold, and payout |
 
 ## Decisions required before real payouts
 
