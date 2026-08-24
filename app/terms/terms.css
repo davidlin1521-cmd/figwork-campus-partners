@@ -56,17 +56,33 @@
 }
 
 .terms-logo {
+  position: relative;
   display: block;
   width: 150px;
-  padding: 2px 8px;
-  background: var(--rust);
+  height: 34px;
   line-height: 0;
 }
 
+.terms-logo::before {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: var(--rust);
+  -webkit-mask-image: url("/figwork-logo-light.png");
+  -webkit-mask-position: -6px -29px;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-size: 162px 91px;
+  mask-image: url("/figwork-logo-light.png");
+  mask-position: -6px -29px;
+  mask-repeat: no-repeat;
+  mask-size: 162px 91px;
+}
+
 .terms-logo img {
-  display: block;
-  width: 100%;
-  height: auto;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
 }
 
 .terms-back {
