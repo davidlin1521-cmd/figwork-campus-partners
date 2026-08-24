@@ -44,6 +44,8 @@ test("server-renders the current Campus Partners page", async () => {
   assert.doesNotMatch(text, /FIGWORK CAMPUS PARTNERS · STUDENT AMBASSADOR PROGRAM/);
   assert.match(text, /Figwork's college student ambassador program helps students find the recruiter behind a career posting\. Be a university ambassador on your campus, run a real campaign, and track what you make happen\./);
   assert.match(text, /How the Student Ambassador Program works/);
+  assert.match(text, /Get paid for every verified activation/);
+  assert.doesNotMatch(text, /Cash for every verified activation/);
   assert.match(text, /Your brand ambassador campaign\. Your results\./);
   assert.match(text, /Turn your campus into your campaign\./);
   assert.match(text, /Ambassador Program FAQs/);
@@ -55,6 +57,10 @@ test("server-renders the current Campus Partners page", async () => {
   assert.match(text, /Open referral participants earn \$5/);
   assert.match(text, /Figwork Campus Growth Partner, Campus Partner, or Student Ambassador on a resume/);
   assert.match(text, /Build skills in a startup growth role/);
+  assert.match(text, /check the terms and conditions page/);
+  assert.doesNotMatch(text, /we'll show you how/);
+  assert.match(text, /It doesn't create an employment relationship\./);
+  assert.doesNotMatch(text, /we're careful to keep it that way/);
   assert.doesNotMatch(text, /\b(?:job|position|hire|interview|hours|shift|salary|wage)\b/i);
   assert.ok((text.match(/Apply now/gi) ?? []).length >= 3);
   assert.match(html, /https:\/\/tally\.so\/r\/PdZv5x/);
@@ -88,6 +94,8 @@ test("server-renders the current terms and conditions", async () => {
   assert.match(text, /Terms and conditions\./);
   assert.match(text, /FIGWORK STUDENT AMBASSADOR PROGRAM Terms and conditions\./);
   assert.doesNotMatch(text, /FIGWORK CAMPUS PARTNERS · STUDENT AMBASSADOR PROGRAM/);
+  assert.match(text, /The rules for the Figwork referral program and selected campus partner program\./);
+  assert.doesNotMatch(text, /The plain-language rules for the Figwork referral program/);
   assert.match(text, /The details, plainly\./);
   assert.match(text, /What counts as a verified activation\?/);
   assert.match(text, /capped at \$2,000 per participant per calendar year/);

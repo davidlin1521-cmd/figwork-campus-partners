@@ -21,7 +21,7 @@ const steps = [
   {
     number: "03",
     title: "You get paid.",
-    body: "Cash for every verified activation, after a short verification hold. Watch each referral's progress in your tracker.",
+    body: "Get paid for every verified activation, after a short verification hold. Watch each referral's progress in your tracker.",
   },
 ];
 
@@ -100,7 +100,7 @@ const faq = [
   {
     question: "Do I have to post on social media?",
     answer:
-      "No. Nothing is required. If you do post about Figwork, you have to say you're in the program — we'll show you how.",
+      "No. Nothing is required. If you do post about Figwork, you have to say you're in the program — check the terms and conditions page.",
   },
   {
     question: "What's the catch?",
@@ -110,7 +110,7 @@ const faq = [
   {
     question: "Is this employment?",
     answer:
-      "No. It's a program with no schedules and no duties. It doesn't create an employment relationship, and we're careful to keep it that way.",
+      "No. It's a program with no schedules and no duties. It doesn't create an employment relationship.",
   },
 ];
 
