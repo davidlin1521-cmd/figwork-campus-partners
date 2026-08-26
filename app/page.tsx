@@ -4,7 +4,6 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 
 const TALLY_FORM_URL = "PdZv5x"; // Approved form: https://tally.so/r/PdZv5x
-const TALLY_PUBLIC_URL = `https://tally.so/r/${TALLY_FORM_URL}`;
 const CONTACT_EMAIL = "businessdevelopment@figwork.ai";
 
 const steps = [
@@ -274,7 +273,7 @@ export default function Home() {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/figwork-logo-light.png" alt="Figwork" />
           </a>
-          <a className="button button--glow button--small" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">
+          <a className="button button--glow button--small" href="#application">
             Apply now
           </a>
         </header>
@@ -289,7 +288,7 @@ export default function Home() {
           <div className="hero__copy">
             <p>Figwork&apos;s college student ambassador program helps students find the recruiter behind a career posting. Be a university ambassador on your campus, run a real campaign, and track what you make happen.</p>
             <div className="hero__actions">
-              <a className="button button--glow" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">
+              <a className="button button--glow" href="#application">
                 Apply now
               </a>
               <a className="text-link" href="#how-it-works">
@@ -377,7 +376,7 @@ export default function Home() {
         <Reveal className="mid-page-cta">
           <p className="kicker kicker--cream">FALL / WINTER COHORT</p>
           <h2>Bring Figwork&apos;s student ambassador program to your campus.</h2>
-          <a className="button button--glow" href={TALLY_PUBLIC_URL} target="_blank" rel="noreferrer">Apply now</a>
+          <a className="button button--glow" href="#application">Apply now</a>
         </Reveal>
       </section>
 
