@@ -684,6 +684,10 @@ h3 {
   padding-top: 310px;
 }
 
+.section--benefits > .section-number {
+  top: 200px;
+}
+
 .section-heading--benefits {
   width: min(680px, 66.66%);
   margin-left: 0;
@@ -1360,6 +1364,8 @@ footer a {
   .stage-wrap { grid-template-columns: 132px 1fr; gap: 12px; }
   .tracker-stamp { right: 0; bottom: -70px; width: 112px; height: 112px; }
   .section--benefits { padding-top: 300px; }
+
+  .section--benefits > .section-number { top: 224px; }
   .benefit-card:nth-child(2),
   .benefit-card:nth-child(4) { margin-left: 0; }
   .benefit-card:nth-child(3) { margin-right: 0; }
