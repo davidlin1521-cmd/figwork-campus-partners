@@ -335,7 +335,7 @@ export default function Home() {
       </section>
 
       <section className="section section--benefits" id="benefits">
-        <div className="section-number section-number--right" aria-hidden="true">02</div>
+        <div className="section-number section-number--right section-number--top" aria-hidden="true">02</div>
         <Reveal className="section-heading section-heading--benefits">
           <p className="kicker">WHAT YOU’LL BUILD AS A STUDENT AMBASSADOR</p>
           <h2>Your brand ambassador campaign. Your results.</h2>

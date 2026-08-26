@@ -440,6 +440,10 @@ summary:focus-visible {
   pointer-events: none;
 }
 
+.section-number--top {
+  z-index: 20;
+}
+
 .section-heading {
   max-width: 560px;
 }
@@ -676,6 +680,7 @@ h3 {
 }
 
 .section--benefits {
+  z-index: 2;
   padding-top: 310px;
 }
 

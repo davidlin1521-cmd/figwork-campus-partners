@@ -47,6 +47,7 @@ test("server-renders the current Campus Partners page", async () => {
   assert.match(text, /Get paid for every verified activation/);
   assert.doesNotMatch(text, /Cash for every verified activation/);
   assert.match(text, /Your brand ambassador campaign\. Your results\./);
+  assert.match(html, /class="section-number section-number--right section-number--top"[^>]*>02<\/div>/);
   assert.match(text, /Turn your campus into your campaign\./);
   assert.match(text, /Ambassador Program FAQs/);
   assert.match(text, /Apply for fall\/winter/);
