@@ -64,7 +64,8 @@ test("server-renders the current Campus Partners page", async () => {
   assert.doesNotMatch(text, /we're careful to keep it that way/);
   assert.doesNotMatch(text, /\b(?:job|position|hire|interview|hours|shift|salary|wage)\b/i);
   assert.ok((text.match(/Apply now/gi) ?? []).length >= 3);
-  assert.match(html, /https:\/\/tally\.so\/r\/PdZv5x/);
+  assert.ok((html.match(/href="#application"/g) ?? []).length >= 3);
+  assert.doesNotMatch(html, /href="https:\/\/tally\.so\/r\/PdZv5x"/);
   assert.match(html, /https:\/\/tally\.so\/embed\/PdZv5x/);
   assert.ok((html.match(/href="\/terms"/g) ?? []).length >= 3);
   assert.match(html, /href="\/downloads\/figwork-campus-growth-partners\.pdf"/);
