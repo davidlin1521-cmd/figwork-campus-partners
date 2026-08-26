@@ -104,7 +104,8 @@ test("server-renders the current terms and conditions", async () => {
   assert.match(text, /Find your personal referral link in your Figwork account/);
   assert.match(text, /Figwork Campus Growth Partner, Figwork Campus Partner, or Figwork Student Ambassador/);
   assert.match(text, /businessdevelopment@figwork\.ai/);
-  assert.match(html, /href="\/downloads\/figwork-terms-and-conditions\.pdf"/);
+  assert.match(html, /href="\/student-ambassador-program"[^>]*>Back to program<\/a>/);
+  assert.doesNotMatch(html, /href="\/downloads\/figwork-terms-and-conditions\.pdf"/);
   assert.doesNotMatch(text, /COUNSEL:|qualifying product action|\[CAP\]|\[PARTNER CAP\]|\$\[RATE\]|\[CONTACT EMAIL\]/);
 });
 

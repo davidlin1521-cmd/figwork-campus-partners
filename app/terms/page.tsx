@@ -23,8 +23,7 @@ export default function TermsPage() {
           <img src="/figwork-logo-light.png" alt="Figwork" />
         </Link>
         <div className="terms-header__links">
-          <a className="terms-back pdf-download-link" href="/downloads/figwork-terms-and-conditions.pdf" download>Download PDF</a>
-          <Link className="terms-back" href="/">Back to program</Link>
+          <a className="terms-back" href="/student-ambassador-program">Back to program</a>
         </div>
       </header>
 
