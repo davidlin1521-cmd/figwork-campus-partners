@@ -9,13 +9,15 @@ const publicOrigin = new URL(
   process.env.PUBLIC_ORIGIN ??
     "https://figwork-campus-partners.david-lin1521.chatgpt.site",
 );
+const githubRawBase =
+  "https://raw.githubusercontent.com/davidlin1521-cmd/figwork-campus-partners/main";
 
 const pages = [
   { path: "/", file: "ambassador-page.html" },
   { path: "/terms", file: "terms-and-conditions.html" },
 ];
 
-function absolutizeUrl(value) {
+function standaloneUrl(value) {
   if (
     !value ||
     value.startsWith("#") ||
@@ -29,6 +31,22 @@ function absolutizeUrl(value) {
 
   const resolved = new URL(value, baseUrl);
   if (resolved.origin === baseUrl.origin) {
+    if (resolved.pathname === "/terms") {
+      return `./terms-and-conditions.html${resolved.search}${resolved.hash}`;
+    }
+    if (
+      resolved.pathname === "/" ||
+      resolved.pathname === "/student-ambassador-program"
+    ) {
+      return `./ambassador-page.html${resolved.search}${resolved.hash}`;
+    }
+    if (
+      resolved.pathname.startsWith("/downloads/") ||
+      resolved.pathname === "/favicon.svg" ||
+      resolved.pathname === "/og.png"
+    ) {
+      return `${githubRawBase}/public${resolved.pathname}${resolved.search}${resolved.hash}`;
+    }
     return new URL(`${resolved.pathname}${resolved.search}${resolved.hash}`, publicOrigin)
       .href;
   }
@@ -90,8 +108,10 @@ function removeRuntime(html) {
 function rewriteLocalUrls(html) {
   return html
     .replace(/\b(href|src|action)=(['"])([^'"]+)\2/gi, (full, attribute, quote, value) => {
-      return `${attribute}=${quote}${absolutizeUrl(value)}${quote}`;
+      return `${attribute}=${quote}${standaloneUrl(value)}${quote}`;
     })
+    .replaceAll(`${baseUrl.origin}/og.png`, `${githubRawBase}/public/og.png`)
+    .replaceAll(`${baseUrl.origin}/favicon.svg`, `${githubRawBase}/public/favicon.svg`)
     .replaceAll(baseUrl.origin, publicOrigin.origin);
 }
 

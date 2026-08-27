@@ -8,6 +8,15 @@ Production-ready source and handoff documentation for the Figwork Student Ambass
 
 > The supplied light Figwork logo is intentionally cream-colored and is designed for a dark or rust background. The exact source asset is stored at [`public/figwork-logo-light.png`](./public/figwork-logo-light.png).
 
+## Open or copy the finished HTML
+
+These are the complete, self-contained pages. They can be downloaded, opened in a browser, copied into another system, or uploaded together to a static host without this OpenAI account:
+
+- **Program page:** [view the HTML in GitHub](./handoff/static-html/ambassador-page.html) · [download/copy the raw HTML](https://raw.githubusercontent.com/davidlin1521-cmd/figwork-campus-partners/main/handoff/static-html/ambassador-page.html)
+- **Terms and conditions:** [view the HTML in GitHub](./handoff/static-html/terms-and-conditions.html) · [download/copy the raw HTML](https://raw.githubusercontent.com/davidlin1521-cmd/figwork-campus-partners/main/handoff/static-html/terms-and-conditions.html)
+
+If the current `chatgpt.site` deployment is unavailable, follow [`DEPLOYMENT.md`](./DEPLOYMENT.md). The repository includes both a no-build static recovery path and a standard Docker deployment for the full website.
+
 ## Important links
 
 | Resource | Link |
@@ -23,6 +32,7 @@ Production-ready source and handoff documentation for the Figwork Student Ambass
 | Referral infrastructure handoff | [docs/referral-program-infrastructure](./docs/referral-program-infrastructure/README.md) |
 | Referral system diagrams | [Executive flow and engineering architecture](./docs/referral-program-infrastructure/SYSTEM_DIAGRAMS.md) |
 | Contribution and release workflow | [CONTRIBUTING.md](./CONTRIBUTING.md) |
+| Redeploy without OpenAI Sites | [DEPLOYMENT.md](./DEPLOYMENT.md) |
 
 ## What this repository contains
 
@@ -56,6 +66,7 @@ Every Apply button scrolls to the embedded [approved Tally form](https://tally.s
 - Vite build pipeline
 - Cloudflare Workers-compatible output
 - OpenAI Sites hosting metadata
+- Host-neutral Docker deployment
 - Plain CSS for the page-specific visual system
 
 No database is connected to the live marketing site. The included D1/Drizzle files are inactive scaffolding and can be used later if the team chooses that architecture. The referral handoff does not lock a backend or database. It includes a recommended baseline and an illustrative PostgreSQL schema so a new team has a concrete starting point while remaining free to reuse Figwork's actual stack.
@@ -113,6 +124,8 @@ npm run export:html # regenerate the copy-ready standalone HTML files
 │   └── export-static-html.mjs            # Regenerates tracked HTML exports
 ├── .github/workflows/quality.yml         # Automated lint, build, and test checks
 ├── CONTRIBUTING.md                       # Change and release workflow
+├── DEPLOYMENT.md                         # OpenAI-independent redeployment guide
+├── Dockerfile                            # Portable full-site container build
 ├── worker/                              # Cloudflare-compatible entry point
 ├── build/                               # Sites packaging helper
 └── .openai/hosting.json                 # Sites project metadata; no secrets
@@ -141,6 +154,8 @@ The current public deployment is managed by OpenAI Sites:
 [https://figwork-campus-partners.david-lin1521.chatgpt.site/](https://figwork-campus-partners.david-lin1521.chatgpt.site/)
 
 The Sites project identifier in `.openai/hosting.json` is deployment metadata, not a credential. Runtime secrets must never be committed. The site currently requires no runtime secrets.
+
+OpenAI Sites is optional. The new owner can redeploy the same repository with the included Dockerfile or use the standalone HTML backup. See [the independent deployment guide](./DEPLOYMENT.md).
 
 ## Program implementation handoff
 
