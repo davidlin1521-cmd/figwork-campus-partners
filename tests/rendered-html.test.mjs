@@ -156,6 +156,7 @@ test("copy-ready handoff exports match the current site", async () => {
 
   for (const html of [programHtml, termsHtml]) {
     assert.doesNotMatch(html, /localhost|127\.0\.0\.1|\/_next|<script\b/i);
+    assert.doesNotMatch(html, /figwork-campus-partners\.david-lin1521\.chatgpt\.site/i);
     assert.match(html, /<style data-static-exported>/);
     assert.match(html, /src="data:image\/png;base64,/);
   }
@@ -164,11 +165,15 @@ test("copy-ready handoff exports match the current site", async () => {
   assert.match(programText, /How the Student Ambassador Program works/);
   assert.match(programHtml, /href="#application"/);
   assert.match(programHtml, /https:\/\/tally\.so\/embed\/PdZv5x/);
-  assert.match(programHtml, /https:\/\/figwork-campus-partners\.david-lin1521\.chatgpt\.site\/terms/);
+  assert.match(programHtml, /href="\.\/terms-and-conditions\.html"/);
 
   assert.match(termsText, /FIGWORK STUDENT AMBASSADOR PROGRAM Terms and conditions\./);
   assert.match(termsText, /current open referral rate is \$5 per verified activation/);
-  assert.match(termsHtml, /https:\/\/figwork-campus-partners\.david-lin1521\.chatgpt\.site\/student-ambassador-program/);
+  assert.match(termsHtml, /href="\.\/ambassador-page\.html"/);
+  assert.match(
+    programHtml,
+    /raw\.githubusercontent\.com\/davidlin1521-cmd\/figwork-campus-partners\/main\/public\/downloads\//,
+  );
 });
 
 test("handoff snippets use the approved embedded form and same-page Apply anchor", async () => {
