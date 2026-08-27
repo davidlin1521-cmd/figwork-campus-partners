@@ -141,3 +141,48 @@ test("referral infrastructure matches the current public program", async () => {
   assert.match(diagrams, /Resend/);
   assert.doesNotMatch(`${infrastructureReadme}\n${diagrams}`, /5Baz1o|SPRING COHORT/i);
 });
+
+test("copy-ready handoff exports match the current site", async () => {
+  const programHtml = await readFile(
+    new URL("../handoff/static-html/ambassador-page.html", import.meta.url),
+    "utf8",
+  );
+  const termsHtml = await readFile(
+    new URL("../handoff/static-html/terms-and-conditions.html", import.meta.url),
+    "utf8",
+  );
+  const programText = visibleText(programHtml);
+  const termsText = visibleText(termsHtml);
+
+  for (const html of [programHtml, termsHtml]) {
+    assert.doesNotMatch(html, /localhost|127\.0\.0\.1|\/_next|<script\b/i);
+    assert.match(html, /<style data-static-exported>/);
+    assert.match(html, /src="data:image\/png;base64,/);
+  }
+
+  assert.match(programText, /Run campus growth for a real startup\./);
+  assert.match(programText, /How the Student Ambassador Program works/);
+  assert.match(programHtml, /href="#application"/);
+  assert.match(programHtml, /https:\/\/tally\.so\/embed\/PdZv5x/);
+  assert.match(programHtml, /https:\/\/figwork-campus-partners\.david-lin1521\.chatgpt\.site\/terms/);
+
+  assert.match(termsText, /FIGWORK STUDENT AMBASSADOR PROGRAM Terms and conditions\./);
+  assert.match(termsText, /current open referral rate is \$5 per verified activation/);
+  assert.match(termsHtml, /https:\/\/figwork-campus-partners\.david-lin1521\.chatgpt\.site\/student-ambassador-program/);
+});
+
+test("handoff snippets use the approved embedded form and same-page Apply anchor", async () => {
+  const tallyEmbed = await readFile(
+    new URL("../handoff/snippets/tally-embed.html", import.meta.url),
+    "utf8",
+  );
+  const applyLink = await readFile(
+    new URL("../handoff/snippets/apply-scroll-link.html", import.meta.url),
+    "utf8",
+  );
+
+  assert.match(tallyEmbed, /id="application"/);
+  assert.match(tallyEmbed, /https:\/\/tally\.so\/embed\/PdZv5x/);
+  assert.match(applyLink, /href="#application"/);
+  assert.doesNotMatch(`${tallyEmbed}\n${applyLink}`, /5Baz1o/);
+});

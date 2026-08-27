@@ -1,6 +1,8 @@
 # Website Handoff
 
-This document explains how the current Figwork Campus Partners website is assembled, where each piece of content lives, and how to change or incorporate the code without accidentally changing program behavior.
+This document explains how the current Figwork Student Ambassador Program website is assembled, where each piece of content lives, and how to change or incorporate the code without accidentally changing program behavior.
+
+For a new owner who wants the shortest path to the source, standalone HTML, and copy-ready snippets, begin with [`handoff/README.md`](../handoff/README.md).
 
 ## Production references
 
@@ -89,7 +91,7 @@ https://tally.so/r/PdZv5x
 - Public application link: `https://tally.so/r/PdZv5x`
 - Embedded application URL: `https://tally.so/embed/PdZv5x?...`
 
-All Apply buttons open the public form in a separate tab. The application section embeds it for visitors who continue down the page.
+All Apply buttons use `href="#application"` and scroll to the embedded form at the bottom of the page. The public Tally URL remains available for direct sharing.
 
 If the form changes, replace only the ID and then update tests, README links, any application automation, and the downloadable PDF.
 
@@ -174,7 +176,7 @@ The code currently displays an effective-date placeholder in the terms footer. L
 
 Do not treat the engineering infrastructure documents as legal approval.
 
-## Downloadable PDFs
+## Downloadable PDFs and standalone HTML
 
 The PDFs in `public/downloads/` are static snapshots, not generated at request time. After any visible copy or layout change:
 
@@ -185,6 +187,17 @@ The PDFs in `public/downloads/` are static snapshots, not generated at request t
 5. Verify every page is readable and links remain visible.
 
 Keeping the names stable avoids breaking download links.
+
+The tracked HTML files under `handoff/static-html/` are separate, self-contained exports for direct review and copying. Regenerate them from the current local build with:
+
+```bash
+npm run build
+npm run start
+# In a second terminal:
+npm run export:html
+```
+
+The HTML exports are not a second source of truth. Edit the React source first and then regenerate them.
 
 ## Validation
 
@@ -227,13 +240,14 @@ The safest integration approach is visual parity first, infrastructure second, a
 ## Release checklist
 
 - [ ] Main page, SEO alias, and terms page render successfully.
-- [ ] Every Apply button opens `https://tally.so/r/PdZv5x` in a new tab.
+- [ ] Every Apply button scrolls to the embedded form at `#application`.
 - [ ] Embedded Tally form uses the same ID.
-- [ ] Terms links and both PDF downloads work.
+- [ ] Terms links and current PDF links work.
 - [ ] Contact email is `businessdevelopment@figwork.ai` everywhere.
 - [ ] Main page and terms wording agree on rates, cap, eligibility, and titles.
 - [ ] Tests and build pass.
 - [ ] PDFs match the current website.
+- [ ] Standalone HTML exports were regenerated and contain no localhost references.
 - [ ] Legal/Tax approve any changed program language.
 - [ ] Social image, favicon, and logo load correctly.
 - [ ] Deployment is verified before announcing the URL.

@@ -366,7 +366,7 @@ Provide an appeal path. Do not reveal detection thresholds or raw signals in par
 
 ### Application flow
 
-1. User clicks Apply and opens `https://tally.so/r/PdZv5x` in a separate tab.
+1. User clicks Apply and scrolls to the embedded Tally application on the same page. The direct form URL remains `https://tally.so/r/PdZv5x` for sharing.
 2. Tally submits a signed webhook or a secret-bearing integration request.
 3. Store the full application in the application system, not the reward tables.
 4. Deduplicate by Tally submission ID and applicant Figwork account/email.
